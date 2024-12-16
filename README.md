@@ -2,6 +2,7 @@
 ## .md 教學網站
 ## https://ithelp.ithome.com.tw/articles/10203758
 
+安裝 圖片編輯 mod
 ```cmd
  npm install react-bootstrap bootstrap react-cropper cropperjs
 ```
