@@ -1,0 +1,49 @@
+import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+
+function Post(props) {
+  return (
+    <>
+      {/* <!-- post --> */}
+      <div className="card w-100 position-relative mt-3" >
+        {/* <!-- user's pic --> */}
+        <img src={props.postpic || '../src/assets/img/user_dino.png'} className="card-img-top" alt="user style picture" />
+        <div className="card-body">
+          <div className="row">
+            {/* user less information */}
+            <div className="col-4 text-truncate overflow-hidden">
+              <img className="userImgSmall me-2" src={props.usericon||'../src/assets/img/user_dino.png'} alt="user icon" />
+              {/* <!-- should let it ... --> */}
+              <b className="text-black ">{props.name||'usernameusernameusername'}</b>
+              {/* <!-- this anchor should be a page or accrodin to have more info of post --> */}
+
+            </div>
+            <div className="col-3 d-flex justify-content-center">
+              {/* this should be have one more page to put the whole info of the style picture */}
+              <a className="m-auto text-black text-decoration-none" href="">...更多</a>
+            </div>
+            <div className="col-5 d-flex justify-content-evenly">
+              {/* <!-- to the right end --> */}
+              {/* <!-- heart icon  --> */}
+              {/* <!-- it should be solid red when pressed --> */}
+              <img className="icon" src="../src/assets/img/icon/heart.svg" alt="like" />
+              {/* <!-- star icon --> */}
+              {/* <!-- it should be solid yellow when pressed --> */}
+              <img className="icon" src="../src/assets/img/icon/star.svg" alt="keep" />
+              {/* <!-- share icon --> */}
+              <img className="icon" src="../src/assets/img/icon/share.svg" alt="share" />
+            </div>
+          </div>
+
+
+          {/* <!-- <h5 className="card-title">postTitle</h5> --> */}
+          {/* <!-- <p className="card-text">postContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContent</p> --> */}
+
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Post

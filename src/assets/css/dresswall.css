@@ -1,0 +1,174 @@
+@charset "UTF-8";
+/* 
+Base_#f9f8f4
+Second_#ebe3e0
+Highlight_#ae7a62
+White_#ffffff
+Black_#3b3a38
+ */
+
+ /* 變數 */
+ :root {
+    --Base: #f9f8f4;
+    --Second: #ebe3e0;
+    --Highlight: #ae7a62;
+    --White: #ffffff;
+    --Black: #3b3a38;
+
+ }
+
+ /* 文字變成我們要的黑色 */
+.text-black{
+    color:var(--Black)
+}
+
+body {
+    min-width: 375px;
+    min-height: 812px;
+}
+
+/* 這個方法只是讓你不用一直開開發程式人員 */
+/* div.container {
+    max-width: 374px;
+} */
+
+div.container {
+    margin-top: 65px;
+    margin-bottom: 55px;
+}
+
+/* 所有的icon */
+.icon {
+    max-width: 24px;
+}
+
+.iconsmall{
+    max-width: 15px;
+}
+
+/* user 大頭照大的版本 */
+.userImgBig {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* user 大頭照小的版本 */
+.userImgSmall {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+}
+
+/* user 的自我介紹 */
+.userIntro {
+    word-break: normal;
+}
+
+/* user 自己頁面的post相片 */
+.stylePic {
+    width: 50%;
+}
+
+.stylePic:hover {
+    cursor: pointer;
+}
+
+/* user post 相片點開之後的大小 */
+.stylePicFull {
+    max-width: 374px;
+    height: 100%;
+}
+
+html {
+    font-size: 12px;
+}
+
+body {
+    min-width: 375px;
+}
+
+/* 調整字體大小 */
+.text-xs {
+    font-size: 12px;
+}
+
+.text-s {
+    font-size: 14px;
+}
+
+.text-m {
+    font-size: 16px;
+}
+
+.text-l {
+    font-size: 18px;
+}
+
+.text-xl {
+    font-size: 20px;
+}
+
+header {
+    height: 50px;
+}
+
+nav {
+    height: 55px;
+}
+
+.btn-highlight{
+    background-color: var(--Highlight);
+    color: #ffffff;
+}
+
+.btn-highlight:active{
+    background-color:#ae7a62 ;
+
+} 
+
+/* background color setting */
+
+.bgc-normal{
+    background-color: var(--Base);
+    color: var(--Black);
+}
+
+.bgc-highlight{
+    background-color: var(--Highlight);
+}
+
+.btn-normal{
+    background-color: var(--Base);
+    border: 1px solid var(--Black);
+    color: var(--Black)
+}
+
+li a{
+    color: var(--Black) !important;
+
+}
+
+/* .relativediv{
+    margin-top: 1rem;
+    position: relative;
+    mt-3 postion-relative
+}
+.relativedivright{
+    position:absolute; right: 0;
+    postion-absolute end-0
+} */
+
+/* 卡片 */
+.card-body{
+    background-color: var(--Base);
+}
+
+
+
+
+
+
+

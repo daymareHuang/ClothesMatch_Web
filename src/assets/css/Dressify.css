@@ -1,0 +1,57 @@
+html {
+  font-size: 12px;
+}
+
+body {
+  min-width: 375px;
+  /* background-color: black; */
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  /* 设置body的高度为视口高度 */
+  /* margin: auto; */
+  /* 移除默认的margin */
+}
+
+/* 調整字體大小 */
+.text-xs {
+  font-size: 12px;
+}
+
+.text-s {
+  font-size: 14px;
+}
+
+.text-m {
+  font-size: 16px;
+}
+
+.text-l {
+  font-size: 18px;
+}
+
+.text-xl {
+  font-size: 20px;
+}
+
+header {
+  height: 50px;
+  background-color: #F8F9F3;
+}
+
+nav {
+  height: 55px;
+}
+
+header {
+  flex: 0 1 auto; /* 固定大小 */
+}
+
+footer {
+  flex: 0 1 auto; /* 固定大小 */
+}
+.content {
+  flex: 1 1 auto; /* 这个会让content部分占据剩余空间 */
+  padding: 20px;
+  overflow-y: auto; /* 如果内容过多，添加滚动条 */
+}
