@@ -10,6 +10,12 @@ import Dresswall from "./pages/Dresswall.jsx"
 import Selfpage from "./pages/Selfpage.jsx"
 import WallSearch from "./pages/WallSearch.jsx"
 import Wallsearchresult from "./pages/WallSearchResult.jsx"
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Modification from './pages/Modification';
+
+
 
 const router = createBrowserRouter([
   {
@@ -27,6 +33,22 @@ const router = createBrowserRouter([
   {
     path: "/dresswall/result",
     element: <Wallsearchresult />
+  },
+  {
+    path: "/Dashboard",
+    element: <Dashboard />
+  },
+  {
+    path: "/Login",
+    element: <Login />
+  },
+  {
+    path: "/Register",
+    element: <Register />
+  },
+  {
+    path: "/Modification",
+    element: <Modification />,
   },
 ]);
 
