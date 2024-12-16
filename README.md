@@ -2,6 +2,8 @@
 ## .md 教學網站
 ## https://ithelp.ithome.com.tw/articles/10203758
 
+
+
 # 請大家一定要寫程式之前與 要上傳之前
 ```bash
 git pull
@@ -22,9 +24,12 @@ git  commit  -m  "(請打清楚你更改的部分)"
 git  push  數據庫位址  分支名稱
 git  push
 ```
+看更多
+https://docs.google.com/document/d/1z3L8NKiEKC7ZLWIn56CqfwLtj0lRiIqCBgLHuVggiTM/edit?tab=t.0
 
+---
 
-
+#NPM mod 安裝清單
 
 安裝 圖片編輯 mod
 ```cmd
