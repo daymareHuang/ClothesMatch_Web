@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './css/dresswall.css'
+// import './css/dresswall.css'
 import Post from './components/Post'
 
 
@@ -10,6 +10,7 @@ function App() {
 
   return (
     <>
+    {/* 請大家忽略下面程式 */}
       <div className="container">
         {/* <!-- navbar --> */}
         <nav className="navbar navbar-expand-lg bg-body-tertiary w-100 ">

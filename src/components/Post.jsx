@@ -9,7 +9,7 @@ function Post(props) {
       <div className="card w-100 position-relative mt-3" >
         {/* <!-- user's pic --> */}
         <img src={props.postpic || '../src/assets/img/user_dino.png'} className="card-img-top" alt="user style picture" />
-        <div className="card-body">
+        <div className="card-body post">
           <div className="row">
             {/* user less information */}
             <div className="col-4 text-truncate overflow-hidden">

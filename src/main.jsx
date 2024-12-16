@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './assets/css/dresswall.css'
+import './assets/css/Dressify.css'
 import Dresswall from "./pages/Dresswall.jsx"
 import Selfpage from "./pages/Selfpage.jsx"
 import WallSearch from "./pages/WallSearch.jsx"
