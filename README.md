@@ -2,6 +2,30 @@
 ## .md 教學網站
 ## https://ithelp.ithome.com.tw/articles/10203758
 
+# 請大家一定要寫程式之前與 要上傳之前
+```bash
+git pull
+```
+
+### 將所在目錄的全部檔案放到暫存區列管(追蹤)
+```bash
+git  add  .
+```
+
+### 將暫存區的檔案提交到本機倉庫(提交新版本)
+```bash
+git  commit  -m  "(請打清楚你更改的部分)"
+```
+
+### 將檔案推送(上傳)到 GitHub 數據庫
+```bash
+git  push  數據庫位址  分支名稱
+git  push
+```
+
+
+
+
 安裝 圖片編輯 mod
 ```cmd
  npm install react-bootstrap bootstrap react-cropper cropperjs
