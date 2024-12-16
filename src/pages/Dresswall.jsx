@@ -1,6 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/dresswall.css'
+// import '../assets/css/dresswall.css'
 import { Link } from 'react-router-dom';
 import Post from '../components/Post'
 import MyLayout from '../layouts/MyLayout';

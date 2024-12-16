@@ -7,19 +7,19 @@ White_#ffffff
 Black_#3b3a38
  */
 
- /* 變數 */
- :root {
+/* 變數 */
+:root {
     --Base: #f9f8f4;
     --Second: #ebe3e0;
     --Highlight: #ae7a62;
     --White: #ffffff;
     --Black: #3b3a38;
 
- }
+}
 
- /* 文字變成我們要的黑色 */
-.text-black{
-    color:var(--Black)
+/* 文字變成我們要的黑色 */
+.text-black {
+    color: var(--Black)
 }
 
 body {
@@ -42,7 +42,7 @@ div.container {
     max-width: 24px;
 }
 
-.iconsmall{
+.iconsmall {
     max-width: 15px;
 }
 
@@ -88,6 +88,8 @@ html {
 
 body {
     min-width: 375px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 調整字體大小 */
@@ -119,34 +121,34 @@ nav {
     height: 55px;
 }
 
-.btn-highlight{
+.btn-highlight {
     background-color: var(--Highlight);
     color: #ffffff;
 }
 
-.btn-highlight:active{
-    background-color:#ae7a62 ;
+.btn-highlight:active {
+    background-color: #ae7a62;
 
-} 
+}
 
 /* background color setting */
 
-.bgc-normal{
+.bgc-normal {
     background-color: var(--Base);
     color: var(--Black);
 }
 
-.bgc-highlight{
+.bgc-highlight {
     background-color: var(--Highlight);
 }
 
-.btn-normal{
+.btn-normal {
     background-color: var(--Base);
     border: 1px solid var(--Black);
     color: var(--Black)
 }
 
-li a{
+li a {
     color: var(--Black) !important;
 
 }
@@ -162,13 +164,6 @@ li a{
 } */
 
 /* 卡片 */
-.card-body{
+.card-body {
     background-color: var(--Base);
 }
-
-
-
-
-
-
-
