@@ -2,6 +2,10 @@
 ## .md 教學網站
 ## https://ithelp.ithome.com.tw/articles/10203758
 
+```cmd
+ npm install react-bootstrap bootstrap react-cropper cropperjs
+```
+
 ## 請大家寫一下router的網址
 Router 名稱
 琇雁
