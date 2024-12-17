@@ -1,77 +1,44 @@
 import React from 'react'
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import MyLayout from '../layouts/MyLayout'
-import PopularButton from '../components/PopularButton';
+import Post from '/src/components/Post.jsx'
+import MyLayout from '../../layouts/MyLayout'
 
 
-function Wallsearch() {
+function Wallsearchresult() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
   return (
     <MyLayout>
       <div className="container">
+       
 
-
-        {/* <!-- search bar  --> */}
-        {/* <!-- should have margin bottom  --> */}
+        {/* <!--search --> */}
         <form className="d-flex position-relative mt-3" role="search">
 
-          {/* <!-- search input  --> */}
+          {/* <!--search input --> */}
           <input className="form-control rounded-start-pill rounded-end-0" type="search" placeholder="Search" aria-label="Search" />
-          {/* <!-- condition button  --> */}
-          {/* <!-- more condition to set  --> */}
+          {/* <!--condition button --> */}
+          {/* <!--more condition to set --> */}
           <button type="button" className="btn btn-normal  rounded-end-0  rounded-start-0 " onClick={handleShow} >
             <img className="icon" src="../src/assets/img/icon/settings-sliders.svg" alt="" />
           </button>
-          {/* <!-- search button  --> */}
+          {/* <!--search button --> */}
           <a className="btn btn-normal rounded-end-pill rounded-start-0" type="submit" href="../dresswall/result">
             <img className="icon" src="../src/assets/img/icon/search.svg" alt="" />
           </a>
 
         </form>
 
-        {/* <!-- Populartag  --> */}
-        <div className="position-relative mt-3 w-100">
-          <h2 className="text-black fw-bold">人氣標籤</h2>
-          <PopularButton name="#tag"/>
-          <PopularButton name="#tag"/>
-          <PopularButton name="#tag"/>
-          <PopularButton name="#tag"/>
-          <PopularButton name="#tag"/>
-          <PopularButton name="#tag"/>
-        </div>
+        {/* <!--result post --> */}
+        <Post />
 
-        {/* <!-- popular clothes  --> */}
-        <div className="position-relative mt-3 w-100">
-          <h2 className="text-black fw-bold">衣服</h2>
-          <PopularButton name="clothesName"/>
-          <PopularButton name="clothesName"/>
-          <PopularButton name="clothesName"/>
-          <PopularButton name="clothesName"/>
-          <PopularButton name="clothesName"/>
-          <PopularButton name="clothesName"/>
-        </div>
-
-        {/* <!-- brand  --> */}
-        <div className="position-relative mt-3 w-100">
-          <h2 className="text-black fw-bold">品牌</h2>
-          <PopularButton name="brandName"/>
-          <PopularButton name="brandName"/>
-          <PopularButton name="brandName"/>
-          <PopularButton name="brandName"/>
-          <PopularButton name="brandName"/>
-          <PopularButton name="brandName"/>
-        </div>
-
-        {/* button to open the modal */}
-        {/* <Button variant="primary" onClick={handleShow}>
-        開啟 Modal
-      </Button> */}
+        {/* <!--result post --> */}
+        <Post />
 
         {/* Search Modal */}
         <Modal show={show} onHide={handleClose}>
@@ -217,12 +184,9 @@ function Wallsearch() {
           </Button> */}
           </Modal.Footer>
         </Modal>
-
       </div>
-
     </MyLayout>
-
   )
 }
 
-export default Wallsearch
+export default Wallsearchresult

@@ -1,5 +1,5 @@
 import React from 'react'
-import MyLayout from '../layouts/MyLayout'
+import MyLayout from '../../layouts/MyLayout'
 
 
 function Selfpage() {

@@ -2,7 +2,7 @@ import React from 'react'
 import MyLayout from '../layouts/MyLayout'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
+import '../css/Dressify.css'
 import LoginContent from './LoginContent'
 import LoginModification from './LoginModification'
 

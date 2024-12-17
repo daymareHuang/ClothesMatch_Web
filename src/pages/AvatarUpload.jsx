@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
+import '../css/Dressify.css'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 

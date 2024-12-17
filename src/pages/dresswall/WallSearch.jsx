@@ -1,58 +1,91 @@
 import React from 'react'
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap'
-import Post from '/src/components/Post.jsx'
-import MyLayout from '../layouts/MyLayout'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import MyLayout from '../../layouts/MyLayout'
+import PopularButton from '../../components/PopularButton';
 
 
-function Wallsearchresult() {
+function Wallsearch() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
   return (
     <MyLayout>
       <div className="container">
-       
 
-        {/* <!--search --> */}
+
+        {/* <!-- search bar  --> */}
+        {/* <!-- should have margin bottom  --> */}
         <form className="d-flex position-relative mt-3" role="search">
 
-          {/* <!--search input --> */}
-          <input className="form-control rounded-start-pill rounded-end-0" type="search" placeholder="Search" aria-label="Search" />
-          {/* <!--condition button --> */}
-          {/* <!--more condition to set --> */}
+          {/* <!-- search input  --> */}
+          <input className="form-control rounded-start-pill rounded-end-0 bgc-normal" type="search" placeholder="Search" aria-label="Search" />
+          {/* <!-- condition button  --> */}
+          {/* <!-- more condition to set  --> */}
           <button type="button" className="btn btn-normal  rounded-end-0  rounded-start-0 " onClick={handleShow} >
             <img className="icon" src="../src/assets/img/icon/settings-sliders.svg" alt="" />
           </button>
-          {/* <!--search button --> */}
+          {/* <!-- search button  --> */}
           <a className="btn btn-normal rounded-end-pill rounded-start-0" type="submit" href="../dresswall/result">
             <img className="icon" src="../src/assets/img/icon/search.svg" alt="" />
           </a>
 
         </form>
 
-        {/* <!--result post --> */}
-        <Post />
+        {/* <!-- Populartag  --> */}
+        <div className="position-relative mt-3 w-100">
+          <h2 className="text-black fw-bold">人氣標籤</h2>
+          <PopularButton name="#tag"/>
+          <PopularButton name="#tag"/>
+          <PopularButton name="#tag"/>
+          <PopularButton name="#tag"/>
+          <PopularButton name="#tag"/>
+          <PopularButton name="#tag"/>
+        </div>
 
-        {/* <!--result post --> */}
-        <Post />
+        {/* <!-- popular clothes  --> */}
+        <div className="position-relative mt-3 w-100">
+          <h2 className="text-black fw-bold">衣服</h2>
+          <PopularButton name="clothesName"/>
+          <PopularButton name="clothesName"/>
+          <PopularButton name="clothesName"/>
+          <PopularButton name="clothesName"/>
+          <PopularButton name="clothesName"/>
+          <PopularButton name="clothesName"/>
+        </div>
+
+        {/* <!-- brand  --> */}
+        <div className="position-relative mt-3 w-100">
+          <h2 className="text-black fw-bold">品牌</h2>
+          <PopularButton name="brandName"/>
+          <PopularButton name="brandName"/>
+          <PopularButton name="brandName"/>
+          <PopularButton name="brandName"/>
+          <PopularButton name="brandName"/>
+          <PopularButton name="brandName"/>
+        </div>
+
+        {/* button to open the modal */}
+        {/* <Button variant="primary" onClick={handleShow}>
+        開啟 Modal
+      </Button> */}
 
         {/* Search Modal */}
         <Modal show={show} onHide={handleClose}>
-          <Modal.Header>
-            <Modal.Title>進階篩選</Modal.Title>
+          <Modal.Header style={{backgroundColor:"#f9f8f4"}}>
+            <Modal.Title >進階篩選</Modal.Title>
             <img className='iconsmall ms-auto' variant="secondary" onClick={handleClose} src="../src/assets/img/icon/cross-circle.svg" alt="" />
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body style={{backgroundColor:"#f9f8f4"}}>
 
             {/* <!-- type of the clothes  --> */}
             <div className="row">
               <div className="col-2"><label htmlFor="">類型:</label></div>
               <div className="col-10">
-                <select className="w-100" name="clothesType" id="" defaultValue="default">
+                <select className="w-100" name="clothesType" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個類型</option>
                   <optgroup label="外套">
                     <option value="羽絨外套">羽絨外套</option>
@@ -107,8 +140,11 @@ function Wallsearchresult() {
             <div className="row">
               <div className="col-2">顏色:</div>
               <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default">
+                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個顏色</option>
+                  <option value="white">白色</option>
+                  <option value="gray">灰色</option>
+                  <option value="black">黑色</option>
                   <option value="red">紅色</option>
                   <option value="orange">橙色</option>
                   <option value="yellow">黃色</option>
@@ -125,7 +161,7 @@ function Wallsearchresult() {
             <div className="row">
               <div className="col-2">品牌:</div>
               <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default">
+                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個品牌</option>
                   <option value="Uniqlo">Uniqlo</option>
                   <option value="Zara">Zara</option>
@@ -143,7 +179,7 @@ function Wallsearchresult() {
             <div className="row">
               <div className="col-2">尺吋:</div>
               <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default">
+                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個尺寸</option>
                   <option value="XS">XS</option>
                   <option value="S">S</option>
@@ -160,7 +196,7 @@ function Wallsearchresult() {
             <div className="row">
               <div className="col-2">季節:</div>
               <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default">
+                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個季節</option>
                   <option value="Spring">春</option>
                   <option value="Summer">夏</option>
@@ -172,7 +208,7 @@ function Wallsearchresult() {
             <br />
           </Modal.Body>
 
-          <Modal.Footer>
+          <Modal.Footer style={{backgroundColor:"#f9f8f4"}}>
             <a href="../dresswall/result" variant="secondary" onClick={handleClose}>
               <img className="icon" src="../src/assets/img/icon/search.svg" alt="" />
             </a>
@@ -184,9 +220,12 @@ function Wallsearchresult() {
           </Button> */}
           </Modal.Footer>
         </Modal>
+
       </div>
+
     </MyLayout>
+
   )
 }
 
-export default Wallsearchresult
+export default Wallsearch

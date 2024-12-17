@@ -1,6 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
+import '../css/Dressify.css'
 
 
 function MyNavigation() {

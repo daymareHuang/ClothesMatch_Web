@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
-import CurrentDate from './CurrentDate'
+import '../css/Dressify.css'
+import CurrentDate from '../CurrentDate'
 
 
 function CurentWeather() {

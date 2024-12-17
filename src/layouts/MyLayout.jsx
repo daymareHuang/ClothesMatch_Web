@@ -2,7 +2,7 @@ import React from 'react'
 import MyNavigation from '../components/MyNavigation'
 import MyFooter from '../components/MyFooter'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
+import '../css/Dressify.css'
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
+import '../css/Dressify.css'
 
 // Modal component to display the zoomed image
 const ImageModal = ({ imageSrc, onClose }) => (

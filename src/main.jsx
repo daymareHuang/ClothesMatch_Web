@@ -5,11 +5,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './assets/css/Dressify.css'
-import Dresswall from "./pages/Dresswall.jsx"
-import Selfpage from "./pages/Selfpage.jsx"
-import WallSearch from "./pages/WallSearch.jsx"
-import Wallsearchresult from "./pages/WallSearchResult.jsx"
+import './css/Dressify.css'
+import Dresswall from "./pages/dresswall/Dresswall.jsx"
+import Selfpage from "./pages/dresswall/Selfpage.jsx"
+import WallSearch from "./pages/dresswall/WallSearch.jsx"
+import Wallsearchresult from "./pages/dresswall/WallSearchResult.jsx"
+// 這裡以下的路徑請更改
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -23,19 +24,19 @@ const router = createBrowserRouter([
     element: <Dresswall />,
   }, 
   {
-    path: "/dresswall/yourself",
+    path: "/dresswall/Yourself",
     element: <Selfpage />
   },
   {
-    path: "/dresswall/search",
+    path: "/dresswall/Search",
     element: <WallSearch />
   },
   {
-    path: "/dresswall/result",
+    path: "/dresswall/Result",
     element: <Wallsearchresult />
   },
   {
-    path: "/Dashboard",
+    path: "/dashboard",
     element: <Dashboard />
   },
   {

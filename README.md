@@ -47,7 +47,7 @@ Router 名稱
 * ClosetEditSingle.jsx
 * ClosetAddItems.jsx
 * ClosetSearch.jsx
-* Crop.jsx（可能不會放
+* Crop.jsx（可能不會放)
 
 田
 * AddTag

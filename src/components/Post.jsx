@@ -1,8 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function Post(props) {
+  const [like, setLikes] = useState(false)
+  const [keep, setKeep] = useState(false)
+
+  const handleClickLike = ()=>{
+    // console.log(like)
+    if(like){
+      setLikes(false)
+    }
+    else{
+      setLikes(true)
+    }
+    
+  }
+
+  const handleClickKeep = ()=>{
+    // console.log(keep)
+    if(keep){
+      setKeep(false)
+    }
+    else{
+      setKeep(true)
+    }
+  }
+
   return (
     <>
       {/* <!-- post --> */}
@@ -27,10 +51,10 @@ function Post(props) {
               {/* <!-- to the right end --> */}
               {/* <!-- heart icon  --> */}
               {/* <!-- it should be solid red when pressed --> */}
-              <img className="icon" src="../src/assets/img/icon/heart.svg" alt="like" />
+              <img className="icon" src={like? "../src/assets/img/icon/solidheart.svg" :"../src/assets/img/icon/heart.svg"} alt="like" onClick={handleClickLike}/>
               {/* <!-- star icon --> */}
               {/* <!-- it should be solid yellow when pressed --> */}
-              <img className="icon" src="../src/assets/img/icon/star.svg" alt="keep" />
+              <img className="icon" src={keep? "../src/assets/img/icon/solidstar.svg" :"../src/assets/img/icon/star.svg"} alt="keep" onClick={handleClickKeep}/>
               {/* <!-- share icon --> */}
               <img className="icon" src="../src/assets/img/icon/share.svg" alt="share" />
             </div>

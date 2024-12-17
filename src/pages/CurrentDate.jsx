@@ -1,7 +1,7 @@
 // import React from 'react'
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../assets/css/Dressify.css'
+import '../css/Dressify.css'
 
 function getDate() {
   const today = new Date();
