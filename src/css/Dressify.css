@@ -86,3 +86,11 @@ footer {
 nav {
   height: 55px;
 }
+
+.letterSpacing-1{
+  letter-spacing: 2px;
+}
+.letterSpacing-2{
+  letter-spacing: 10px;
+}
+

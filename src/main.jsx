@@ -6,19 +6,64 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './css/Dressify.css'
+
+// 穿搭牆
 import Dresswall from "./pages/dresswall/Dresswall.jsx"
 import Selfpage from "./pages/dresswall/Selfpage.jsx"
 import WallSearch from "./pages/dresswall/WallSearch.jsx"
 import Wallsearchresult from "./pages/dresswall/WallSearchResult.jsx"
+
 // 這裡以下的路徑請更改
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Modification from './pages/Modification';
 
+// 新增搭配
+import { OutfitContextProvider } from "./contexts/OutfitContext.jsx";
+import Image from "./pages/closetOutfit/Image.jsx";
+import ImgEditList from "./pages/closetOutfit/ImgEditList.jsx";
+import ImgEditCrop from "./pages/closetOutfit/ImgEditCrop.jsx";
+import ImgEditBrightness from "./pages/closetOutfit/ImgEditBrightness.jsx";
+import ImgEditContrast from "./pages/closetOutfit/ImgEditContrast.jsx";
+import ImgEditSaturate from "./pages/closetOutfit/ImgEditSaturate.jsx";
+import AddTag from "./pages/closetOutfit/AddTag.jsx";
+import OutfitDescription from "./pages/closetOutfit/OutfitDescription.jsx";
 
 
 const router = createBrowserRouter([
+  {
+    path: "/Image",
+    element: <OutfitContextProvider><Image /></OutfitContextProvider>
+  }, 
+  {
+    path: "/ImgEditList",
+    element: <OutfitContextProvider><ImgEditList /></OutfitContextProvider>
+  }, 
+  {
+    path: "/ImgEditCrop",
+    element: <OutfitContextProvider><ImgEditCrop /></OutfitContextProvider>
+  }, 
+  {
+    path: "/ImgEditBrightness",
+    element: <OutfitContextProvider><ImgEditBrightness /></OutfitContextProvider>
+  }, 
+  {
+    path: "/ImgEditContrast",
+    element: <OutfitContextProvider><ImgEditContrast /></OutfitContextProvider>
+  }, 
+  {
+    path: "/ImgEditSaturate",
+    element: <OutfitContextProvider><ImgEditSaturate /></OutfitContextProvider>
+  }, 
+  {
+    path: "/AddTag",
+    element: <OutfitContextProvider><AddTag /></OutfitContextProvider>
+  }, 
+  {
+    path: "/OutfitDescription",
+    element: <OutfitContextProvider><OutfitDescription /></OutfitContextProvider>
+  }, 
   {
     path: "/dresswall",
     element: <Dresswall />,
