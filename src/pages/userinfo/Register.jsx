@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import MyLayout from '../layouts/MyLayout'
+import MyLayout from '../../layouts/MyLayout'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../css/Dressify.css'
+import '../../css/Dressify.css'
 import UserInfoInput from './UserInfoInput'
 import GenderInput from './GenderInput'
 import StylePreferenceInput from './StylePreferenceInput'
@@ -34,10 +34,10 @@ function Register() {
               {/* <!-- Password --> */}
               <UserInfoInput />
               {/* <!-- Birthday --> */}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <label htmlFor="userBirth" className="form-label">&nbsp;&nbsp;生日</label>
                 <input type="date" className="form-control w-50" id="userBirth" />
-              </div>
+              </div> */}
               {/* <!-- Gender --> */}
               <div className="mt-3">
                 <label htmlFor="userGender" className="form-label">&nbsp;&nbsp;性別</label>
@@ -63,7 +63,7 @@ function Register() {
                 </div>
               </div>
               {/* <!-- Style preference --> */}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <label htmlFor="stylePreference" className="form-label">&nbsp;&nbsp;穿搭風格偏好<span
                   style={{ color: '#FF0000' }}>*</span></label>
                 <div>
@@ -71,7 +71,7 @@ function Register() {
                     <StylePreferenceInput />
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* <!-- Avatar --> */}
               <AvatarUpload />
               {/* <!-- button --> */}

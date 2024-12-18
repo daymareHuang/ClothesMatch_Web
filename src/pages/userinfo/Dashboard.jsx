@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../css/Dressify.css'
-import MyLayoutForDashboard from '../layouts/MyLayoutForDashboard'
+import '../../css/Dressify.css'
+import MyLayoutForDashboard from '../../layouts/MyLayoutForDashboard'
 import CurrentDate from './CurrentDate'
 import TodaySuggestion from "./TodaySuggestion";
 import MoreSuggestion from "./MoreSuggestion";
@@ -68,7 +68,7 @@ function Dashboard() {
                             style={{ backgroundColor: '#F8F9F3' }}>
                             <div className="d-flex flex-nowrap ms-2">
                                 <span>@xxxxxxxxxxx</span>&nbsp;
-                                <Link to="#"><img src="./src/assets/img/icon/pencil.svg" alt="" width="12px" /></Link>
+                                {/* <Link to="#"><img src="./src/assets/img/icon/pencil.svg" alt="" width="12px" /></Link> */}
                             </div>
                             <div className="text-s me-2">
                                 <div className="badge rounded-pill"
@@ -95,7 +95,7 @@ function Dashboard() {
                                 <img src="./src/assets/img/icon/closet.svg" alt="" className="img" width="26px" height="30px" />
                                 <span>我的衣櫃</span>
                             </Link>
-                            <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}
+                            <Link to="/Login" style={{ textDecoration: 'none', color: '#3b3a38' }}
                                 className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
                                 <img src="./src/assets/img/icon/instagram.svg" alt="" className="img" width="30px" />
                                 <span>穿搭分享</span>
@@ -127,12 +127,12 @@ function Dashboard() {
                                 <p className="mb-0">個人穿搭</p>
                             </div>
                         </Link>
-                        <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}>
+                        {/* <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}>
                             <div className="d-flex flex-column align-items-center mt-1">
                                 <img src="./src/assets/img/icon//add.svg" alt="" width="30px" />
                                 <p className="mb-0">分享穿搭</p>
                             </div>
-                        </Link>
+                        </Link> */}
                     </div >
                     {/* <!-- 今日推薦 --> */}
                     < div className="container-fluid align-items-center my-2 py-2" style={{ backgroundColor: '#F8F9F3' }}>

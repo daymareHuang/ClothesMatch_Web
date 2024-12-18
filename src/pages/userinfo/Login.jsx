@@ -1,8 +1,8 @@
 import React from 'react'
-import MyLayout from '../layouts/MyLayout'
+import MyLayout from '../../layouts/MyLayout'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../css/Dressify.css'
+import '../../css/Dressify.css'
 import LoginContent from './LoginContent'
 import LoginModification from './LoginModification'
 
@@ -13,7 +13,7 @@ function Login() {
     <>
       <MyLayout>
         {/* <!-- content --> */}
-        <div className="container-fluid" style={{ marginTop: '65px' }}>
+        <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
           <div className="container-fluid pt-4" style={{ backgroundColor: '#F8F9F3' }}>
             {/* <!-- banner --> */}
             <div className="container-fluid text-center">

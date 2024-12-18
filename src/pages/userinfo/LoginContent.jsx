@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../css/Dressify.css'
+import '../../css/Dressify.css'
 
 
-function UserInfoInput() {
+
+function LoginContent() {
     // State to track password visibility
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -14,16 +16,12 @@ function UserInfoInput() {
 
     return (
         <div>
-            {/* <!-- ID --> */}
-            <div className="mt-3">
-                <label htmlFor="userId" className="form-label">&nbsp;&nbsp;使用者名稱<span
-                    style={{ color: '#FF0000' }}>*</span></label>
-                <input type="text" className="form-control" id="userId" placeholder="請輸入使用者名稱" />
+            <div className="my-4 text-s">
+                <label htmlFor="account" className="form-label">&nbsp;&nbsp;&nbsp;使用者名稱</label>
+                <input type="text" className="form-control" id="userId" placeholder="請輸入郵件或帳號" />
             </div>
-            <label htmlFor="userIdDescription" className="text-xs">&nbsp;&nbsp;包含英文字母（大小寫區分）、數字及特殊符號</label>
-            {/* <!-- Password --> */}
-            <div className="mt-3">
-                <label htmlFor="userPwd" className="form-label">&nbsp;&nbsp;密碼<span style={{ color: '#FF0000' }}>*</span></label>
+            <div className="mt-3 text-s" style={{ position: 'relative' }}>
+                <label htmlFor="pwd" className="form-label">&nbsp;&nbsp;&nbsp;密碼</label>
                 <div className="input-container" style={{ position: 'relative' }}>
                     <input
                         type={isPasswordVisible ? 'text' : 'password'}
@@ -63,9 +61,8 @@ function UserInfoInput() {
                         onClick={togglePasswordVisibility} />
                 </div>
             </div>
-            <label htmlFor="userPwdDescription" className="text-xs">&nbsp;&nbsp;至少8個字元，包含英文字母（大小寫區分）及數字</label>
         </div>
     )
 }
 
-export default UserInfoInput
+export default LoginContent

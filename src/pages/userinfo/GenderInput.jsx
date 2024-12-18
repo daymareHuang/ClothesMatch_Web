@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../css/Dressify.css'
+import '../../css/Dressify.css'
 
 function GenderInput() {
     const [selectedGender, setSelectedGender] = useState(null);

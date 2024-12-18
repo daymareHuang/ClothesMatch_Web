@@ -14,10 +14,10 @@ import WallSearch from "./pages/dresswall/WallSearch.jsx"
 import Wallsearchresult from "./pages/dresswall/WallSearchResult.jsx"
 
 // 這裡以下的路徑請更改
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Modification from './pages/Modification';
+import Dashboard from './pages/userinfo/Dashboard.jsx';
+import Login from './pages/userinfo/Login.jsx';
+import Register from './pages/userinfo/Register.jsx';
+import Modification from './pages/userinfo/Modification.jsx';
 
 // 新增搭配
 import { OutfitContextProvider } from "./contexts/OutfitContext.jsx";
