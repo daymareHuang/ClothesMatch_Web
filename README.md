@@ -34,6 +34,7 @@ https://docs.google.com/document/d/1z3L8NKiEKC7ZLWIn56CqfwLtj0lRiIqCBgLHuVggiTM/
 安裝 圖片編輯 mod
 ```cmd
  npm install react-bootstrap bootstrap react-cropper cropperjs react-draggable swiper
+ npm install axios
 ```
 
 ## 請大家寫一下router的網址
