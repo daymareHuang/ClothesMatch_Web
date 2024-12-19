@@ -67,13 +67,22 @@ Router 名稱
 
 芳萱
 * Dashboard
-* CurrentDate （不會有router）
+* WeatherOverview
+* CurrentDate（不會有router）
+* PersonalInfoOverview（不會有router）
+* TodaySuggestion（不會有router）
+* MoreSuggestion（不會有router）
 * Login
 * LoginContent（不會有router）
 * LoginModification（不會有router）
 * ForgetPassword（不會有router）
+* GoogleLogin （未定，按與Google串接的操作而定）
 * Register
+* UserInfoInput（不會有router）
+* GenderInput（不會有router）
+* AvatarUpload（不會有router）
 * Modification
+
 
 昱凱
 * Dresswall (url : / dresswall)
