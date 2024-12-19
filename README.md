@@ -39,15 +39,16 @@ https://docs.google.com/document/d/1z3L8NKiEKC7ZLWIn56CqfwLtj0lRiIqCBgLHuVggiTM/
 ## 請大家寫一下router的網址
 Router 名稱
 琇雁
-* Closet.jsx
-* ClosetMatch.jsx
-* ClosetPart.jsx
-* AddPop.js（應該不會放router)
+* Closet.jsx  (/Closet)
+* ClosetMatch.jsx  (/ClosetMatch)
+* ClosetPart.jsx  (/ClosetPart/:part)
+* AddPop.js（沒有放router)
+* Crop.jsx  (/Crop)
+* ClosetEditSingle.jsx  (/ClosetEditSingle)
 * ClosetCheckSingle.jsx
-* ClosetEditSingle.jsx
 * ClosetAddItems.jsx
 * ClosetSearch.jsx
-* Crop.jsx（可能不會放)
+
 
 田
 * AddTag

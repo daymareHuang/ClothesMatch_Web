@@ -1,0 +1,47 @@
+:root {
+  --color-base: #f9f8f4;
+  --color-second: #ebe3e0;
+  --color-highlight: #ae7a62;
+  --color-white: #ffffff;
+  --color-black: #3b3a38;
+}
+
+.btn {
+  background-color: var(--color-base);
+  border: 2px solid var(--color-highlight);
+}
+.btn:focus {
+  background-color: var(--color-highlight);
+}
+
+#addPopM {
+  transform: translateY(100%);  /* 初始滑出畫面外 */
+  transition: transform 0.5s ease;  /* 平滑過渡效果 */
+}
+
+#addPopM.show {
+  transform: translateY(0); /* 滑入畫面 */
+}
+
+#addOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  margin-top: 53px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+
+  z-index: 100;
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: auto;
+}
+
+label.required::before {
+  content: '*';
+  color: red;
+}

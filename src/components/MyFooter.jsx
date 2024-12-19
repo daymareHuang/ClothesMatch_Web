@@ -10,7 +10,7 @@ function MyFooter() {
     return (
         <footer className="nav navbar fixed-bottom justify-content-evenly align-items-center"
             style={{ backgroundColor: '#ebe3e0' }}>
-            <div><Link to="/index"><img src="../src/assets/img/icon/closet.svg" alt="" width="30px" /></Link></div>
+            <div><Link to="/Closet"><img src="../src/assets/img/icon/closet.svg" alt="" width="30px" /></Link></div>
             <div><a href="/dresswall"><img src="../src/assets/img/icon/instagram.svg" alt="" width="30px" /></a></div>
             <div><Link to="/Dashboard"><img src="../src/assets/img/icon/home.svg" alt="" width="30px" /></Link></div>
             {/*    // 圖像是沒有登入的狀態 : /Login

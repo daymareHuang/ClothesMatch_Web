@@ -30,6 +30,12 @@ import ImgEditSaturate from "./pages/closetOutfit/ImgEditSaturate.jsx";
 import AddTag from "./pages/closetOutfit/AddTag.jsx";
 import OutfitDescription from "./pages/closetOutfit/OutfitDescription.jsx";
 
+// closet
+import Closet from './pages/closet/Closet.jsx';
+import ClosetMatch from './pages/closet/ClosetMatch.jsx';
+import ClosetPart from './pages/closet/ClosetPart.jsx';
+import Crop from './pages/closet/Crop.jsx';
+import ClosetEditSingle from './pages/closet/ClosetEditSingle.jsx';
 
 const router = createBrowserRouter([
   {
@@ -95,6 +101,26 @@ const router = createBrowserRouter([
   {
     path: "/Modification",
     element: <Modification />,
+  },
+  {
+    path: "/Closet",
+    element: <Closet/>,
+  },
+  {
+    path: "/ClosetMatch",
+    element: <ClosetMatch/>,
+  },
+  {
+    path: "/ClosetPart/:part",
+    element: <ClosetPart/>,
+  },
+  {
+    path: "/Crop",
+    element: <Crop/>,
+  },
+  {
+    path: "/ClosetEditSingle",
+    element: <ClosetEditSingle/>,
   },
 ]);
 
