@@ -55,9 +55,9 @@ function Dresswall() {
 
                 {/* <!-- Postbutton --> */}
 
-                <div className="w-100 position-relative mt-3">
+                {/* <div className="w-100 position-relative mt-3">
                     <a className="btn rounded-pill w-100 btn-normal"><img className="icon" src="../src/assets/img/icon/add.svg" alt="add post" /></a>
-                </div>
+                </div> */}
 
                 {/* <!-- post --> */}
                 <Post name="David" />
