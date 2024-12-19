@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import UserInfoInput from './UserInfoInput'
 import GenderInput from './GenderInput'
-import StylePreferenceInput from './StylePreferenceInput'
+// import StylePreferenceInput from './StylePreferenceInput'
 import AvatarUpload from "./AvatarUpload";
 
 
@@ -46,22 +46,22 @@ function Register() {
                 </div>
               </div>
               {/* <!-- Height --> */}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <label htmlFor="userHeight" className="form-label">&nbsp;&nbsp;身高<span
                   style={{ color: '#FF0000' }}>*</span></label>
                 <div className="d-flex flex-nowrap align-items-center">
                   <input type="number" className="form-control w-50" id="userHeight" />
                   <span>&nbsp;cm</span>
                 </div>
-              </div>
+              </div> */}
               {/* <!-- Weight --> */}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <label htmlFor="userWeight" className="form-label">&nbsp;&nbsp;體重</label>
                 <div className="d-flex flex-nowrap align-items-center">
                   <input type="text" className="form-control w-50" id="userWeight" />
                   <span>&nbsp;kg</span>
                 </div>
-              </div>
+              </div> */}
               {/* <!-- Style preference --> */}
               {/* <div className="mt-3">
                 <label htmlFor="stylePreference" className="form-label">&nbsp;&nbsp;穿搭風格偏好<span

@@ -24,7 +24,7 @@ function CurrentDate() {
   const [currentDate, setCurrentDate] = useState(getDate());
 
   return (
-    <div className="d-flex flex-nowrap justify-content-center text-center text-xs my-2">{currentDate}</div>
+    <div className="d-flex flex-nowrap text-xs my-2">{currentDate}</div>
   )
 }
 

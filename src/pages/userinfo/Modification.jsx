@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import UserInfoInput from './UserInfoInput';
 import GenderInput from './GenderInput'
-import StylePreferenceInput from './StylePreferenceInput'
+// import StylePreferenceInput from './StylePreferenceInput'
 import AvatarUpload from "./AvatarUpload";
 
 function Modification() {
@@ -20,14 +20,12 @@ function Modification() {
                             <div className="container-fluid text-center">
                                 <p className="text-xl"><b>修改會員資料</b></p>
                                 <p className="text-xs mt-0">若您需要修改會員資料，請在以下頁面修改</p>
-                                <p className="text-xs mt-0"><span style={{ color: '#FF0000' }}>*</span>為必填項目</p>
                             </div>
                             {/* <!-- input section --> */}
                             <div className="my-4 text-s">
                                 {/* <!-- Email --> */}
                                 <div className="mt-3">
-                                    <label htmlFor="email" className="form-label">&nbsp;&nbsp;Email<span
-                                        style={{ color: '#FF0000' }}>*</span></label>
+                                    <label htmlFor="email" className="form-label">&nbsp;&nbsp;Email</label>
                                     <input type="email" className="form-control" id="userEmail" placeholder="請輸入郵件" />
                                 </div>
                                 {/* <!-- ID --> */}
@@ -40,23 +38,21 @@ function Modification() {
                                 </div> */}
                                 {/* <!-- Gender --> */}
                                 <div className="mt-3">
-                                    <label htmlFor="userGender" className="form-label">&nbsp;&nbsp;性別<span
-                                        style={{ color: '#FF0000' }}>*</span></label>
+                                    <label htmlFor="userGender" className="form-label">&nbsp;&nbsp;性別</label>
                                     <div className="text-m">
                                         <GenderInput />
                                     </div>
                                 </div>
                                 {/* <!-- Height --> */}
-                                <div className="mt-3">
-                                    <label htmlFor="userHeight" className="form-label">&nbsp;&nbsp;身高（cm）<span
-                                        style={{ color: '#FF0000' }}>*</span></label>
+                                {/* <div className="mt-3">
+                                    <label htmlFor="userHeight" className="form-label">&nbsp;&nbsp;身高（cm）</label>
                                     <input type="number" className="form-control w-25" id="userHeight" />
-                                </div>
+                                </div> */}
                                 {/* <!-- Weight --> */}
-                                <div className="mt-3">
+                                {/* <div className="mt-3">
                                     <label htmlFor="userWeight" className="form-label">&nbsp;&nbsp;體重（kg）</label>
                                     <input type="number" className="form-control w-25" id="userWeight" />
-                                </div>
+                                </div> */}
                                 {/* <!-- Style preference --> */}
                                 {/* <div className="mt-3">
                                     <label htmlFor="stylePreference" className="form-label">&nbsp;&nbsp;穿搭風格偏好<span

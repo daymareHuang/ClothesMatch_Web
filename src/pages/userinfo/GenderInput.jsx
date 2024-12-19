@@ -28,14 +28,14 @@ function GenderInput() {
                 }}
                 onClick={() => selectButton('female')}>女性
             </button>
-            <button className={`badge rounded-pill mx-1 ${selectedGender === 'secret' ? 'selected' : ''}`}
+            {/* <button className={`badge rounded-pill mx-1 ${selectedGender === 'secret' ? 'selected' : ''}`}
                 style={{
                     backgroundColor: selectedGender === 'secret' ? '#3b3a38' : '#E9E3DF',
                     color: selectedGender === 'secret' ? '#E9E3DF' : '#3b3a38',
                     border: '1px solid #3b3a38'
                 }}
                 onClick={() => selectButton('secret')}>保密
-            </button>
+            </button> */}
         </div>
     )
 }

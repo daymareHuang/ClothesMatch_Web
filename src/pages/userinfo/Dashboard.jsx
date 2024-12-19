@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import MyLayoutForDashboard from '../../layouts/MyLayoutForDashboard'
-import CurrentDate from './CurrentDate'
+// import CurrentDate from './CurrentDate'
 import TodaySuggestion from "./TodaySuggestion";
 import MoreSuggestion from "./MoreSuggestion";
+import CurrentWeather from "./CurrentWeather";
 
 
 function Dashboard() {
@@ -18,28 +19,8 @@ function Dashboard() {
                 {/* <!-- content --> */}
                 <div className="container-fluid" style={{ marginTop: '65px' }}>
                     {/* <!-- 天氣總覽 --> */}
-                    <div className="container-fluid d-flex flex-nowrap justify-content-around align-items-center py-3"
-                        style={{ backgroundColor: '#F8F9F3' }}>
-                        {/* <!-- 天氣圖標 --> */}
-                        <div>
-                            <img src="./src/assets/img/icon/weather-temp.svg" alt="" width="45px" />
-                        </div>
-                        {/* <!-- 日期&降雨機率&濕度 --> */}
-                        <div className="row align-items-center" style={{ margin: '-20px' }}>
-                            <CurrentDate />
-                            <div className="text-xs">
-                                <div className="d-flex flex-nowrap justify-content-center text-center">
-                                    <div><span>最高溫：</span><span id="minTemp">00°C</span></div>&nbsp;|&nbsp;
-                                    <div><span>最低溫：</span><span id="maxTemp">00°C</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* <!-- 最高溫&最低溫 --> */}
-                        <div className="text-xs">
-                            <div className="text-center"><span>濕度：</span><span id="humidity">70%</span></div>
-                            <div className="text-center"><span>降雨機率：</span><span id="precipitation">30%</span></div>
-                        </div>
+                    <div>
+                        <CurrentWeather />
                     </div>
                     {/* <!-- 功能導覽 --> */}
                     {/* <!-- 個人資訊管理 --> */}
@@ -70,14 +51,14 @@ function Dashboard() {
                                 <span>@xxxxxxxxxxx</span>&nbsp;
                                 {/* <Link to="#"><img src="./src/assets/img/icon/pencil.svg" alt="" width="12px" /></Link> */}
                             </div>
-                            <div className="text-s me-2">
+                            {/* <div className="text-s me-2">
                                 <div className="badge rounded-pill"
                                     style={{ backgroundColor: '#E9E3DF', color: '#3b3a38', border: '1px solid #3b3a38' }}>休閒</div>
                                 <div className="badge rounded-pill"
                                     style={{ backgroundColor: '#E9E3DF', color: '#3b3a38', border: '1px solid #3b3a38' }}>街頭</div>
                                 <div className="badge rounded-pill"
                                     style={{ backgroundColor: '#E9E3DF', color: '#3b3a38', border: '1px solid #3b3a38' }}>運動</div>
-                            </div>
+                            </div> */}
                         </div >
                         {/* <!-- 個人資訊修改 --> */}
                         {/* < div className="d-flex justify-content-center" >
