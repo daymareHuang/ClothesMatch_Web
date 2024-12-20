@@ -64,12 +64,12 @@ function TodaySuggestion() {
         backdrop="static"
       >
         <Modal.Header closeButton style={{
-            backgroundColor: "#ebe3e0",
+            backgroundColor: "#ebe3e0"
           }}>
         </Modal.Header>
         <Modal.Body
           style={{
-            backgroundColor: "#ebe3e0",
+            backgroundColor: "#ebe3e0"
           }}
         >
           <img

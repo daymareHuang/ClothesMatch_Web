@@ -8,116 +8,123 @@ import 'cropperjs/dist/cropper.css'
 // cmd npm install react-bootstrap bootstrap react-cropper cropperjs
 
 function AvatarUpload() {
-    const [image, setImage] = useState(null);  // 儲存上傳圖片的連結
-    const [croppedImage, setCroppedImage] = useState(null);  // 儲存裁剪後圖片的連結
-    const [showModal, setShowModal] = useState(false);  // 控制視窗開啟及關閉
-    const cropperRef = useRef(null);  // 引用 Cropper
+    const [showUploadModal, setShowUploadModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [image, setImage] = useState(null); // 儲存使用者上傳的照片
+    const [croppedImage, setCroppedImage] = useState(null); // 儲存已編輯的圖片
+    const cropperRef = useRef(null);
 
-    // 圖片上傳
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
+    // Toggle upload modal visibility
+    const handleShowUploadModal = () => setShowUploadModal(true);
+    const handleCloseUploadModal = () => setShowUploadModal(false);
+
+    // Toggle edit modal visibility
+    const handleShowEditModal = () => setShowEditModal(true);
+    const handleCloseEditModal = () => setShowEditModal(false);
+
+    // Handle image upload
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = () => {
-                setImage(reader.result);  // 設置上傳圖片的連結
-                setCroppedImage(null);  // 清除裁剪後的圖片
+            reader.onloadend = () => {
+                setImage(reader.result);
+                handleCloseUploadModal(); // 上傳圖片後關閉上傳的對話視窗
+                handleShowEditModal(); // 上傳圖片後開啟編輯視窗
             };
             reader.readAsDataURL(file);
         }
     };
 
-    // 即時更新預覽
+    // Handle crop button click
     const handleCrop = () => {
-        if (cropperRef.current) {
-            const cropperInstance = cropperRef.current.cropper;
-            if (cropperInstance) {
-                const croppedCanvas = cropperInstance.getCroppedCanvas();
-                if (croppedCanvas) {
-                    const croppedDataUrl = croppedCanvas.toDataURL();
-                    setCroppedImage(croppedDataUrl);
-                }
-            }
+        const cropper = cropperRef.current?.cropper;
+        if (cropper) {
+            setCroppedImage(cropper.getCroppedCanvas().toDataURL());
+            handleCloseEditModal(); // 編輯後關閉視窗
         }
-        // 關閉視窗
-        setShowModal(false);
+    };
+
+    // Handle avatar click (show upload or edit modal based on image existence)
+    const handleAvatarClick = () => {
+        if (image) {
+            handleShowEditModal(); // If image exists, show edit modal
+        } else {
+            handleShowUploadModal(); // If no image, show upload modal
+        }
+    };
+
+    // Handle back to upload modal
+    const handleBackToUpload = () => {
+        setShowEditModal(false); // Close the edit modal
+        setImage(null); // Reset the uploaded image (to allow re-uploading)
+        setCroppedImage(null); // Reset the cropped image (to allow new crop)
+        handleShowUploadModal(); // Open upload modal again
     };
 
     return (
         <div>
-            <div className="mt-3">
-                <label htmlFor="userAvatar" className="form-label">&nbsp;&nbsp;上傳頭貼</label>
-                <input
-                    type="file"
-                    className="form-control align-content-center w-50"
-                    id="userAvatar"
-                    accept="image/*"
-                    onChange={handleImageChange}
+            {/* Avatar Image */}
+            <div className="avatar-container mt-2" onClick={handleAvatarClick}>
+                <img
+                    src={croppedImage || image || "../src/assets/img/icon/avatar.svg"}
+                    alt="Avatar"
+                    className="rounded-circle userImgBig"
                 />
             </div>
 
-            {/* 預覽已上傳的圖片 */}
-            <div className=" d-flex flex-column mt-3">
-                {croppedImage ? (
-                    <img
-                        src={croppedImage}  // 顯示裁剪後的圖片
-                        alt="預覽圖片"
-                        width="60px"
-                        height="60px"
-                        className="align-content-center mb-3 rounded-circle"
-                    />
-                ) : image ? (
-                    <img
-                        src={image}  // 顯示上傳的圖片
-                        alt="預覽圖片"
-                        width="60px"
-                        height="60px"
-                        className="align-content-center mb-3 rounded-circle"
-                    />
-                ) : (
-                    // 顯示預設頭像
-                    <img
-                        src="src/assets/img/icon/avatar.svg"
-                        alt="預設頭像"
-                        width="60px"
-                        height="60px"
-                        className="align-content-center mb-3 rounded-circle"
-                    />
-                )}
-
-                {/* 上傳圖片後，才會顯示圖片編輯按鈕 */}
-                {image && (
-                    <Button variant="light" style={{ backgroundColor: '#ebe3e0' }} className="btn btn-lg rounded-3 text-s w-25" onClick={() => setShowModal(true)}>
-                        編輯圖片
-                    </Button>
-                )}
-            </div>
-
-            {/* 開新modal已編輯圖片 */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Header closeButton></Modal.Header>
-                <Modal.Body>
-                    <Cropper
-                        src={image}
-                        style={{ width: '100%', height: '400px' }} // 調整圖片顯示大小
-                        initialAspectRatio={1}
-                        aspectRatio={1}
-                        guides={false}
-                        ref={cropperRef} // 設定來源
-                        viewMode={1}  // 避免圖片超出範圍
-                        background={false} // 背景透明
-                        autoCropArea={1} // 預設保留全部範圍
-                        responsive={true} // 自適應裁剪範圍
-                        checkOrientation={true}  // 禁止圖片旋轉
+            {/* Upload Image Modal */}
+            <Modal show={showUploadModal} onHide={handleCloseUploadModal} size="lg">
+                <Modal.Header closeButton style={{
+                    backgroundColor: "#ebe3e0"
+                }}>
+                    <Modal.Title>上傳圖片</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{
+                    backgroundColor: "#ebe3e0",
+                }}>
+                    {/* File Input for Image Upload */}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="form-control"
                     />
                 </Modal.Body>
+            </Modal>
+
+            {/* Edit (Crop) Image Modal */}
+            <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
+                <Modal.Header closeButton style={{
+                    backgroundColor: "#ebe3e0",
+                }}>
+                    <Modal.Title>編輯圖片</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{
+                    backgroundColor: "#ebe3e0",
+                }}>
+                    {/* Cropper Component */}
+                    {image && (
+                        <Cropper
+                            src={image}
+                            ref={cropperRef}
+                            style={{ width: '100%', height: '400px' }}
+                            aspectRatio={1} // 顯示編輯範圍為圓形
+                            guides={false}
+                        />
+                    )}
+                </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="light" style={{ backgroundColor: '#ebe3e0' }} className="btn btn-lg rounded-3" onClick={handleBackToUpload}>
+                        上一步
+                    </Button>
                     <Button variant="light" style={{ backgroundColor: '#ebe3e0' }} className="btn btn-lg rounded-3" onClick={handleCrop}>
-                        確定
+                        完成
                     </Button>
                 </Modal.Footer>
             </Modal>
         </div>
-    )
+    );
 }
 
 export default AvatarUpload

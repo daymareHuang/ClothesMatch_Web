@@ -6,7 +6,8 @@ import '../../css/Dressify.css'
 import UserInfoInput from './UserInfoInput'
 import GenderInput from './GenderInput'
 // import StylePreferenceInput from './StylePreferenceInput'
-import AvatarUpload from "./AvatarUpload";
+// import AvatarUpload from "./AvatarUpload";
+import AddAvatar from "../../components/AddAvatar";
 
 
 function Register() {
@@ -83,7 +84,10 @@ function Register() {
                 </div>
               </div> */}
               {/* <!-- Avatar --> */}
-              <AvatarUpload />
+              <div className="mt-3">
+                <label htmlFor="userAvatar" className="form-label">&nbsp;&nbsp;上傳頭貼</label>
+                <AddAvatar />
+              </div>
               {/* <!-- button --> */}
               <div>
                 <button className="btn btn-lg rounded-3 w-100 py-2 mt-3" style={{ backgroundColor: '#ebe3e0' }}>註冊會員</button>
