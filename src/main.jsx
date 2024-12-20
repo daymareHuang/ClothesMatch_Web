@@ -13,7 +13,7 @@ import Selfpage from "./pages/dresswall/Selfpage.jsx"
 import WallSearch from "./pages/dresswall/WallSearch.jsx"
 import Wallsearchresult from "./pages/dresswall/WallSearchResult.jsx"
 
-// 這裡以下的路徑請更改
+// 會員頁面&導覽頁
 import Dashboard from './pages/userinfo/Dashboard.jsx';
 import Login from './pages/userinfo/Login.jsx';
 import Register from './pages/userinfo/Register.jsx';

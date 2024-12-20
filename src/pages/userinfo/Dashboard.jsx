@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
+import '../../css/dresswall.css'
 import MyLayoutForDashboard from '../../layouts/MyLayoutForDashboard'
 // import CurrentDate from './CurrentDate'
 import TodaySuggestion from "./TodaySuggestion";
 import MoreSuggestion from "./MoreSuggestion";
 import CurrentWeather from "./CurrentWeather";
+import AddAvatar from "../../components/AddAvatar";
 
 
 function Dashboard() {
@@ -28,10 +30,7 @@ function Dashboard() {
                         {/* <!-- 個人穿搭牆資訊 part 1--> */}
                         < div className="d-flex flex-nowrap align-items-center justify-content-evenly py-2" >
                             <div className="image-container ms-5" style={{ position: 'relative', display: 'inline-block' }}>
-                                <Link to="#"><img src="https://www.dummyimage.com/60x60/aad4e3/000.jpg&text=60*60" alt=""
-                                    className="img rounded-circle" />
-                                    <img src="./src/assets/img/icon/camera.svg" alt=""
-                                        style={{ position: 'absolute', bottom: '-4px', right: '-1px', width: '12px' }} /></Link>
+                                <AddAvatar />
                             </div>
                             <div className="container-fluid d-flex text-center justify-content-center text-m">
                                 <div className="d-flex flex-column mx-4">
@@ -108,7 +107,7 @@ function Dashboard() {
                                 <p className="mb-0">個人穿搭</p>
                             </div>
                         </Link> */}
-                        {/* <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}>
+                    {/* <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}>
                             <div className="d-flex flex-column align-items-center mt-1">
                                 <img src="./src/assets/img/icon//add.svg" alt="" width="30px" />
                                 <p className="mb-0">分享穿搭</p>

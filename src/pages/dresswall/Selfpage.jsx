@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap'
 import '../../css/Dressify.css'
 import '../../css/dresswall.css'
 import MyLayout from '../../layouts/MyLayout'
+import AddAvatar from "../../components/AddAvatar";
 
 
 function Selfpage() {
@@ -52,9 +53,10 @@ function Selfpage() {
                 <div className="row mt-3 m-auto">
                     <div className="d-flex position-relative col-3" style={{ height: "65px", width: "70px" }}>
                         {/* <!--user's img  --> */}
-                        <img className="userImgBig" src="../src/assets/img/user_img.png" alt="your photo" />
+                        {/* <img className="userImgBig" src="../src/assets/img/user_img.png" alt="your photo" /> */}
                         {/* <!--to the right bottom of the div --> */}
-                        <img className="iconsmall position-absolute bottom-0 end-0" src="../src/assets/img/icon/camera.svg" alt="edit your photo" />
+                        {/* <img className="iconsmall position-absolute bottom-0 end-0" src="../src/assets/img/icon/camera.svg" alt="edit your photo" /> */}
+                        <AddAvatar/>
                     </div>
 
                     {/* <!--userName and Name --> */}

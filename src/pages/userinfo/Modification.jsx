@@ -71,7 +71,10 @@ function Modification() {
                                     </div>
                                 </div> */}
                                 {/* <!-- Avatar --> */}
-                                <AvatarUpload />
+                                <div className="mt-3">
+                                    <label htmlFor="userAvatar" className="form-label">&nbsp;&nbsp;上傳頭貼</label>
+                                    <AvatarUpload />
+                                </div>
                                 {/* <!-- button --> */}
                                 <div>
                                     <button className="btn btn-lg rounded-3 w-100 py-2 mt-3" style={{ backgroundColor: '#ebe3e0' }}>確認修改</button>
