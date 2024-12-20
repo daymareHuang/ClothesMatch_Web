@@ -31,8 +31,18 @@ function Register() {
                 <input type="email" className="form-control" id="userEmail" placeholder="請輸入郵件" />
               </div>
               {/* <!-- ID --> */}
+              <div className="mt-3">
+                <label htmlFor="userId" className="form-label">&nbsp;&nbsp;使用者名稱<span
+                  style={{ color: '#FF0000' }}>*</span></label>
+                <input type="text" className="form-control" id="userId" placeholder="請輸入使用者名稱" />
+                <label htmlFor="userIdDescription" className="text-xs">&nbsp;&nbsp;包含英文字母（大小寫區分）、數字及特殊符號</label>
+              </div>
               {/* <!-- Password --> */}
-              <UserInfoInput />
+              <div className="mt-3">
+                <label htmlFor="userPwd" className="form-label">&nbsp;&nbsp;密碼<span style={{ color: '#FF0000' }}>*</span></label>
+                <UserInfoInput />
+                <label htmlFor="userPwdDescription" className="text-xs">&nbsp;&nbsp;至少8個字元，包含英文字母（大小寫區分）及數字</label>
+              </div>
               {/* <!-- Birthday --> */}
               {/* <div className="mt-3">
                 <label htmlFor="userBirth" className="form-label">&nbsp;&nbsp;生日</label>
