@@ -36,7 +36,7 @@ const ForgetPassword = ({ onClose }) => {
 
                 .modal-content {
                     position: relative;
-                    background-color: white;
+                    background-color: #ebe3e0;
                     padding: 20px;
                     border-radius: 8px;
                     width: 300px;

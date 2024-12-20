@@ -62,9 +62,9 @@ function CurrentWeather() {
     return (
         <div className="container-fluid align-items-center text-m py-3"
             style={{ backgroundColor: '#F8F9F3' }}>
-            <div className="d-flex flex-nowrap align-items-center">
+            <div className="d-flex flex-nowrap align-items-center justify-content-evenly">
                 {/* <!-- 天氣圖標 --> */}
-                <div style={{ marginRight: "15rem" }}><img src="../../assets/img/icon/weather-temp.svg" alt="" width="100px" /></div>
+                <img src="../../assets/img/icon/weather-temp.svg" alt="" width="100px" />
                 <div className="text-xs my-1">
                     {/* 現在位置 */}
                     <div>{weatherData.city}</div>
