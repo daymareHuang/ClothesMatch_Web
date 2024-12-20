@@ -36,7 +36,7 @@ function Closet() {
                     className="border rounded my-2 me-4"
                     width="125px"
                     height="125px"
-                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`} // 動態圖片
+                    src={item.EditedPhoto || `/items/item${item.Type}.svg`} // 動態圖片
                   />
                 </a>
               ))
@@ -59,7 +59,7 @@ function Closet() {
                     className="border rounded my-2 me-4"
                     width="125px"
                     height="125px"
-                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`}
+                    src={item.EditedPhoto || `/items/item${item.Type}.svg`}
                   />
                 </a>
               ))
@@ -82,7 +82,7 @@ function Closet() {
                     className="border rounded my-2 me-4"
                     width="125px"
                     height="125px"
-                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`}
+                    src={item.EditedPhoto || `/items/item${item.Type}.svg`}
                   />
                 </a>
               ))
@@ -105,7 +105,7 @@ function Closet() {
                     className="border rounded my-2 me-4"
                     width="125px"
                     height="125px"
-                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`}
+                    src={item.EditedPhoto || `/items/item${item.Type}.svg`}
                   />
                 </a>
               ))

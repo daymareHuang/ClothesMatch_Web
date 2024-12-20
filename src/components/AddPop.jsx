@@ -63,35 +63,36 @@ function AddPop({close}) {
   }
 
   return (
-    // 之後可把layout刪掉 here is for checking the place
     <>
       <div id="addOverlay" onClick={handleOverlay} className="mt-5 p-2 bg-dark bg-opacity-25" style={{height: '600px'}}>
-        <div className="bg-light position-fixed" style={{width: '200px', top: '125px', marginLeft: '15%'}}>
-          <div ref={divElemS} onClick={handleClickAddS} className="border-bottom border-2 md-24 text-center py-3 text-secondary"><img
-            src="src/assets/img/icon/add_single.svg" className="align-text-bottom opacity-50" style={{width: '26px'}}
-            alt="one" /><span>&nbsp;&nbsp;新增單品</span></div>
+        <div className="bg-light position-fixed rounded-3" style={{width: '200px', top: '80px', marginLeft: '13%'}}>
+          <div ref={divElemS} onClick={handleClickAddS} className="border-bottom border-2 text-m text-center py-3 text-secondary"><img
+            src="src/assets/img/icon/add_single.svg" className="align-middle opacity-50" style={{width: '25px'}}
+            alt="one" /><span className='ms-3 align-middle'>&nbsp;新&nbsp;增&nbsp;單&nbsp;品</span></div>
 
-          <div ref={divElemM} onClick={handleClickAddM} className="md-24 text-center py-3 text-secondary">
-            <img src="src/assets/img/icon/add_match.svg" className="align-text-bottom opacity-50" style={{width: '30px'}} alt="set" />
-            <span>&nbsp;&nbsp;新增穿搭</span></div>
+          <div ref={divElemM} onClick={handleClickAddM} className="text-m text-center py-3 text-secondary">
+            <img src="src/assets/img/icon/add_match.svg" className="align-middle opacity-50" style={{width: '28px'}} alt="set" />
+            <span className='ms-3 align-middle'>&nbsp;新&nbsp;增&nbsp;穿&nbsp;搭</span></div>
         </div>
       </div>
       <input type="file" className="d-none" ref={fileInputRef} id="fileInput" onChange={handleFileChange} />
 
-      <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '220px'}}>
+      <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '120px'}}>
+      {/* <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '220px'}}> */}
         {/* <div className="mx-5 my-3 pt-3">
           <a href="#" className="btn btn-dark md-24 p-3" style={{width: '275px'}}>
             <img src="src/assets/img/icon/add_match_closet_white.svg" className="align-text-bottom" style={{width: '26px'}} />
             <span className="md-24">&nbsp;&nbsp;衣櫃搭配</span>
           </a>
         </div> */}
-        <div className="mx-5 my-3">
+        <div className="mx-5 my-3 text-center">
           {/* <!-- href needs to be set for redirecting --> */}
-          <a href="/Image" className="btn btn-dark md-24 p-3" style={{width: '275px'}}>
-            <img src="src/assets/img/icon/add_match_pic_white.svg" className="align-middle" style={{width: '26px'}} />
-            <span className="md-24">&nbsp;&nbsp;上傳圖片</span>
+          <a href="/Image" className="btn text-m p-3" style={{width: '275px', backgroundColor: 'var(--color-highlight)'}}>
+            <img src="src/assets/img/icon/add_match_pic_white.svg" className="align-text-top" style={{width: '26px'}} />
+            <span className="ms-3 text-m text-light">&nbsp;上&nbsp;傳&nbsp;圖&nbsp;片</span>
           </a>
         </div>
+
       </div>
     </>
   )

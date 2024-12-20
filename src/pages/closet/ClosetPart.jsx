@@ -2,13 +2,6 @@ import React, { useState, useEffect } from 'react'
 import ClosetLayoutN from '../../layouts/ClosetLayoutN'
 import { useParams } from 'react-router-dom';
 
-// 解決1-4會不同的問題...!
-import eg1 from '../../assets/img/eg1.jpg';
-import eg2 from '../../assets/img/eg2.jpg';
-import eg3 from '../../assets/img/eg3.jpg';
-import eg4 from '../../assets/img/eg4.jpg';
-import eg5 from '../../assets/img/eg5.jpg';
-
 function ClosetPart() {
   const { part } = useParams();
   // 1 for 上身, 2 for 下身, 3 for 鞋子 4 for 配件
@@ -45,7 +38,7 @@ function ClosetPart() {
           </div>
         </div>
         
-        <div style={{ paddingTop: '46px' }}></div>
+        <div style={{ paddingTop: '48px' }}></div>
 
         <div className="container-fluid">
           <div className="row g-3">
@@ -58,7 +51,7 @@ function ClosetPart() {
                       className="border rounded"
                       width="160px"
                       height="160px"
-                      src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`} // 動態圖片
+                      src={item.EditedPhoto || `/items/item${item.Type}.svg`} // 動態圖片放置在public之下
                     />
                   </a>
                 ))
@@ -67,25 +60,6 @@ function ClosetPart() {
             )}
           </div>
         </div>
-
-
-        {/* <div>
-          <div className="container-fluid mt-5 pt-2 pb-3 px-4">
-            <div className="row g-3">
-
-
-              <img className="col-6 border rounded" width="175px" height="175px" src={eg2} alt="loading..." />
-
-              <img className="col-6 border rounded" width="175px" height="175px" src={eg3} alt="loading..." />
-
-              <img className="col-6 border rounded" width="175px" height="175px" src={eg4} alt="loading..." />
-
-              <img className="col-6 border rounded" width="175px" height="175px" src={eg5} alt="loading..." />
-            </div>
-          </div>
-
-        </div> */}
-
       </div>
     </ClosetLayoutN>
   )
