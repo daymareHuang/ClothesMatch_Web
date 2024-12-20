@@ -71,12 +71,12 @@ function Dashboard() {
                     {/* <!-- 網站功能導覽 --> */}
                     <div style={{ backgroundColor: '#F8F9F3' }} className="container-fluid my-1">
                         <div className="d-flex flex-nowrap align-items-center justify-content-evenly">
-                            <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}
+                            <Link to="/Closet" style={{ textDecoration: 'none', color: '#3b3a38' }}
                                 className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
                                 <img src="./src/assets/img/icon/closet.svg" alt="" className="img" width="26px" height="30px" />
                                 <span>我的衣櫃</span>
                             </Link>
-                            <Link to="/Login" style={{ textDecoration: 'none', color: '#3b3a38' }}
+                            <Link to="/dresswall" style={{ textDecoration: 'none', color: '#3b3a38' }}
                                 className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
                                 <img src="./src/assets/img/icon/instagram.svg" alt="" className="img" width="30px" />
                                 <span>穿搭分享</span>
@@ -85,7 +85,7 @@ function Dashboard() {
                                 <img src="./src/assets/img/icon/home.svg" alt="" className="img" width="30px" />
                                 <span>個人首頁</span>
                             </Link> */}
-                            <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}
+                            <Link to="/dresswall/yourself" style={{ textDecoration: 'none', color: '#3b3a38' }}
                                 className="d-flex flex-column my-3 align-items-center justify-content-center text-m" >
                                 <img src="https://www.dummyimage.com/30x30/aad4e3/000.jpg&text=30*30" alt=""
                                     className="img rounded-circle" width="30px" />
@@ -94,7 +94,7 @@ function Dashboard() {
                         </div>
                     </div >
                     {/* <!-- 個人功能 --> */}
-                    <div className="container-fluid d-flex justify-content-evenly py-3 mt-2 my-1 text-m"
+                    {/* <div className="container-fluid d-flex justify-content-evenly py-3 mt-2 my-1 text-m"
                         style={{ backgroundColor: '#F8F9F3' }}>
                         <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}>
                             <div className="d-flex flex-column align-items-center mt-1">
@@ -107,14 +107,14 @@ function Dashboard() {
                                 <img src="./src/assets/img/icon//add.svg" alt="" width="30px" />
                                 <p className="mb-0">個人穿搭</p>
                             </div>
-                        </Link>
+                        </Link> */}
                         {/* <Link to="#" style={{ textDecoration: 'none', color: '#3b3a38' }}>
                             <div className="d-flex flex-column align-items-center mt-1">
                                 <img src="./src/assets/img/icon//add.svg" alt="" width="30px" />
                                 <p className="mb-0">分享穿搭</p>
                             </div>
                         </Link> */}
-                    </div >
+                    {/* </div > */}
                     {/* <!-- 今日推薦 --> */}
                     < div className="container-fluid align-items-center my-2 py-2" style={{ backgroundColor: '#F8F9F3' }}>
                         <div className="align-items-center py-2">

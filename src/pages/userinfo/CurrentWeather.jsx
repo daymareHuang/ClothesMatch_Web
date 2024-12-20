@@ -62,17 +62,19 @@ function CurrentWeather() {
     return (
         <div className="container-fluid align-items-center text-m py-3"
             style={{ backgroundColor: '#F8F9F3' }}>
-            <div className="d-flex flex-nowrap align-items-center justify-content-around">
-                <div className="text-s my-1">
+            <div className="d-flex flex-nowrap align-items-center">
+                {/* <!-- 天氣圖標 --> */}
+                <div style={{ marginRight: "15rem" }}><img src="../../assets/img/icon/weather-temp.svg" alt="" width="100px" /></div>
+                <div className="text-xs my-1">
                     {/* 現在位置 */}
                     <div>{weatherData.city}</div>
                     {/* 天氣敘述 */}
                     <div>{weatherData.description}</div>
                     {/* <!-- 最高溫&最低溫 --> */}
                     <div>
-                        <span className="ms-4 text-center" id="maxTemp" style={{ fontSize: "32px" }}><b>{weatherData.maxTemp}℃</b></span>
+                        <span className="ms-4 text-center" id="maxTemp" style={{ fontSize: "25px" }}><b>{weatherData.maxTemp}℃</b></span>
                     </div>
-                    <div><span>最低溫：</span><span id="minTemp">{weatherData.maxTemp}℃</span></div>
+                    <div><span>最低溫：</span><span id="minTemp">{weatherData.minTemp}℃</span></div>
                     {/* <!-- 降雨機率&濕度 --> */}
                     <div>
                         <span>降雨機率：</span><span id="precipitation">{weatherData.precipitation}%</span>
@@ -81,8 +83,6 @@ function CurrentWeather() {
                         <span>體感：</span><span id="currentDescription">{weatherData.currentDescription}</span>
                     </div>
                 </div >
-                {/* <!-- 天氣圖標 --> */}
-                <div><img src="./src/assets/img/icon/weather-temp.svg" alt="" width="120px" /></div>
             </div>
             {/* 現在時間 */}
             <div><CurrentDate /></div>
