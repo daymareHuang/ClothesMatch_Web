@@ -30,6 +30,7 @@ function Closet() {
             items
               .filter((item) => item.type.PartID == 1)  // 把partID是1的部分濾出來
               .slice(-2)  // 取出最後兩筆資料
+              .reverse()  // 倒序排列 (後加的會出現在前面)
               .map((item) => (
                 <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
                   <img
@@ -53,6 +54,7 @@ function Closet() {
             items
               .filter((item) => item.type.PartID == 2)
               .slice(-2)
+              .reverse()
               .map((item) => (
                 <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
                   <img
@@ -76,6 +78,7 @@ function Closet() {
             items
               .filter((item) => item.type.PartID == 3)
               .slice(-2)
+              .reverse()
               .map((item) => (
                 <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
                   <img
@@ -99,6 +102,7 @@ function Closet() {
             items
               .filter((item) => item.type.PartID == 4)
               .slice(-2)
+              .reverse()
               .map((item) => (
                 <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
                   <img

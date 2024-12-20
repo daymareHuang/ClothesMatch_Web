@@ -6,29 +6,57 @@ function ClosetEditSingle() {
   const location = useLocation();
   const croppedImgURL = location.state?.croppedImgURL; // 從 state 中取出 croppedImgURL
 
+  const navigate = useNavigate();
   // here 需要加上取得使用者輸入的資料 => 再存入資料庫  （然後每次回到closet的畫面就是get所有資料出來～）
+  async function handleComplete() {
+    // 取得使用者輸入資料 => now faking
+    const inputObj = {
+      UID : 1,
+      Title: '燕麥色寬鬆外套',
+      Type: 3,
+      // Color: '灰色系'
+      // Brand: ''
+      Size: 'M',
+      EditedPhoto: croppedImgURL
+    };
 
+    // 使用fetch存入db中
+    const url = 'http://localhost/Dressify/public/api/item';
+    const response = await fetch(url, {
+      method: 'post',
+      body: JSON.stringify(inputObj),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    
+    if (response.ok) {
+      alert('成功新增單品！');
+      // 導回/Closet => okie
+      navigate('/Closet');  // 導回/Closet => okie  （PLUS -> 看Closet要不要顯示newly-added item!）
+    }
+  }
   return (
     <ClosetLayoutO>
-      <div className="fixed-top bg-light d-flex justify-content-center" style={{top: '50px'}}>
+      <div className="fixed-top bg-light d-flex justify-content-center" style={{ top: '50px' }}>
         {croppedImgURL ? (
           <img src={croppedImgURL} alt="pic" height="200px" />
         ) : (
           <p>沒有圖片被傳遞過來！</p>  // here之後可考慮替換成預設圖片
         )}
       </div>
-      
+
       <div style={{ paddingTop: '8px' }}></div>
       {/* <!-- input/select body for editing info --> */}
       <div className="container px-5" style={{ marginTop: '260px', height: '320px', overflowY: 'auto' }}>
         <div className="mb-3">
-          <label htmlFor="" className="form-label required">名稱</label>
-          <input className="form-control text-center" type="text" placeholder="請輸入名稱" required />
+          <label htmlFor="" className="form-label required text-s">名稱</label>
+          <input className="form-control text-center text-s" type="text" placeholder="請輸入名稱" required />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="" className="form-label required">類型</label>
-          <select name="type" className="form-select text-center" id="" required>
+          <label htmlFor="" className="form-label required text-s">類型</label>
+          <select name="type" className="form-select text-center text-s" id="" required>
             <option hidden>請選擇類型</option>
 
             <optgroup label="外套">
@@ -92,8 +120,8 @@ function ClosetEditSingle() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="" className="form-label">色系</label>
-          <select name="" id="" className="form-select text-center">
+          <label htmlFor="" className="form-label text-s">色系</label>
+          <select name="" id="" className="form-select text-center text-s">
             <option hidden>請選擇色系</option>
             <option value="">黑色系</option>
             <option value="">白色系</option>
@@ -108,21 +136,22 @@ function ClosetEditSingle() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="" className="form-label">品牌</label>
-          <select name="" id="" className="form-select text-center">
+          <label htmlFor="" className="form-label text-s">品牌</label>
+          <select name="" id="" className="form-select text-center text-s">
             <option hidden>請選擇品牌</option>
             <option value="">Uniqlo</option>
             <option value="">Zara</option>
             <option value="">AirSpace</option>
             <option value="">Nike</option>
             <option value="">Net</option>
+            <option value="">H&M</option>
             <option value="">其他</option>
           </select>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="" className="form-label">尺寸</label>
-          <select name="" id="" className="form-select text-center">
+          <label htmlFor="" className="form-label text-s">尺寸</label>
+          <select name="" id="" className="form-select text-center text-s">
             <option hidden>請選擇尺寸</option>
             <option value="">XXS</option>
             <option value="">XS</option>
@@ -136,10 +165,11 @@ function ClosetEditSingle() {
 
       </div>
 
-      <div id="progress" className="fixed-bottom border-top bg-light d-flex justify-content-between" style={{ height: '55px' }}>
-        <a href="./Crop" className="btn btn-dark m-2 rounded-pill">上一步</a>
+      <div id="progress" className="fixed-bottom border-top d-flex justify-content-between" style={{ height: '55px' }}>
+        <a href="./Crop" className="btn text-xs m-3 px-3 rounded-pill text-light" style={{ backgroundColor: 'var(--color-highlight)' }}>上一步</a>
         {/* 若使用者在此點擊「上一步」=> 會沒有將資料一同傳過去 */}
-        <a href="./Closet" className="btn btn-dark m-2 rounded-pill">完&nbsp;&nbsp;&nbsp;&nbsp;成</a>
+
+        <div onClick={handleComplete} className="btn text-xs m-3 px-3 rounded-pill text-light" style={{ backgroundColor: 'var(--color-highlight)' }}>完&nbsp;&nbsp;&nbsp;&nbsp;成</div>
       </div>
     </ClosetLayoutO>
   )

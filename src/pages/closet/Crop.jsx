@@ -40,7 +40,7 @@ function Crop() {
           aspectRatio: 0.75,
           viewMode: 1,
           dragMode: 'move',
-          cropBoxResizable: false,
+          cropBoxResizable: true,
         });
       };
       reader.readAsDataURL(file);
@@ -67,6 +67,8 @@ function Crop() {
     } else {
       console.error("Cropping is not initialized!");
     }
+
+    setActiveBtn('完成裁切');
   };
 
   const handleCropAgain = () => {
@@ -74,27 +76,35 @@ function Crop() {
     if (cropper != null) {
 
       setCroppedImgURL(null);
-  
+
       // 顯示 img
       imgPreviewRef.current.classList.remove("d-none");
       // 顯示 Cropper
       cropper.cropper.classList.remove("d-none");
-  
+
       // imgPreviewRef.current.classList.add("d-none");
       // cropper.cropper.classList.add("d-none");
     }
+
+    setActiveBtn('重新裁切');
   };
+
+  const [activeBtn, setActiveBtn] = useState('')
 
   return (
     <>
       <ClosetLayoutO>
-        <div style={{ paddingTop: '62px' }}></div>
+        <div style={{ paddingTop: '72px' }}></div>
 
-        <div className="m-3 d-flex flex-row-reverse">
-          <button id="cropButton" className="btn rounded-pill mx-1"
-            onClick={handleCrop}>完成裁切</button>
-          <button id="cropAgain" className="btn rounded-pill"
-            onClick={handleCropAgain}>重新裁切</button>
+        <div className="m-3 me-1 d-flex flex-row-reverse text-xs">
+          <button id="cropButton" className="btn rounded-pill mx-2 px-3"
+            onClick={handleCrop}
+            style={{ backgroundColor: activeBtn === '完成裁切' ? 'var(--color-highlight)' : 'var(--color-base)', color: activeBtn === '完成裁切' ? 'var(--color-white)' : 'var(--color-black)' }}
+            >完成裁切</button>
+          <button id="cropAgain" className="btn rounded-pill px-3"
+            onClick={handleCropAgain}
+            style={{ backgroundColor: activeBtn === '重新裁切' ? 'var(--color-highlight)' : 'var(--color-base)', color: activeBtn === '重新裁切' ? 'var(--color-white)' : 'var(--color-black)' }}
+            >重新裁切</button>
         </div>
 
         <div className="text-center py-3">
@@ -110,8 +120,8 @@ function Crop() {
 
 
         <div id="progress" className="fixed-bottom border-top d-flex justify-content-between" style={{ height: '55px' }}>
-          <a href="./Closet" className="btn m-2 rounded-pill align-middle">上一步</a>
-          <div onClick={handleNextStep} className="btn m-2 rounded-pill">下一步</div>
+          <a href="./Closet" className="btn text-xs m-3 px-3 rounded-pill text-light" style={{ backgroundColor: 'var(--color-highlight)' }}>上一步</a>
+          <div onClick={handleNextStep} className="btn m-3 px-3 rounded-pill text-light" style={{ backgroundColor: 'var(--color-highlight)' }}>下一步</div>
         </div>
 
       </ClosetLayoutO>
