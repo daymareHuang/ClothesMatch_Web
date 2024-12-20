@@ -1,44 +1,118 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ClosetLayout from '../../layouts/ClosetLayout'
 
 function Closet() {
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      const url = 'http://localhost/Dressify/public/api/items';
+      try {
+        const response = await fetch(url);
+        const jsonObj = await response.json();
+        console.log(jsonObj);
+        setItems(jsonObj);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    getData();
+  }, [])
+
   return (
     <ClosetLayout isActive="單品">
       <div style={{ paddingTop: '92px' }}></div>
-      <div className="pb-3 mb-3" style={{height: '540px', overflowY: 'auto'}}>
+
+      <div className="pb-3 mb-3" style={{ height: '540px', overflowY: 'auto' }}>
         {/* <!-- 部位 --> */}
         <div className="border-top">
-          <span className="px-3 md-18">上身</span>
-          {/* 應是每個單品的render，aka可以放到元件 or 用Array.map ㄉ８ */}
-          <a href="./check_single.html" className="text-light">
-            <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg1.jpg" alt="loading..." />
-          </a>
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg2.jpg" alt="loading..." />
-          <a href="/ClosetPart/1"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '30px' }} alt="more" /></a>
+          <span className="px-3 text-s">上身</span>
+          {items.length > 0 ? (
+            items
+              .filter((item) => item.type.PartID == 1)  // 把partID是1的部分濾出來
+              .slice(-2)  // 取出最後兩筆資料
+              .map((item) => (
+                <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
+                  <img
+                    className="border rounded my-2 me-4"
+                    width="125px"
+                    height="125px"
+                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`} // 動態圖片
+                  />
+                </a>
+              ))
+          ) : (
+            <p>Loading...</p>
+          )}
+          <a href="/ClosetPart/1"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '26px' }} alt="more" /></a>
         </div>
 
-        {/* <!-- 部位 --> */}
+        {/* <!-- 部位2 下身 --> */}
         <div className="border-top">
-          <span className="px-3 md-18">下身</span>
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg1.jpg" alt="loading..." />
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg2.jpg" alt="loading..." />
-          <a href="/ClosetPart/2"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '30px' }} alt="more" /></a>
+          <span className="px-3 text-s">下身</span>
+          {items.length > 0 ? (
+            items
+              .filter((item) => item.type.PartID == 2)
+              .slice(-2)
+              .map((item) => (
+                <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
+                  <img
+                    className="border rounded my-2 me-4"
+                    width="125px"
+                    height="125px"
+                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`}
+                  />
+                </a>
+              ))
+          ) : (
+            <p>Loading...</p>
+          )}
+          <a href="/ClosetPart/2"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '26px' }} alt="more" /></a>
         </div>
 
-        {/* <!-- 部位 --> */}
+        {/* <!-- 部位3 鞋子 --> */}
         <div className="border-top">
-          <span className="px-3 md-18">鞋子</span>
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg1.jpg" alt="loading..." />
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg2.jpg" alt="loading..." />
-          <a href="/ClosetPart/3"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '30px' }} alt="more" /></a>
+          <span className="px-3 text-s">鞋子</span>
+          {items.length > 0 ? (
+            items
+              .filter((item) => item.type.PartID == 3)
+              .slice(-2)
+              .map((item) => (
+                <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
+                  <img
+                    className="border rounded my-2 me-4"
+                    width="125px"
+                    height="125px"
+                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`}
+                  />
+                </a>
+              ))
+          ) : (
+            <p>Loading...</p>
+          )}
+          <a href="/ClosetPart/3"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '26px' }} alt="more" /></a>
         </div>
 
-        {/* <!-- 部位 --> */}
+        {/* <!-- 部位4 配件 --> */}
         <div className="border-top border-bottom">
-          <span className="px-3 md-18">配件</span>
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg1.jpg" alt="loading..." />
-          <img className="border rounded my-2 me-2" width="125px" height="125px" src="src/assets/img/eg2.jpg" alt="loading..." />
-          <a href="/ClosetPart/4"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '30px' }} alt="more" /></a>
+          <span className="px-3 text-s">配件</span>
+          {items.length > 0 ? (
+            items
+              .filter((item) => item.type.PartID == 4)
+              .slice(-2)
+              .map((item) => (
+                <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light">
+                  <img
+                    className="border rounded my-2 me-4"
+                    width="125px"
+                    height="125px"
+                    src={item.EditedPhoto || `src/assets/img/items/item${item.Type}.svg`}
+                  />
+                </a>
+              ))
+          ) : (
+            <p>Loading...</p>
+          )}
+          <a href="/ClosetPart/4"><img src="src/assets/img/icon/dot-pending.svg" style={{ width: '26px' }} alt="more" /></a>
         </div>
       </div>
     </ClosetLayout>
