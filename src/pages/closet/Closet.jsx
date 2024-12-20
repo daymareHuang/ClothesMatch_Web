@@ -9,7 +9,7 @@ function Closet() {
       try {
         const response = await fetch(url);
         const jsonObj = await response.json();
-        console.log(jsonObj);
+        // console.log(jsonObj);
         setItems(jsonObj);
       } catch (error) {
         console.error("Error fetching data:", error);
