@@ -16,12 +16,12 @@ function Login() {
         <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
           <div className="container-fluid pt-4" style={{ backgroundColor: '#F8F9F3' }}>
             {/* <!-- banner --> */}
-            <div className="container-fluid text-center">
+            <div className="container-fluid text-center mb-5">
               <p className="text-xl mb-0"><b>歡迎來到Dressify!</b></p>
               <p className="text-xs">穿搭，從此更簡單！Dressify，讓你每天都充滿風格！</p>
             </div>
             {/* <!-- input section --> */}
-            <div className="my-3">
+            <div className="mb-3">
               <LoginContent/>
             </div>
             {/* <!-- modification section --> */}

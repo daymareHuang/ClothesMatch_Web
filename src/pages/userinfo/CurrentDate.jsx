@@ -12,7 +12,7 @@ function getDate() {
   const formattedMonth = month < 10 ? `0${month}` : month;
   const formattedDate = date < 10 ? `0${date}` : date;
 
-  const weekdays = ["日", "一", "二", "三", "四", "五", "日"];
+  const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
   const dayOfWeek = weekdays[today.getDay()];
 
   return `星期${dayOfWeek} | ${year}年${formattedMonth}月${formattedDate}日`;
