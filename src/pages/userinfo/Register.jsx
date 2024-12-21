@@ -8,6 +8,7 @@ import GenderInput from './GenderInput'
 // import StylePreferenceInput from './StylePreferenceInput'
 // import AvatarUpload from "./AvatarUpload";
 import AddAvatar from "../../components/AddAvatar";
+import AvatarUpload from "./AvatarUpload";
 
 
 function Register() {
@@ -86,7 +87,7 @@ function Register() {
               {/* <!-- Avatar --> */}
               <div className="mt-3">
                 <label htmlFor="userAvatar" className="form-label">&nbsp;&nbsp;上傳頭貼</label>
-                <AddAvatar />
+                <AvatarUpload />
               </div>
               {/* <!-- button --> */}
               <div>
