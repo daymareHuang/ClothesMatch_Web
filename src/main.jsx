@@ -36,6 +36,7 @@ import ClosetMatch from './pages/closet/ClosetMatch.jsx';
 import ClosetPart from './pages/closet/ClosetPart.jsx';
 import Crop from './pages/closet/Crop.jsx';
 import ClosetEditSingle from './pages/closet/ClosetEditSingle.jsx';
+import ClosetCheckSingle from './pages/closet/ClosetCheckSingle.jsx';
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
   {
     path: "/ClosetEditSingle",
     element: <ClosetEditSingle/>,
+  },
+  {
+    path: "/ClosetCheckSingle",
+    element: <ClosetCheckSingle/>,
   },
 ]);
 
