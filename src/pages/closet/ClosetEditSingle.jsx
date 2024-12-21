@@ -1,39 +1,56 @@
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
 import ClosetLayoutO from '../../layouts/ClosetLayoutO'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function ClosetEditSingle() {
   const location = useLocation();
   const croppedImgURL = location.state?.croppedImgURL; // 從 state 中取出 croppedImgURL
+  const titleRef = useRef();
+  const typeRef = useRef();
+  const colorRef = useRef();
+  const brandRef = useRef();
+  const sizeRef = useRef();
 
   const navigate = useNavigate();
   // here 需要加上取得使用者輸入的資料 => 再存入資料庫  （然後每次回到closet的畫面就是get所有資料出來～）
   async function handleComplete() {
-    // 取得使用者輸入資料 => now faking
+    // 取得使用者輸入資料
+    const Title = titleRef.current.value;
+    const Type = typeRef.current.value === '0' ? null : typeRef.current.value;
+    const Color = colorRef.current.value === '0' ? null : colorRef.current.value;
+    const Brand = brandRef.current.value === '0' ? null : brandRef.current.value;
+    const Size = sizeRef.current.value === '0' ? null : sizeRef.current.value;
+    // console.log(colorRef.current.value);
+
     const inputObj = {
-      UID : 1,
-      Title: '燕麥色寬鬆外套',
-      Type: 3,
-      // Color: '灰色系'
-      // Brand: ''
-      Size: 'M',
+      UID: 1,  // 之後搭配auth驗證後，再看看怎麼調整～
+      Title,
+      Type,
+      // Color,  // 等db更新之後再加上～color
+      Brand,
+      Size,
       EditedPhoto: croppedImgURL
     };
+    // console.log(inputObj);
 
-    // 使用fetch存入db中
-    const url = 'http://localhost/Dressify/public/api/item';
-    const response = await fetch(url, {
-      method: 'post',
-      body: JSON.stringify(inputObj),
-      headers: {
-        'content-type': 'application/json'
+    if (Title !== '' && Type !== null) {
+      // 使用fetch存入db中
+      const url = 'http://localhost/Dressify/public/api/item';
+      const response = await fetch(url, {
+        method: 'post',
+        body: JSON.stringify(inputObj),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        alert('成功新增單品！');
+        // 導回/Closet => okie
+        navigate('/Closet');  // 導回/Closet => okie  （PLUS -> 看Closet要不要顯示newly-added item!）
       }
-    })
-    
-    if (response.ok) {
-      alert('成功新增單品！');
-      // 導回/Closet => okie
-      navigate('/Closet');  // 導回/Closet => okie  （PLUS -> 看Closet要不要顯示newly-added item!）
+    } else {
+      alert('有必填項目未輸入！');
     }
   }
   return (
@@ -51,68 +68,69 @@ function ClosetEditSingle() {
       <div className="container px-5" style={{ marginTop: '260px', height: '320px', overflowY: 'auto' }}>
         <div className="mb-3">
           <label htmlFor="" className="form-label required text-s">名稱</label>
-          <input className="form-control text-center text-s" type="text" placeholder="請輸入名稱" required />
+          <input ref={titleRef} className="form-control text-center text-s" type="text" placeholder="請輸入名稱" required />
         </div>
 
         <div className="mb-3">
           <label htmlFor="" className="form-label required text-s">類型</label>
-          <select name="type" className="form-select text-center text-s" id="" required>
-            <option hidden>請選擇類型</option>
+          <select ref={typeRef} name="type" className="form-select text-center text-s" id="" required>
+            <option hidden value="0">請選擇類型</option>
 
             <optgroup label="外套">
-              <option value="">羽絨外套</option>
-              <option value="">羽絨外套</option>
-              <option value="">大衣外套</option>
+              {/* here也可串接資料庫，但render速度可能就會偏慢？好處是更新資料庫前端就可以跟著改變 */}
+              <option value="1">羽絨外套</option>
+              <option value="2">羽絨外套</option>
+              <option value="3">大衣外套</option>
             </optgroup>
             <optgroup label="襯衫">
-              <option value="">商務襯衫</option>
-              <option value="">休閒襯衫</option>
-              <option value="">Polo衫</option>
+              <option value="4">商務襯衫</option>
+              <option value="5">休閒襯衫</option>
+              <option value="6">Polo衫</option>
             </optgroup>
             <optgroup label="T-shirt">
-              <option value="">長袖</option>
-              <option value="">短袖</option>
-              <option value="">連帽</option>
+              <option value="7">長袖</option>
+              <option value="8">短袖</option>
+              <option value="9">連帽</option>
             </optgroup>
             <optgroup label="其他">
-              <option value="">毛衣/針織</option>
-              <option value="">連身褲/裙</option>
+              <option value="10">毛衣/針織</option>
+              <option value="11">連身褲/裙</option>
             </optgroup>
 
             <optgroup label="褲子">
-              <option value="">牛仔褲</option>
-              <option value="">西裝褲</option>
-              <option value="">工裝褲</option>
-              <option value="">棉褲</option>
-              <option value="">九分褲</option>
-              <option value="">卡其褲</option>
-              <option value="">寬褲</option>
-              <option value="">短褲</option>
+              <option value="12">牛仔褲</option>
+              <option value="13">西裝褲</option>
+              <option value="14">工裝褲</option>
+              <option value="15">棉褲</option>
+              <option value="16">九分褲</option>
+              <option value="17">卡其褲</option>
+              <option value="18">寬褲</option>
+              <option value="19">短褲</option>
             </optgroup>
             <optgroup label="裙子">
-              <option value="">長裙</option>
-              <option value="">短裙</option>
+              <option value="20">長裙</option>
+              <option value="21">短裙</option>
             </optgroup>
 
-            <option value="">拖鞋/涼鞋</option>
-            <option value="">運動鞋</option>
-            <option value="">休閒鞋</option>
-            <option value="">高跟鞋</option>
-            <option value="">皮鞋</option>
-            <option value="">靴子</option>
+            <option value="22">拖鞋/涼鞋</option>
+            <option value="23">運動鞋</option>
+            <option value="24">休閒鞋</option>
+            <option value="25">高跟鞋</option>
+            <option value="26">皮鞋</option>
+            <option value="27">靴子</option>
 
             <optgroup label="帽子">
-              <option value="">毛帽</option>
-              <option value="">棒球帽</option>
-              <option value="">漁夫帽</option>
-              <option value="">貝雷帽</option>
-              <option value="">草帽</option>
-              <option value="">紳士帽</option>
+              <option value="28">毛帽</option>
+              <option value="29">棒球帽</option>
+              <option value="30">漁夫帽</option>
+              <option value="31">貝雷帽</option>
+              <option value="32">草帽</option>
+              <option value="33">紳士帽</option>
             </optgroup>
             <optgroup label="包包">
-              <option value="">後背包</option>
-              <option value="">側背包</option>
-              <option value="">手拿包</option>
+              <option value="34">後背包</option>
+              <option value="35">側背包</option>
+              <option value="36">手拿包</option>
             </optgroup>
 
           </select>
@@ -121,45 +139,45 @@ function ClosetEditSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">色系</label>
-          <select name="" id="" className="form-select text-center text-s">
-            <option hidden>請選擇色系</option>
-            <option value="">黑色系</option>
-            <option value="">白色系</option>
-            <option value="">灰色系</option>
-            <option value="">紅色系</option>
-            <option value="">黃色系</option>
-            <option value="">綠色系</option>
-            <option value="">藍色系</option>
-            <option value="">橘色系</option>
-            <option value="">紫色系</option>
+          <select ref={colorRef} name="color" id="" className="form-select text-center text-s">
+            <option hidden value="0">請選擇色系</option>
+            <option >黑色系</option>
+            <option >白色系</option>
+            <option >灰色系</option>
+            <option >紅色系</option>
+            <option >黃色系</option>
+            <option >綠色系</option>
+            <option >藍色系</option>
+            <option >橘色系</option>
+            <option >紫色系</option>
           </select>
         </div>
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">品牌</label>
-          <select name="" id="" className="form-select text-center text-s">
-            <option hidden>請選擇品牌</option>
-            <option value="">Uniqlo</option>
-            <option value="">Zara</option>
-            <option value="">AirSpace</option>
-            <option value="">Nike</option>
-            <option value="">Net</option>
-            <option value="">H&M</option>
-            <option value="">其他</option>
+          <select ref={brandRef} name="brand" id="" className="form-select text-center text-s">
+            <option hidden value="0">請選擇品牌</option>
+            <option >Uniqlo</option>
+            <option >Zara</option>
+            <option >AirSpace</option>
+            <option >Nike</option>
+            <option >Net</option>
+            <option >H&M</option>
+            <option >其他</option>
           </select>
         </div>
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">尺寸</label>
-          <select name="" id="" className="form-select text-center text-s">
-            <option hidden>請選擇尺寸</option>
-            <option value="">XXS</option>
-            <option value="">XS</option>
-            <option value="">S</option>
-            <option value="">M</option>
-            <option value="">L</option>
-            <option value="">XL</option>
-            <option value="">XXL</option>
+          <select ref={sizeRef} name="size" id="" className="form-select text-center text-s">
+            <option hidden value="0">請選擇尺寸</option>
+            <option >XXS</option>
+            <option >XS</option>
+            <option >S</option>
+            <option >M</option>
+            <option >L</option>
+            <option >XL</option>
+            <option >XXL</option>
           </select>
         </div>
 
