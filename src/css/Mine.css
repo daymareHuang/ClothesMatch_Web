@@ -65,3 +65,9 @@ label.required::before {
   content: '*';
   color: red;
 }
+
+/* ClosetCheckSingle/相關穿搭/我的穿搭裡的eg.1, 2... */
+.myO {
+  /* border: 2px solid var(--color-highlight); */
+  border: 3px solid var(--color-second);
+}

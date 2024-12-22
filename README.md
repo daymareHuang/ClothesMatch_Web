@@ -44,11 +44,12 @@ Router 名稱
 * ClosetMatch.jsx  (/ClosetMatch)
 * ClosetPart.jsx  (/ClosetPart/:part)
 * AddPop.js（沒有放router)
+* ClosetSearch.jsx（沒有放router)
 * Crop.jsx  (/Crop)
 * ClosetEditSingle.jsx  (/ClosetEditSingle)
-* ClosetCheckSingle.jsx
+* ClosetCheckSingle.jsx  (/ClosetCheckSingle)
 * ClosetAddItems.jsx
-* ClosetSearch.jsx
+
 
 
 田

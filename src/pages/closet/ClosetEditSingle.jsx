@@ -12,7 +12,6 @@ function ClosetEditSingle() {
   const sizeRef = useRef();
 
   const navigate = useNavigate();
-  // here 需要加上取得使用者輸入的資料 => 再存入資料庫  （然後每次回到closet的畫面就是get所有資料出來～）
   async function handleComplete() {
     // 取得使用者輸入資料
     const Title = titleRef.current.value;
