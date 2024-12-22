@@ -1,6 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import ClosetLayoutN from '../../layouts/ClosetLayoutN'
 import Post from '../../components/Post'
+import { useParams } from 'react-router-dom';
+
+import pencil from '../../assets/img/icon/pencil.svg';
+import cross from '../..//assets/img/icon/cross.svg';
+import check from '../..//assets/img/icon/check.svg';
+
 
 function ClosetCheckSingle() {
   const titleRef = useRef();
@@ -30,7 +36,6 @@ function ClosetCheckSingle() {
     }
   }
 
-  // here需連接api put data
   function handleConfirmEdit() {
     // 這裡一樣可以下if(confirm('確定完成編輯？')){}
     // 要多一個拿到上面editing中 user's input並改寫edited裡面的value！
@@ -51,6 +56,8 @@ function ClosetCheckSingle() {
     edited[3].value = editedBrand;
     edited[4].value = editedSize;
 
+    // here需連接item ㄉ api （put data  **要注意null/0的部分？
+
     // 找到class='edited'的部分，並顯示出來
     edited.forEach(elem => {
       elem.classList.remove('d-none');
@@ -63,7 +70,7 @@ function ClosetCheckSingle() {
   }
 
   // 處理我的穿搭／推薦穿搭的隱藏、顯示
-  // -1 點擊「推薦穿搭」
+  // -1 點擊「推薦穿搭」  // 連接outfit ㄉ api
   function handleShare() {
     // 更改標頭文字顏色
     document.getElementById('sShare').classList.remove('text-secondary');
@@ -74,7 +81,7 @@ function ClosetCheckSingle() {
     document.getElementById('sMyArea').classList.add('d-none');
   }
 
-  // -2 點擊「我的穿搭」
+  // -2 點擊「我的穿搭」  // 連接post ㄉ api
   function handleMy() {
     // 更改標頭文字顏色
     document.getElementById('sMy').classList.remove('text-secondary');
@@ -85,18 +92,35 @@ function ClosetCheckSingle() {
     document.getElementById('sShareArea').classList.add('d-none');
   }
 
+  const { itemId } = useParams();
+  const [item, setItem] = useState({});
+  useEffect(() => {
+    async function getData() {
+      const url = `http://localhost/Dressify/public/api/item/${itemId}`;
+      try {
+        const response = await fetch(url);
+        const jsonObj = await response.json();
+        // console.log(jsonObj);
+        setItem(jsonObj);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    getData();
+  }, [])
+
   return (
     <ClosetLayoutN>
       <div className="container" >
         {/* <!-- header --> */}
         <div className="fixed-top bg-light my-5" style={{ top: '14px' }}>
           <div className="d-flex justify-content-between align-items-center border-bottom">
-            <div ref={titleRef} className="px-4 p-3 text-m"><b>單品ㄉ名稱😳</b></div>
+            <div ref={titleRef} className="p-3 text-m"><b>{item.Title}</b></div>
 
-            <a href="/Closet" className="px-4"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" /></a>
+            <a href="/Closet" className="px-3"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" /></a>
           </div>
           <div className="p-3 text-center border-bottom" style={{ backgroundColor: 'var(--color-base)' }}>
-            <img className="border rounded bg-white" width="175px" height="175px" src="src/assets/img/eg.jpg" alt="loading..." />
+            <img className="border rounded bg-white" width="175px" height="175px" src={item.EditedPhoto || `/items/item${item.Type}.svg`} alt="loading..." />
           </div>
         </div>
 
@@ -107,11 +131,11 @@ function ClosetCheckSingle() {
       <div className="px-3 p-2 border-bottom d-flex justify-content-between sticky-top" style={{ backgroundColor: 'var(--color-second)' }}>
         <div>
           <span className="pe-2 text-s"><b>單品資訊</b></span>
-          <img className="ms-1 align-middle pb-1 edited" src="src/assets/img/icon/pencil.svg" alt="edit" style={{ width: '18px' }} onClick={handleEdit} />
+          <img className="ms-1 align-middle pb-1 edited" src={pencil} alt="edit" style={{ width: '18px' }} onClick={handleEdit} />
         </div>
         <div className="d-none editing">
-          <img className="me-2" src="src/assets/img/icon/cross.svg" alt="cancel" style={{ width: '18px' }} onClick={handleCancelEdit} />
-          <img id="confirmEditIcon" className='me-2' src="src/assets/img/icon/check.svg" alt="confirm" style={{ width: '18px' }} onClick={handleConfirmEdit} />
+          <img className="me-2" src={cross} alt="cancel" style={{ width: '18px' }} onClick={handleCancelEdit} />
+          <img id="confirmEditIcon" className='me-2' src={check} alt="confirm" style={{ width: '18px' }} onClick={handleConfirmEdit} />
         </div>
       </div>
 
@@ -120,15 +144,17 @@ function ClosetCheckSingle() {
 
         <div className="mb-3 d-none editing">
           <label htmlFor="" className="form-label required text-s">名稱</label>
-          <input className="form-control text-s" type="text" defaultValue="單品ㄉ名稱😳" required />
+          <input className="form-control text-s" type="text" defaultValue={item.Title} required />
         </div>
 
         <div className="mb-3">
           <label htmlFor="" className="form-label required text-s">類型</label>
-          <input className="form-control text-center edited text-s" type="text" value="長裙" disabled />
+          <input className="form-control text-center edited text-s" type="text" defaultValue={item.type?.Name} disabled />
 
-          <select name="type" className="form-select text-center d-none editing text-s" id="" required>
-            <option hidden value="0">請選擇類型</option>
+          <select name="type" className="form-select text-center d-none editing text-s"
+            id="" required value={item.Type}
+            onChange={(e) => setItem({ ...item, Type: e.target.value })} // 更新選中的值
+          >
 
             <optgroup label="外套">
               {/* here也可串接資料庫，但render速度可能就會偏慢？好處是更新資料庫前端就可以跟著改變 */}
@@ -162,7 +188,7 @@ function ClosetCheckSingle() {
               <option value="19">短褲</option>
             </optgroup>
             <optgroup label="裙子">
-              <option value="20" selected>長裙</option>
+              <option value="20">長裙</option>
               <option value="21">短裙</option>
             </optgroup>
 
@@ -194,10 +220,13 @@ function ClosetCheckSingle() {
           <label htmlFor="" className="form-label text-s">色系</label>
           <input className="form-control text-center edited text-s" type="text" value="白色系" disabled />
 
-          <select name="" id="" className="form-select text-center d-none editing text-s">
-            <option hidden value="0">請選擇色系</option>
+          <select name="" id="" className="form-select text-center d-none editing text-s"
+          // value={item.Color}
+          // onChange={(e) => setItem({ ...item, Color: e.target.value })}
+          >
+            <option value="0">請選擇色系</option>
             <option >黑色系</option>
-            <option selected>白色系</option>
+            <option >白色系</option>
             <option >灰色系</option>
             <option >紅色系</option>
             <option >黃色系</option>
@@ -210,15 +239,20 @@ function ClosetCheckSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">品牌</label>
-          <input className="form-control text-center edited text-s" type="text" value="uniqlo" disabled />
+          <input className="form-control text-center edited text-s" type="text" 
+            value={item.Brand || '請選擇品牌'} disabled />
 
-          <select className="form-select text-center d-none editing text-s">
-            <option hidden value="0">請選擇品牌</option>
-            <option selected>Uniqlo</option>
+          <select className="form-select text-center d-none editing text-s"
+            value={item.Brand || 0}
+            onChange={(e) => setItem({ ...item, Brand: e.target.value })}
+          >
+            <option value="0">請選擇品牌</option>
+            <option >Uniqlo</option>
             <option >Zara</option>
             <option >AirSpace</option>
+            <option >Beams</option>
             <option >Nike</option>
-            <option >Net</option>
+            <option >NET</option>
             <option >H&M</option>
             <option >其他</option>
           </select>
@@ -226,13 +260,17 @@ function ClosetCheckSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">尺寸</label>
-          <input className="form-control text-center edited text-s" type="text" value="S" disabled />
+          <input className="form-control text-center edited text-s" type="text"
+            value={item.Size || '請選擇尺寸'} disabled />
 
-          <select name="" id="" className="form-select text-center d-none editing text-s">
-            <option hidden value="0">請選擇尺寸</option>
+          <select name="" id="" className="form-select text-center d-none editing text-s"
+            value={item.Size || 0}
+            onChange={(e) => setItem({ ...item, Size: e.target.value })}
+          >
+            <option value="0">請選擇尺寸</option>
             <option >XXS</option>
             <option >XS</option>
-            <option selected>S</option>
+            <option >S</option>
             <option >M</option>
             <option >L</option>
             <option >XL</option>

@@ -46,7 +46,7 @@ function ClosetPart() {
               items
                 .filter((item) => item.type.PartID == part)  // 把partID是1的部分濾出來
                 .map((item) => (
-                  <a key={item.ItemID} href={`./check_single.html?id=${item.ItemID}`} className="text-light col-6">
+                  <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light col-6">
                     <img
                       className="border rounded"
                       width="160px"

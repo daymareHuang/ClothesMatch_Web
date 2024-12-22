@@ -124,7 +124,7 @@ const router = createBrowserRouter([
     element: <ClosetEditSingle/>,
   },
   {
-    path: "/ClosetCheckSingle",
+    path: "/ClosetCheckSingle/:itemId",
     element: <ClosetCheckSingle/>,
   },
 ]);
