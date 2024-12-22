@@ -1,7 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
-function ClosetSearch({close}) {
+function ClosetSearch({ close }) {
   const resultRef = useRef();
+  const keywordRef = useRef();
+
   function handleOverlay() {
     // 如果點擊的目標不在內部元素，觸發關閉
     if (
@@ -15,14 +17,26 @@ function ClosetSearch({close}) {
     }
   }
 
-  function handleSearch() {
-    
-    // 點擊後更新搜尋的結果  （之後串接api再調整？）
-    resultRef.current.innerHTML = `<img
-                      width="160px"
-                      height="160px"
-                      src="src/assets/img/eg.jpg"
-                    />`;
+  const [result, setResult] = useState('');
+
+  async function handleSearch() {
+    // 取得使用者輸入的input
+    const keyword = keywordRef.current.value;
+
+    // 送出fetch拿回相符合的items
+    const url = `http://localhost/Dressify/public/api/items/search?keyword=${keyword}`;
+
+    const response = await fetch(url);
+    const jsonObj = await response.json();
+    // console.log(jsonObj);
+    setResult(jsonObj);
+
+    // // 點擊後更新搜尋的結果  （之後串接api再調整？）
+    // resultRef.current.innerHTML = `<img
+    //                   width="160px"
+    //                   height="160px"
+    //                   src="src/assets/img/eg.jpg"
+    //                 />`;
   }
 
   return (
@@ -33,11 +47,11 @@ function ClosetSearch({close}) {
         <div className="container-fluid fixed-top bg-light py-3" style={{ top: '50px' }}>
           <div className="d-flex justify-content-between align-items-center pt-1">
             <div>
-              <input className="form-control rounded-pill text-m" type="text" placeholder="白色襯衫" style={{ width: '320px' }} />
+              <input ref={keywordRef} className="form-control rounded-pill text-m" type="text" placeholder=" 請輸入關鍵字：白色 襯衫" style={{ width: '320px' }} />
             </div>
 
             <div>
-              <img src="src/assets/img/icon/search.svg" className='me-2' style={{ width: '20px' }} alt="search" onClick={handleSearch}/>
+              <img src="src/assets/img/icon/search.svg" className='me-2' style={{ width: '20px' }} alt="search" onClick={handleSearch} />
             </div>
           </div>
         </div>
@@ -47,10 +61,28 @@ function ClosetSearch({close}) {
 
         <div id="searchOverlay" onClick={handleOverlay} className="bg-dark bg-opacity-25" style={{ height: '600px' }}>
           {/* seach result */}
-          <div ref={resultRef} className="pt-2 pb-3 mb-3 rounded-bottom-4" style={{ height: '280px', backgroundColor: 'var(--color-base)' }}>
-            serach result // 搜尋後的結果呈現在這邊？
-          </div>
+          <div ref={resultRef} className=" rounded-bottom-4" style={{ height: '262px', backgroundColor: 'var(--color-base)' }}>
+            
+            <div className="rounded-4 px-3">
+              <div className="d-flex" style={{ width: '350px', overflowX: 'auto' }}>
+                {result.length > 0 && (
+                  result
+                    .map((item, index) => (
+                      <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
+                        <img
+                          className={`rounded my-2 ${index == result.length - 1 ? '' : 'me-4'}`}
+                          width="230px"
+                          height="230px"
+                          style={{ border: '2px solid var(--color-second' }}
+                          src={item.EditedPhoto || `/items/item${item.Type}.svg`}
+                        />
+                      </a>
+                    ))
+                )}
+              </div>
+            </div>
 
+          </div>
         </div>
       </div>
     </>
