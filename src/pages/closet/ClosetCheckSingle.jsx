@@ -49,24 +49,64 @@ function ClosetCheckSingle() {
     const editedBrand = editing[4].options[editing[4].selectedIndex].text;
     const editedSize = editing[5].options[editing[5].selectedIndex].text;
 
-    // 把上面拿到的更改後的value放在input的value中（就是之後會render的地方～）
-    titleRef.current.innerText = editedName;
-    edited[1].value = editedType;
-    edited[2].value = editedColor;
-    edited[3].value = editedBrand;
-    edited[4].value = editedSize;
-
     // here需連接item ㄉ api （put data  **要注意null/0的部分？
+    // 將更新後資料依據格式寫入資料庫
+    const savedType = editing[2].options[editing[2].selectedIndex].value;
+    // const savedColor = editing[3].options[editing[3].selectedIndex].value == 0 ? null : editing[3].options[editing[3].selectedIndex].text;
+    const savedBrand = editing[4].options[editing[4].selectedIndex].value == 0 ? null : editing[4].options[editing[4].selectedIndex].text;
+    const savedSize = editing[5].options[editing[5].selectedIndex].value == 0 ? null : editing[5].options[editing[5].selectedIndex].text;
 
-    // 找到class='edited'的部分，並顯示出來
-    edited.forEach(elem => {
-      elem.classList.remove('d-none');
-    })
+    // 傳遞至db的資料
+    const updatedObj = {
+      Title: editedName,
+      Type: savedType,
+      // Color: savedColor,
+      Brand: savedBrand,
+      Size: savedSize
+    }
+    // console.log(updatedObj);
 
-    // 找到class='editing'的部分，讓他們消失
-    editing.forEach(elem => {
-      elem.classList.add('d-none');
-    })
+    async function updateData() {
+      const url = `http://localhost/Dressify/public/api/item/${itemId}`;
+      try {
+        const response = await fetch(url, {
+          method: 'put',
+          body: JSON.stringify(updatedObj),
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+        // put成功的話，呈現前端完成畫面～
+        if (response.ok) {
+          // 找到class='edited'的部分，並顯示出來
+          edited.forEach(elem => {
+            elem.classList.remove('d-none');
+          })
+
+          // 找到class='editing'的部分，讓他們消失
+          editing.forEach(elem => {
+            elem.classList.add('d-none');
+          })
+        }
+      }
+      catch (error) {
+        console.error("Error putting data:", error);
+      }
+    }
+
+    if (editedName !== '') {
+      // 把上面拿到的更改後的value放在input的value中（處理前端呈現）
+      titleRef.current.innerText = editedName;
+      edited[1].value = editedType;
+      edited[2].value = editedColor;
+      edited[3].value = editedBrand;
+      edited[4].value = editedSize;
+
+      updateData();
+    } else {
+      alert('有必填項目未輸入！')
+    }
+
   }
 
   // 處理我的穿搭／推薦穿搭的隱藏、顯示
@@ -115,7 +155,7 @@ function ClosetCheckSingle() {
         {/* <!-- header --> */}
         <div className="fixed-top bg-light my-5" style={{ top: '14px' }}>
           <div className="d-flex justify-content-between align-items-center border-bottom">
-            <div ref={titleRef} className="p-3 text-m"><b>{item.Title}</b></div>
+            <b><div ref={titleRef} className="p-3 text-m">{item.Title}</div></b>
 
             <a href="/Closet" className="px-3"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" /></a>
           </div>
@@ -159,7 +199,7 @@ function ClosetCheckSingle() {
             <optgroup label="外套">
               {/* here也可串接資料庫，但render速度可能就會偏慢？好處是更新資料庫前端就可以跟著改變 */}
               <option value="1">羽絨外套</option>
-              <option value="2">羽絨外套</option>
+              <option value="2">西裝外套</option>
               <option value="3">大衣外套</option>
             </optgroup>
             <optgroup label="襯衫">
@@ -239,7 +279,7 @@ function ClosetCheckSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">品牌</label>
-          <input className="form-control text-center edited text-s" type="text" 
+          <input className="form-control text-center edited text-s" type="text"
             value={item.Brand || '請選擇品牌'} disabled />
 
           <select className="form-select text-center d-none editing text-s"
