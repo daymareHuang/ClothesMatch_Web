@@ -49,7 +49,6 @@ function ClosetCheckSingle() {
     const editedBrand = editing[4].options[editing[4].selectedIndex].text;
     const editedSize = editing[5].options[editing[5].selectedIndex].text;
 
-    // here需連接item ㄉ api （put data  **要注意null/0的部分？
     // 將更新後資料依據格式寫入資料庫
     const savedType = editing[2].options[editing[2].selectedIndex].value;
     // const savedColor = editing[3].options[editing[3].selectedIndex].value == 0 ? null : editing[3].options[editing[3].selectedIndex].text;
