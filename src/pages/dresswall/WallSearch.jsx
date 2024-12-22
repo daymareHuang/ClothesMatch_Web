@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MyLayout from '../../layouts/MyLayout'
-import PopularButton from '../../components/PopularButton';
+import PopularButton from '../../components/PopularButton'
+import '../../css/Dressify.css'
+import '../../css/dresswall.css'
+
 
 
 function Wallsearch() {
@@ -76,16 +79,16 @@ function Wallsearch() {
         {/* Search Modal */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header style={{backgroundColor:"#f9f8f4"}}>
-            <Modal.Title >進階篩選</Modal.Title>
+            <Modal.Title className="text-l fw-bold" >進階篩選</Modal.Title>
             <img className='iconsmall ms-auto' variant="secondary" onClick={handleClose} src="../src/assets/img/icon/cross-circle.svg" alt="" />
           </Modal.Header>
           <Modal.Body style={{backgroundColor:"#f9f8f4"}}>
 
             {/* <!-- type of the clothes  --> */}
             <div className="row">
-              <div className="col-2"><label htmlFor="">類型:</label></div>
-              <div className="col-10">
-                <select className="w-100" name="clothesType" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
+              <div className="col-2 text-s text-black">類型:</div>
+              <div className="col-10 text-s">
+                <select className="w-100 rounded-pill" name="clothesType" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個類型</option>
                   <optgroup label="外套">
                     <option value="羽絨外套">羽絨外套</option>
@@ -138,9 +141,9 @@ function Wallsearch() {
 
             {/* <!-- color  --> */}
             <div className="row">
-              <div className="col-2">顏色:</div>
-              <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
+              <div className="col-2 text-s">顏色:</div>
+              <div className="col-10 text-s">
+                <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個顏色</option>
                   <option value="white">白色</option>
                   <option value="gray">灰色</option>
@@ -159,9 +162,9 @@ function Wallsearch() {
 
             {/* <!-- brand  --> */}
             <div className="row">
-              <div className="col-2">品牌:</div>
-              <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
+              <div className="col-2 text-s">品牌:</div>
+              <div className="col-10 text-s">
+                <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個品牌</option>
                   <option value="Uniqlo">Uniqlo</option>
                   <option value="Zara">Zara</option>
@@ -177,9 +180,9 @@ function Wallsearch() {
 
             {/* <!-- 褲子的尺寸 尺碼  --> */}
             <div className="row">
-              <div className="col-2">尺吋:</div>
-              <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
+              <div className="col-2 text-s">尺吋:</div>
+              <div className="col-10 text-s">
+                <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個尺寸</option>
                   <option value="XS">XS</option>
                   <option value="S">S</option>
@@ -194,9 +197,9 @@ function Wallsearch() {
             <br />
 
             <div className="row">
-              <div className="col-2">季節:</div>
-              <div className="col-10">
-                <select className="w-100" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
+              <div className="col-2 text-s">季節:</div>
+              <div className="col-10 text-s">
+                <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{backgroundColor:"#ebe3e0"}}>
                   <option value="default" disabled >請選擇一個季節</option>
                   <option value="Spring">春</option>
                   <option value="Summer">夏</option>
