@@ -12,22 +12,22 @@ export const OutfitContextProvider = (props) => {
     const [season, setSeason] = useState("");
 
     // 照片 // 獲取 BLOB Image
-    useEffect(() => {
-        let takePhoto = async function () {
-            const url = "./src/assets/img/outfit.jpg"
-            let response = await fetch(url) //使用fetch 去取得資料
-            const base64 = await response.blob() //將取得的資料 存放到 BLOB
+    // useEffect(() => {
+    //     let takePhoto = async function () {
+    //         const url = "./src/assets/img/outfit.jpg"
+    //         let response = await fetch(url) //使用fetch 去取得資料
+    //         const base64 = await response.blob() //將取得的資料 存放到 BLOB
 
-            if (base64) {
-                const reader = new FileReader()
-                reader.onload = () => {
-                    setImageSrc(reader.result)
-                }
-                reader.readAsDataURL(base64)
-            }
-        }
-        takePhoto();
-    }, [])
+    //         if (base64) {
+    //             const reader = new FileReader()
+    //             reader.onload = () => {
+    //                 setImageSrc(reader.result)
+    //             }
+    //             reader.readAsDataURL(base64)
+    //         }
+    //     }
+    //     takePhoto();
+    // }, [])
     const [imageSrc, setImageSrc] = useState(null)
     const [CroppedSrc, setCroppedSrc] = useState(null)
 
@@ -69,7 +69,8 @@ export const OutfitContextProvider = (props) => {
             tagList, setTagList,
             imageSrc, filterStyle,
             CroppedSrc, setCroppedSrc,
-            brightness, setBrightness, saturate, setSaturate, contrast, setContrast
+            brightness, setBrightness, saturate, setSaturate, contrast, setContrast,
+            setImageSrc
         }} >
             {props.children}
         </OutfitContext.Provider>

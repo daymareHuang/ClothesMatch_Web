@@ -28,7 +28,7 @@ function ClosetMatch() {
               <p className="mb-1 ps-1 md-18">{outfit.Title}</p>
               <img className="border rounded" src={outfit.EditedPhoto} width="160" height="220" alt="loading..." />
             </div>
-            )
+          )
           )
         ) : <p>Loading...</p>
         }

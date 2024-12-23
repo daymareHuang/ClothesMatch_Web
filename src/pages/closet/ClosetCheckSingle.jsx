@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import ClosetLayoutN from '../../layouts/ClosetLayoutN'
 import Post from '../../components/Post'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import pencil from '../../assets/img/icon/pencil.svg';
 import cross from '../..//assets/img/icon/cross.svg';
@@ -148,6 +148,10 @@ function ClosetCheckSingle() {
     getData();
   }, [])
 
+  const navigate = useNavigate();
+  function handleLastPage() {
+    navigate(-1);
+  }
   return (
     <ClosetLayoutN>
       <div className="container" >
@@ -156,7 +160,7 @@ function ClosetCheckSingle() {
           <div className="d-flex justify-content-between align-items-center border-bottom">
             <b><div ref={titleRef} className="p-3 text-m">{item.Title}</div></b>
 
-            <a href="/Closet" className="px-3"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" /></a>
+            <a className="px-3"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" onClick={handleLastPage} /></a>
           </div>
           <div className="p-3 text-center border-bottom" style={{ backgroundColor: 'var(--color-base)' }}>
             <img className="border rounded bg-white" width="175px" height="175px" src={item.EditedPhoto || `/items/item${item.Type}.svg`} alt="loading..." />

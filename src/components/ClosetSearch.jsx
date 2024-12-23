@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 
+// 要考慮不要以component的方式嗎？這樣才有自己的搜尋頁面～
 function ClosetSearch({ close }) {
   const resultRef = useRef();
   const keywordRef = useRef();
@@ -30,13 +31,12 @@ function ClosetSearch({ close }) {
     const jsonObj = await response.json();
     // console.log(jsonObj);
     setResult(jsonObj);
+  }
 
-    // // 點擊後更新搜尋的結果  （之後串接api再調整？）
-    // resultRef.current.innerHTML = `<img
-    //                   width="160px"
-    //                   height="160px"
-    //                   src="src/assets/img/eg.jpg"
-    //                 />`;
+  function handleKeyDown(event) {
+    if(event.key == 'Enter') {
+      handleSearch();
+    }
   }
 
   return (
@@ -47,7 +47,8 @@ function ClosetSearch({ close }) {
         <div className="container-fluid fixed-top bg-light py-3" style={{ top: '50px' }}>
           <div className="d-flex justify-content-between align-items-center pt-1">
             <div>
-              <input ref={keywordRef} className="form-control rounded-pill text-m" type="text" placeholder=" 請輸入關鍵字：白色 襯衫" style={{ width: '320px' }} />
+              <input ref={keywordRef} className="form-control rounded-pill text-m" type="text" placeholder=" 請輸入關鍵字：白色 襯衫" style={{ width: '320px' }} 
+              onKeyDown={handleKeyDown} />
             </div>
 
             <div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Dressify.css'
 
@@ -9,7 +9,23 @@ import MyLayout from '../../layouts/MyLayout';
 
 
 function Image() {
-    const { imageSrc, CroppedSrc, filterStyle } = useContext(OutfitContext)
+    const { imageSrc, CroppedSrc, filterStyle, setImageSrc } = useContext(OutfitContext)
+
+    const location = useLocation();
+    useEffect(() => {
+        const file = location.state?.file; // 取得傳遞過來的檔案
+        // console.log(file);
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // 取得傳過來的圖片Base64檔案
+                // console.log(e.target.result);
+                setImageSrc(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }, [])
 
     let navigate = useNavigate();
 
@@ -27,7 +43,7 @@ function Image() {
     return (
         <MyLayout>
             {/* 暫時 */}
-            <div className='w-100' style={{height:"50px"}}></div>
+            <div className='w-100' style={{ height: "50px" }}></div>
             <div className="d-flex flex-column px-5" style={{ height: '543px' }}>
                 <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭照片</span>
 
