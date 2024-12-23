@@ -6,7 +6,7 @@ import '../../css/dresswall.css'
 import MyLayout from '../../layouts/MyLayout'
 import AddAvatar from "../../components/AddAvatar";
 import { Tabs, Tab } from 'react-bootstrap';
-import $ from 'jquery'
+// import $ from 'jquery'
 
 
 

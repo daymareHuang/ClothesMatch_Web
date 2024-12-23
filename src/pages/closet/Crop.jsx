@@ -97,11 +97,11 @@ function Crop() {
         <div style={{ paddingTop: '72px' }}></div>
 
         <div className="m-3 me-1 d-flex flex-row-reverse text-xs">
-          <button id="cropButton" className="btn rounded-pill mx-2 px-3"
+          <button id="cropButton" className="btn rounded-pill mx-2 px-3 ssbtn"
             onClick={handleCrop}
             style={{ backgroundColor: activeBtn === '完成裁切' ? 'var(--color-highlight)' : 'var(--color-base)', color: activeBtn === '完成裁切' ? 'var(--color-white)' : 'var(--color-black)' }}
             >完成裁切</button>
-          <button id="cropAgain" className="btn rounded-pill px-3"
+          <button id="cropAgain" className="btn rounded-pill px-3 ssbtn"
             onClick={handleCropAgain}
             style={{ backgroundColor: activeBtn === '重新裁切' ? 'var(--color-highlight)' : 'var(--color-base)', color: activeBtn === '重新裁切' ? 'var(--color-white)' : 'var(--color-black)' }}
             >重新裁切</button>
