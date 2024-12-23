@@ -6,14 +6,69 @@ import '../../css/dresswall.css'
 import MyLayout from '../../layouts/MyLayout'
 import AddAvatar from "../../components/AddAvatar";
 import { Tabs, Tab } from 'react-bootstrap';
+import $ from 'jquery'
 
 
 
 function Selfpage() {
     const [show, setShow] = useState(false);
+    const [UID, setUID] = useState(0);
+    const [userName,setUserName] = useState('');
+    const [userImg, setUserImg] = useState('');
+    const [postNumber,setPostNumber] = useState(0);
+    const [fanNumber, setFanNumber] = useState(0);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const url ='http://localhost/Dressify/public/api/userself?UID=1';
+    
+
+    // $.post(url,{"UID": 1},
+    //     function (result){
+    //         console.log(result);
+    //     })
+    //     .done(function(data){
+    //         console.log(data)
+    //         console.log("Data Loaded:" + data)
+    //     })
+   
+
+    $.ajax({
+        url:'http://localhost/Dressify/public/api/userself',
+        method: 'POST',
+        data: JSON.stringify({UID: 1}),
+        contentType: 'application/json',
+        success: function(response){
+            // console.log('OK',response);
+            setUID(response[0].UID);
+            setUserName(response[0].UserName);
+            setUserImg(response[0].Avatar);
+        },
+        error:function(xhr, status, error){
+            console.error('error', error);
+        }
+    });
+
+    $.ajax({
+        url:'http://localhost/Dressify/public/api/getpostnum',
+        method:'POST',
+        data:JSON.stringify({UID:1}),
+        contentType: 'application/json',
+        success: function(response){
+            console.log(response[0].postNum)
+            setPostNumber(response[0].postNum)
+        },
+        error:function(xhr, status, error){
+            console.error('error', error);
+        }
+    })
+    
+
+    // console.log('UserName:',userName);
+    // console.log('img', userImg);
+
+ 
+    
     return (
         <MyLayout>
             <Modal show={show} onHide={handleClose}>
@@ -42,8 +97,6 @@ function Selfpage() {
             </Modal>
             <div className="container">
 
-                
-
                 {/* <!--user's info  --> */}
                 <div className="row mt-3 m-auto">
                     <div className="d-flex position-relative col-3" style={{ height: "65px", width: "70px" }}>
@@ -58,10 +111,10 @@ function Selfpage() {
                     <div className="col-9 m-auto text-truncate overflow-hidden">
                         {/* <!--user's Name --> */}
                         {/* <!--should let it ... more than a number and limit of character--> */}
-                        <h5 className="userName text-xl text-black ">Name</h5>
+                        <h5 className="userName text-xl text-black ">{userName}</h5>
                         {/* <!--user's userName --> */}
                         {/* <!--should let it have 25 limit of character --> */}
-                        <span className="name text-s text-black">@userName@userName@userName</span>
+                        <span className="name text-s text-black">ID: {UID}</span>
                     </div>
                 </div>
 
@@ -88,7 +141,7 @@ function Selfpage() {
                 {/* <!--this div should be another color to apart the picture and ther user Information --> */}
                 <div className="d-flex justify-content-between bgc-normal mt-3 rounded" style={{ height: "50px" }}>
                     {/* <!--postNumber --> */}
-                    <p className="text-m my-auto ms-3">postNumber篇文章</p>
+                    <p className="text-m my-auto ms-3">{postNumber} 篇文章</p>
                     {/* <!--fanNumber should be right end of this div --> */}
                     <p className="text-m my-auto me-3">fanNumber位粉絲</p>
                 </div>
