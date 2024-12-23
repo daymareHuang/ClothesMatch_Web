@@ -18,10 +18,14 @@ function AddTagComment({ setIsSliderVisible, selectID }) {
     function handleCommit(event) {
         event.preventDefault()
 
+        tagList[selectID].inCloset = 0;
         tagList[selectID].comment = commentRef.current.value;
         tagList[selectID].type = typeRef.current.value;
         tagList[selectID].size = sizeRef.current.value
         tagList[selectID].content = brandRef.current.value;
+        tagList[selectID].brand = brandRef.current.value;
+        console.log(tagList[selectID]);
+        
 
         setIsSliderVisible(false);
     }
@@ -59,12 +63,12 @@ function AddTagComment({ setIsSliderVisible, selectID }) {
                     <div className="col form-group">
                         <label className='text-s' htmlFor='size' >類型</label>
                         <select className='rounded-pill text-m form-select' style={{ backgroundColor: 'var(--color-second)' }} ref={sizeRef} id='size' defaultValue={size} >
-                            <option value="1" >XS</option>
-                            <option value="2" >S</option>
-                            <option value="3" >M</option>
-                            <option value="4" >L</option>
-                            <option value="5" >XL</option>
-                            <option value="6" >XXL</option>
+                            <option value="XS" >XS</option>
+                            <option value="S" >S</option>
+                            <option value="M" >M</option>
+                            <option value="L" >L</option>
+                            <option value="XL" >XL</option>
+                            <option value="XXL" >XXL</option>
                         </select>
                     </div>
                 </div>

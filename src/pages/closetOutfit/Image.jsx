@@ -26,15 +26,15 @@ function Image() {
 
     return (
         <MyLayout>
-            {/* 暫時 */}
-            <div className='w-100' style={{height:"50px"}}></div>
-            <div className="d-flex flex-column px-5" style={{ height: '543px' }}>
+            <div className="d-flex flex-column px-5 " style={{ height: '543px', marginTop: '50px' }}>
                 <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭照片</span>
 
                 {/* 圖片框 */}
-                <div className="w-100 rounded-set-3 overflow-hidden mb-4" style={{ position: 'relative' }}>
-                    <div style={filterStyle} className="w-100 rounded-5 overflow-hidden">
-                        <img className="img-fluid" src={CroppedSrc || imageSrc} />
+                <div className="mb-4" style={{ position: 'relative' }}>
+                    <div style={{ height: '375px', width: '285px', overflow: 'hidden' }} className="w-100 rounded-4">
+                        <span style={filterStyle}>
+                            <img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </span>
                     </div>
 
                     {/* 編輯 */}

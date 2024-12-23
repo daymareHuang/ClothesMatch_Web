@@ -28,7 +28,9 @@ function AddTag() {
 			y: 100,
 			comment: '輸入註解',
 			type: '',
-			size: ''
+			size: '',
+			itemID: '',
+			inCloset: 0,
 		}]);
 
 		setIdCounter(idCounter + 1);
@@ -68,20 +70,20 @@ function AddTag() {
 	}
 
 	return (<MyLayout>
-		{/* 暫時 */}
-		<div className='w-100' style={{ height: "50px" }}></div>
-		<div className="d-flex flex-column px-5 position-relative" style={{ height: '543px' }}>
+		<div className="d-flex flex-column px-5 position-relative" style={{ height: '543px', marginTop: '50px' }}>
 			<span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭照片</span>
 
 			{/* 圖片 */}
 			<div className="w-100 rounded-5 overflow-hidden mb-4" >
-				<div style={filterStyle} className="w-100 rounded-set-3 overflow-hidden">
-					<img className="img-fluid" src={CroppedSrc || imageSrc} />
+				<div style={{ height: '375px', width: '285px', overflow: 'hidden' }} className="w-100 rounded-4">
+					<span style={filterStyle}>
+						<img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+					</span>
 				</div>
 			</div>
 
 			{/* Tag框 */}
-			<div className='position-absolute ' style={{ top: 50, height: '400px', width: '300px' }} onClick={handleAddTag}>
+			<div onClick={handleAddTag} className='position-absolute ' style={{ top: 50, height: '375px', width: '300px' }}>
 				{tagList.map(({ content, id, x, y }, index) => (
 					content &&
 					<Draggable key={id} onStop={handleTagStop} position={{ x, y }} bounds='parent'  >
@@ -94,9 +96,9 @@ function AddTag() {
 									<img src="src/assets/img/icon/cross-circle-fill-white.svg" alt="" width='25px' id={id} />
 								</div>
 								{/* 拖曳 */}
-								<div className='text-center text-m' style={{ lineHeight: '30px', width: '130px', height: '30px', color: 'var(--color-black)', cursor: 'move'}} >{tagList[index].content}</div>
+								<div className='text-center text-m' style={{ lineHeight: '30px', width: '130px', height: '30px', color: 'var(--color-black)', cursor: 'move' }} >{tagList[index].content}</div>
 								{/* 編輯 */}
-								<div className='position-absolute' onClick={handleTagEdit} style={{ top: -6, right: 6, width: '30px', height: '30px', transform: 'rotate(180deg)', cursor: 'pointer'}} id={id} >
+								<div className='position-absolute' onClick={handleTagEdit} style={{ top: -6, right: 6, width: '30px', height: '30px', transform: 'rotate(180deg)', cursor: 'pointer' }} id={id} >
 									<img src="src/assets/img/icon/angle-left.svg" alt="" width='15px' id={id} />
 								</div>
 							</div>

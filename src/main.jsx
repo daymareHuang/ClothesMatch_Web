@@ -29,6 +29,7 @@ import ImgEditContrast from "./pages/closetOutfit/ImgEditContrast.jsx";
 import ImgEditSaturate from "./pages/closetOutfit/ImgEditSaturate.jsx";
 import AddTag from "./pages/closetOutfit/AddTag.jsx";
 import OutfitDescription from "./pages/closetOutfit/OutfitDescription.jsx";
+import OutfitCreated from "./pages/closetOutfit/OutfitCreated.jsx";
 
 // closet
 import Closet from './pages/closet/Closet.jsx';
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: "/OutfitDescription",
     element: <OutfitContextProvider><OutfitDescription /></OutfitContextProvider>
+  }, 
+  {
+    path: "/OutfitCreated",
+    element: <OutfitContextProvider><OutfitCreated /></OutfitContextProvider>
   }, 
   {
     path: "/dresswall",

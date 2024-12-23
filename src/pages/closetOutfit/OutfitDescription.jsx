@@ -1,5 +1,5 @@
 //CSS、套件
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Dressify.css'
@@ -7,10 +7,11 @@ import '../../css/Dressify.css'
 // 各別頁面
 import MyLayout from '../../layouts/MyLayout';
 import OutfitContext from "../../contexts/OutfitContext";
+import { use } from 'react';
 
 
 function OutfitDescription() {
-    const { imageSrc, filterStyle, CroppedSrc,
+    const { imageSrc, filterStyle, CroppedSrc, tagList,
         tittle, setTittle,
         comment, setComment,
         season, setSeason,
@@ -50,8 +51,41 @@ function OutfitDescription() {
     function handlePrev() {
         navigate(-1)
     }
-    function handleNext() {
-        navigate("/")
+    async function handleNext() {
+        // navigate("/")
+        const apiUrl = "http://localhost/Dressify/public/api/OutfitDescription"
+
+        const Title = tittle || null;
+        const Content = comment || null;
+        const Season = season || null;
+        const EditedPhoto = imageSrc || null;
+
+
+
+        const uploadData = {
+            Title,
+            Content,
+            Season,
+            UID: 1,
+            EditedPhoto,
+            Scene: sceneList,
+            Tag: [...tagList],
+        }
+
+        console.log(uploadData["Tag"]);
+
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(uploadData)
+        });
+
+        if (response.ok) {
+            console.log('上傳成功');
+        } else {
+            console.log('失敗');
+        }
+        navigate("/OutfitCreated")
     }
 
     return (
@@ -66,13 +100,13 @@ function OutfitDescription() {
 
                 {/* 穿搭名稱 */}
                 <div className='row mb-3'>
-                    <label for='title' className='form-label text-s' style={{ color: 'var(--color-black)' }}>穿搭名稱</label>
+                    <label htmlFor='title' className='form-label text-s' style={{ color: 'var(--color-black)' }}>穿搭名稱</label>
                     <input className='text-m form-control rounded-3' id='title' onInput={handleTittleInput} value={tittle} style={{ backgroundColor: 'var(--color-second)' }} placeholder='輸入穿搭名稱' type="text" />
                 </div>
 
                 {/* 備註 */}
                 <div className='row mb-5'>
-                    <label className='form-label text-s' for='comment' >備註</label>
+                    <label className='form-label text-s' htmlFor='comment' >備註</label>
                     <textarea className='form-control bg-gray text-m' id='comment' onInput={handleCommentInput} value={comment} placeholder='新增備註' style={{ height: '90px', resize: 'none', backgroundColor: 'var(--color-second)' }}></textarea>
                 </div>
 
@@ -80,13 +114,13 @@ function OutfitDescription() {
                     <div className='container ps-4 m-0'>
                         {/* 季節 */}
                         <div className='form-group row pt-3'>
-                            <label for='season' className='text-m col-3 col-form-label'>季節</label>
+                            <label htmlFor='season' className='text-m col-3 col-form-label'>季節</label>
                             <div className='col-8'>
                                 <select onChange={handleSeasonChange} className='text-m form-select rounded-3' value={season} id='season' >
-                                    <option value="season1">春季穿搭</option>
-                                    <option value="season2">夏季穿搭</option>
-                                    <option value="season3">秋季穿搭</option>
-                                    <option value="season4">冬季穿搭</option>
+                                    <option value="spring">春季穿搭</option>
+                                    <option value="summer">夏季穿搭</option>
+                                    <option value="autumn">秋季穿搭</option>
+                                    <option value="winter">冬季穿搭</option>
                                 </select>
                             </div>
                             <span className='col-3'></span>
@@ -94,12 +128,12 @@ function OutfitDescription() {
 
                         {/* 場合 */}
                         <div className='form-group row pt-3 mb-3'>
-                            <label className='text-m col-3 col-form-label' for='scene' >場合</label>
+                            <label className='text-m col-3 col-form-label' htmlFor='scene' >場合</label>
                             <div className='col-8'>
                                 <select onChange={handleSceneChange} className='text-m form-select rounded-3' name="" id="">
                                     <option value="none">選擇場合</option>
-                                    <option value="約會">約會</option>
                                     <option value="工作">工作</option>
+                                    <option value="約會">約會</option>
                                     <option value="運動">運動</option>
                                     <option value="會議">會議</option>
                                     <option value="逛街">逛街</option>

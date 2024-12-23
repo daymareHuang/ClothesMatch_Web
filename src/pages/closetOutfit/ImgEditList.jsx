@@ -53,14 +53,14 @@ function ImgEditList() {
 
     return (
         <MyLayoutHeader>
-            {/* 暫時 */}
-            <div className='w-100' style={{ height: "50px" }}></div>
-            <div className="d-flex flex-column align-items-center px-5" style={{ height: '585px' }} >
+            <div className="d-flex flex-column align-items-center px-5" style={{ height: '585px', marginTop: '50px'}} >
                 <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>編輯照片</span>
 
                 {/* 圖片 */}
-                <div style={{ width: '270px' }} className="rounded-5 overflow-hidden mb-3">
-                    <img style={filterStyle} className="img-fluid" src={CroppedSrc || imageSrc} />
+                <div style={{ height: '375px', width: '285px', overflow: 'hidden' }} className="w-100 rounded-4">
+                    <span style={filterStyle}>
+                        <img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </span>
                 </div>
 
                 {/* 編輯按鈕 */}
