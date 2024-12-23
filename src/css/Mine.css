@@ -6,11 +6,11 @@
   --color-black: #3b3a38;
 }
 
-.btn {
+.ssbtn {
   background-color: var(--color-base);
   border: 2px solid var(--color-highlight);
 }
-.btn:focus {
+.ssbtn:focus {
   background-color: var(--color-highlight);
 }
 
