@@ -34,7 +34,7 @@ function ClosetSearch({ close }) {
   }
 
   function handleKeyDown(event) {
-    if(event.key == 'Enter') {
+    if (event.key == 'Enter') {
       handleSearch();
     }
   }
@@ -47,8 +47,8 @@ function ClosetSearch({ close }) {
         <div className="container-fluid fixed-top bg-light py-3" style={{ top: '50px' }}>
           <div className="d-flex justify-content-between align-items-center pt-1">
             <div>
-              <input ref={keywordRef} className="form-control rounded-pill text-m" type="text" placeholder=" 請輸入關鍵字：白色 襯衫" style={{ width: '320px' }} 
-              onKeyDown={handleKeyDown} />
+              <input ref={keywordRef} className="form-control rounded-pill text-m" type="text" placeholder=" 請輸入關鍵字：顏色 尺寸 品牌" style={{ width: '320px' }}
+                onKeyDown={handleKeyDown} />
             </div>
 
             <div>
@@ -63,11 +63,12 @@ function ClosetSearch({ close }) {
         <div id="searchOverlay" onClick={handleOverlay} className="bg-dark bg-opacity-25" style={{ height: '600px' }}>
           {/* seach result */}
           <div ref={resultRef} className=" rounded-bottom-4" style={{ height: '262px', backgroundColor: 'var(--color-base)' }}>
-            
+
             <div className="rounded-4 px-3">
               <div className="d-flex" style={{ width: '350px', overflowX: 'auto' }}>
                 {result.length > 0 && (
-                  result
+                  [...result]   // for 保留result的不變性
+                    .reverse()  // 將上面的result複製一份出來，再使用reverse()
                     .map((item, index) => (
                       <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
                         <img

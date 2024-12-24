@@ -26,7 +26,7 @@ function ClosetPart() {
       }
     }
     getData();
-  }, [])
+  }, [items]);
   return (
     <ClosetLayoutN>
       <div className="container" >
@@ -45,6 +45,7 @@ function ClosetPart() {
             {items.length > 0 ? (
               items
                 .filter((item) => item.type.PartID == part)  // 把partID是1的部分濾出來
+                .reverse()
                 .map((item) => (
                   <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light col-6">
                     <img
@@ -56,7 +57,7 @@ function ClosetPart() {
                   </a>
                 ))
             ) : (
-              <p>No items!</p>
+              <p>Loading...</p>
             )}
           </div>
         </div>
