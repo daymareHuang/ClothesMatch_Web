@@ -28,6 +28,9 @@ function ClosetCheckSingle() {
       document.querySelectorAll('.edited').forEach(elem => {
         elem.classList.remove('d-none');
       })
+      document.querySelectorAll('.view').forEach(elem => {
+        elem.classList.add('d-none');
+      })
 
       // 找到class='editing'的部分，讓他們消失
       document.querySelectorAll('.editing').forEach(elem => {
@@ -80,6 +83,10 @@ function ClosetCheckSingle() {
           // 找到class='edited'的部分，並顯示出來
           edited.forEach(elem => {
             elem.classList.remove('d-none');
+          })
+          
+          document.querySelectorAll('.view').forEach(elem => {
+            elem.classList.add('d-none');
           })
 
           // 找到class='editing'的部分，讓他們消失
@@ -325,7 +332,7 @@ function ClosetCheckSingle() {
       </div>
 
       {/* <!-- 相關穿搭header --> */}
-      <div className="px-3 p-2 text-s border-top border-bottom sticky-top" style={{ backgroundColor: 'var(--color-second)' }}>
+      <div className="px-3 p-2 text-s border-top border-bottom sticky-top edited" style={{ backgroundColor: 'var(--color-second)' }}>
         <div className="d-flex justify-content-between">
           <div id="sMy" onClick={handleMy}><b>我的穿搭</b></div>
           <div id="sShare" className="text-secondary" onClick={handleShare}><b>推薦穿搭</b></div>
@@ -334,7 +341,7 @@ function ClosetCheckSingle() {
 
       {/* <!-- 相關穿搭content --> */}
       {/* <!-- 我的穿搭 --> */}
-      <div id="sMyArea" className="px-3" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
+      <div id="sMyArea" className="px-3 edited" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
         {/* <!-- 穿搭eg1. --> */}
         <div className="rounded-4 mt-4 px-2 p-2 myO">
           <strong className="text-secondary ps-1 text-s">約會穿搭！</strong>
@@ -385,7 +392,7 @@ function ClosetCheckSingle() {
       </div>
 
       {/* <!-- 推薦穿搭 --> */}
-      <div id="sShareArea" className="p-3 d-none" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
+      <div id="sShareArea" className="p-3 d-none edited view" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
         <Post name="小萱" />
         <Post name="小凱" />
         <Post name="小奕" />
