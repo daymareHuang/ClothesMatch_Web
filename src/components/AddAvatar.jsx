@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Dressify.css';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
+import axios from 'axios';
+
 
 function AddAvatar() {
     const [showUploadModal, setShowUploadModal] = useState(false);
@@ -11,6 +13,30 @@ function AddAvatar() {
     const [image, setImage] = useState(null); // 儲存使用者上傳的照片
     const [croppedImage, setCroppedImage] = useState(null); // 儲存已編輯的圖片
     const cropperRef = useRef(null);
+
+    
+
+
+
+    // 使用者資料獲取
+    useEffect(()=>{
+
+        const userinfo = async () => {
+            try {
+                const response = await axios.post('http://localhost/Dressify/public/api/userself', {
+                    UID: 1,
+                });
+                //  console.log(response.data[0].Avatar)
+    
+                 setImage(response.data[0].Avatar);
+    
+            }
+            catch (error) {
+                console.error('ERROR: ', error.message);
+            }
+        }
+        userinfo();
+    },[])
 
     // Toggle upload modal visibility
     const handleShowUploadModal = () => setShowUploadModal(true);
