@@ -9,8 +9,7 @@ import Post from '../../components/Post'
 import MyLayout from '../../layouts/MyLayout';
 
 function Dresswall() {
-
-
+    
     return (
         <MyLayout>
             <div className="container">

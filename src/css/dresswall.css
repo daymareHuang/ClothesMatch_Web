@@ -50,6 +50,9 @@ Black_#3b3a38
 /* user 自己頁面的post相片 */
 .stylePic {
     width: 50%;
+    height: 35vh;
+    object-fit: cover;
+
 }
 
 .stylePic:hover {

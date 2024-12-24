@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap'
 import '../../css/Dressify.css'
@@ -6,69 +6,103 @@ import '../../css/dresswall.css'
 import MyLayout from '../../layouts/MyLayout'
 import AddAvatar from "../../components/AddAvatar";
 import { Tabs, Tab } from 'react-bootstrap';
-import $ from 'jquery'
+import axios from 'axios';
+import { use } from 'react';
+import { post } from 'jquery';
 
 
 
 function Selfpage() {
     const [show, setShow] = useState(false);
     const [UID, setUID] = useState(0);
-    const [userName,setUserName] = useState('');
+    const [userName, setUserName] = useState('');
     const [userImg, setUserImg] = useState('');
-    const [postNumber,setPostNumber] = useState(0);
+    const [postNumber, setPostNumber] = useState(0);
     const [fanNumber, setFanNumber] = useState(0);
+    const [userPosts, setUserPosts] = useState([]);
+    const [userCollects, setUserCollects] = useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const url ='http://localhost/Dressify/public/api/userself?UID=1';
-    
 
-    // $.post(url,{"UID": 1},
-    //     function (result){
-    //         console.log(result);
-    //     })
-    //     .done(function(data){
-    //         console.log(data)
-    //         console.log("Data Loaded:" + data)
-    //     })
-   
 
-    $.ajax({
-        url:'http://localhost/Dressify/public/api/userself',
-        method: 'POST',
-        data: JSON.stringify({UID: 1}),
-        contentType: 'application/json',
-        success: function(response){
-            // console.log('OK',response);
-            setUID(response[0].UID);
-            setUserName(response[0].UserName);
-            setUserImg(response[0].Avatar);
-        },
-        error:function(xhr, status, error){
-            console.error('error', error);
+    //利用useEffect 讓api僅需要抓一次的api 渲染一次
+    // 使用者資料獲取
+    useEffect(() => {
+        const userinfo = async () => {
+            try {
+                const response = await axios.post('http://localhost/Dressify/public/api/userself', {
+                    UID: 1,
+                });
+                // console.log('Response', response.data[0].UID);
+                setUID(response.data[0].UID);
+                setUserName(response.data[0].UserName);
+                // setUserImg(response.data[0].Avatar);
+
+            }
+            catch (error) {
+                console.error('ERROR: ', error.message);
+            }
         }
-    });
 
-    $.ajax({
-        url:'http://localhost/Dressify/public/api/getpostnum',
-        method:'POST',
-        data:JSON.stringify({UID:1}),
-        contentType: 'application/json',
-        success: function(response){
-            console.log(response[0].postNum)
-            setPostNumber(response[0].postNum)
-        },
-        error:function(xhr, status, error){
-            console.error('error', error);
+        userinfo();
+
+    }, [])
+
+    // 獲取貼文數
+    useEffect(() => {
+        const getpostNum = async () => {
+            try {
+                const response = await axios.post('http://localhost/Dressify/public/api/getpostnum', {
+                    UID: 1,
+                })
+                // console.log(response.data);
+                setPostNumber(response.data[0].postNum);
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
         }
-    })
-    
+        getpostNum();
 
-    // console.log('UserName:',userName);
-    // console.log('img', userImg);
+    }, [])
 
- 
-    
+
+    // 得到user的post
+    useEffect(() => {
+        const getuserpost = async () => {
+            try {
+                const response = await axios.post('http://localhost/Dressify/public/api/getuserpost', {
+                    UID: 1,
+                })
+                //  console.log(response.data)
+                setUserPosts(response.data)
+                //  console.log(userPosts)
+
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        }
+        getuserpost();
+    }, [])
+
+    // 得到user的 Collection
+    useEffect(() => {
+        const getusercollect = async () => {
+            try {
+                const response = await axios.post('http://localhost/Dressify/public/api/getusercollect', {
+                    UID: 1,
+                })
+                //  console.log(response.data)
+                setUserCollects(response.data)
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        }
+        getusercollect();
+    }, [])
+
+
+
     return (
         <MyLayout>
             <Modal show={show} onHide={handleClose}>
@@ -114,7 +148,7 @@ function Selfpage() {
                         <h5 className="userName text-xl text-black ">{userName}</h5>
                         {/* <!--user's userName --> */}
                         {/* <!--should let it have 25 limit of character --> */}
-                        <span className="name text-s text-black">ID: {UID}</span>
+                        {/* <span className="name text-s text-black">ID: {UID}</span> */}
                     </div>
                 </div>
 
@@ -122,19 +156,15 @@ function Selfpage() {
                 <div className=" m-auto mt-3">
                     {/* <!--userIntroduction --> */}
                     <p className="userIntro mx-3 text-black text-xs ">
-                        userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce
-                        userIntroduce
-                        userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce
-                        userIntroduce userIntroduce userIntroduce
-                        userIntroduce
-                        userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce
-                        userIntroduce
-                        userIntroduce userIntroduce userIntroduce userIntroduce userIntroduce
-                        userIntroduce userIntroduce userIntroduce
-                        userIntroduce
-                        <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{width:"18px", marginLeft:"5px"}} />
+                        我是小雁我是小雁我是小雁我是小雁我是小雁
+                        我是小雁我是小雁我是小雁我是小雁我是小雁我是小雁
+                        我是小雁我是小雁我是小雁我是小雁我是小雁
+                        我是小雁我是小雁我是小雁我是小雁我是小雁
+                        我是小雁我是小雁我是小雁我是小雁我是小雁我是小雁
+                        我是小雁我是小雁我是小雁我是小雁我是小雁
+                        <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
                     </p>
-                    
+
                 </div>
 
                 {/* <!--user's number of post and fan --> */}
@@ -169,18 +199,25 @@ function Selfpage() {
                 </div> */}
 
                 <Tabs defaultActiveKey="Post" id="genderTab" className="mb-3 justify-content-center text-m " variant="underline">
-                    <Tab eventKey="Post" title="Post" className='text-black row bgc-normal p-3 rounded'>
-                    <img className="stylePic col-6 mt-3 " src="../src/assets/img/user_dino.png" alt="" />
+                    <Tab id="postTab" eventKey="Post" title="Post" className='text-black row bgc-normal p-3 rounded'>
+                        {/* <img className="stylePic col-6 mt-3 " src="../src/assets/img/user_dino.png" alt="" />
                     <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
                     <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
                     <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
-                        
+                         */}
+                        {
+                            userPosts.map((post, key) => (
+                                <img className="stylePic col-6 mt-3" src={post.EditedPhoto} key={key} />
+                            ))
+                        }
+
                     </Tab>
-                    <Tab eventKey="Collect" title="Collect" className='text-black row bgc-normal p-3 rounded'>
-                    <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
-                    <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
-                    <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
-                    <img className="stylePic col-6 mt-3" src="../src/assets/img/user_dino.png" alt="" />
+                    <Tab id="collectTab" eventKey="Collect" title="Collect" className='text-black row bgc-normal p-3 rounded'>
+                        {
+                            userCollects.map((collect, key)=>(
+                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key}/>
+                            ))
+                        }
                     </Tab>
                 </Tabs>
 
