@@ -16,7 +16,7 @@ function Closet() {
       }
     }
     getData();
-  }, [])
+  }, [items])
 
   return (
     <ClosetLayout isActive="單品">

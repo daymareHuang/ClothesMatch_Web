@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import ClosetLayoutN from '../../layouts/ClosetLayoutN'
 import Post from '../../components/Post'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import pencil from '../../assets/img/icon/pencil.svg';
 import cross from '../..//assets/img/icon/cross.svg';
@@ -28,6 +28,9 @@ function ClosetCheckSingle() {
       document.querySelectorAll('.edited').forEach(elem => {
         elem.classList.remove('d-none');
       })
+      document.querySelectorAll('.view').forEach(elem => {
+        elem.classList.add('d-none');
+      })
 
       // 找到class='editing'的部分，讓他們消失
       document.querySelectorAll('.editing').forEach(elem => {
@@ -51,7 +54,7 @@ function ClosetCheckSingle() {
 
     // 將更新後資料依據格式寫入資料庫
     const savedType = editing[2].options[editing[2].selectedIndex].value;
-    // const savedColor = editing[3].options[editing[3].selectedIndex].value == 0 ? null : editing[3].options[editing[3].selectedIndex].text;
+    const savedColor = editing[3].options[editing[3].selectedIndex].value == 0 ? null : editing[3].options[editing[3].selectedIndex].text;
     const savedBrand = editing[4].options[editing[4].selectedIndex].value == 0 ? null : editing[4].options[editing[4].selectedIndex].text;
     const savedSize = editing[5].options[editing[5].selectedIndex].value == 0 ? null : editing[5].options[editing[5].selectedIndex].text;
 
@@ -59,11 +62,11 @@ function ClosetCheckSingle() {
     const updatedObj = {
       Title: editedName,
       Type: savedType,
-      // Color: savedColor,
+      Color: savedColor,
       Brand: savedBrand,
       Size: savedSize
     }
-    // console.log(updatedObj);
+    console.log(updatedObj);
 
     async function updateData() {
       const url = `http://localhost/Dressify/public/api/item/${itemId}`;
@@ -80,6 +83,10 @@ function ClosetCheckSingle() {
           // 找到class='edited'的部分，並顯示出來
           edited.forEach(elem => {
             elem.classList.remove('d-none');
+          })
+          
+          document.querySelectorAll('.view').forEach(elem => {
+            elem.classList.add('d-none');
           })
 
           // 找到class='editing'的部分，讓他們消失
@@ -148,6 +155,10 @@ function ClosetCheckSingle() {
     getData();
   }, [])
 
+  const navigate = useNavigate();
+  function handleLastPage() {
+    navigate(-1);
+  }
   return (
     <ClosetLayoutN>
       <div className="container" >
@@ -156,7 +167,7 @@ function ClosetCheckSingle() {
           <div className="d-flex justify-content-between align-items-center border-bottom">
             <b><div ref={titleRef} className="p-3 text-m">{item.Title}</div></b>
 
-            <a href="/Closet" className="px-3"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" /></a>
+            <a className="px-3"><img src="/src/assets/img/icon/cross-circle.svg" style={{ width: '25px' }} alt="cancel" onClick={handleLastPage} /></a>
           </div>
           <div className="p-3 text-center border-bottom" style={{ backgroundColor: 'var(--color-base)' }}>
             <img className="border rounded bg-white" width="175px" height="175px" src={item.EditedPhoto || `/items/item${item.Type}.svg`} alt="loading..." />
@@ -257,11 +268,12 @@ function ClosetCheckSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">色系</label>
-          <input className="form-control text-center edited text-s" type="text" value="白色系" disabled />
+          <input className="form-control text-center edited text-s" type="text" 
+            value={item.Color || '請選擇色系'} disabled />
 
           <select name="" id="" className="form-select text-center d-none editing text-s"
-          // value={item.Color}
-          // onChange={(e) => setItem({ ...item, Color: e.target.value })}
+            value={item.Color || 0}
+            onChange={(e) => setItem({ ...item, Color: e.target.value })}
           >
             <option value="0">請選擇色系</option>
             <option >黑色系</option>
@@ -320,7 +332,7 @@ function ClosetCheckSingle() {
       </div>
 
       {/* <!-- 相關穿搭header --> */}
-      <div className="px-3 p-2 text-s border-top border-bottom sticky-top" style={{ backgroundColor: 'var(--color-second)' }}>
+      <div className="px-3 p-2 text-s border-top border-bottom sticky-top edited" style={{ backgroundColor: 'var(--color-second)' }}>
         <div className="d-flex justify-content-between">
           <div id="sMy" onClick={handleMy}><b>我的穿搭</b></div>
           <div id="sShare" className="text-secondary" onClick={handleShare}><b>推薦穿搭</b></div>
@@ -329,7 +341,7 @@ function ClosetCheckSingle() {
 
       {/* <!-- 相關穿搭content --> */}
       {/* <!-- 我的穿搭 --> */}
-      <div id="sMyArea" className="px-3" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
+      <div id="sMyArea" className="px-3 edited" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
         {/* <!-- 穿搭eg1. --> */}
         <div className="rounded-4 mt-4 px-2 p-2 myO">
           <strong className="text-secondary ps-1 text-s">約會穿搭！</strong>
@@ -380,7 +392,7 @@ function ClosetCheckSingle() {
       </div>
 
       {/* <!-- 推薦穿搭 --> */}
-      <div id="sShareArea" className="p-3 d-none" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
+      <div id="sShareArea" className="p-3 d-none edited view" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
         <Post name="小萱" />
         <Post name="小凱" />
         <Post name="小奕" />

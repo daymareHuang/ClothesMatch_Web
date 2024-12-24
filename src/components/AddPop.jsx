@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 // import ClosetLayout from '../layouts/ClosetLayout'
 import { useNavigate } from 'react-router-dom';
 
@@ -9,12 +9,12 @@ function AddPop({close}) {
   // const divElemS = useRef();
   const divElemS = useRef(null);
   const divElemM = useRef(null);
-  const divPopM = useRef(null);
+  // const divPopM = useRef(null);
 
   const fileInputRef = useRef();
   const navigate = useNavigate();
 
-  
+  const [addS, setAddS] = useState(false);  
   function handleClickAddS() {
     // console.log(divElemS.current.childNodes[0]);  // <img> ... </img>
     
@@ -22,15 +22,19 @@ function AddPop({close}) {
     divElemS.current.childNodes[0].classList.toggle('opacity-50');
     divElemS.current.childNodes[1].classList.toggle('text-dark');
 
+    setAddS(true);
     // 觸發隱藏的input（就像使用者同時點擊「瀏覽」按鈕的感覺）
     fileInputRef.current.click();
   }
 
   function handleFileChange() {
     const file = event.target.files[0];
-    if (file) {
+    if (file && addS === true) {
       // 導航到 Crop 頁面，並將檔案資訊附帶到 state
       navigate('/Crop', { state: { file } });
+    } else if (file) {
+      // 導航到 Image 頁面，並將檔案資訊附帶到 state
+      navigate('/Image', { state: { file } });
     }
   }
 
@@ -40,7 +44,10 @@ function AddPop({close}) {
     divElemM.current.childNodes[1].classList.toggle('text-dark');
 
     // 滑出popout選擇新增搭配的方式
-    divPopM.current.classList.toggle('show');
+    // divPopM.current.classList.toggle('show');
+
+    // 觸發隱藏的input（就像使用者同時點擊「瀏覽」按鈕的感覺）
+    fileInputRef.current.click();
   }
 
   // 控制overlay => 點擊後收回popup
@@ -50,12 +57,12 @@ function AddPop({close}) {
       // 檢查是否useRef已經被建立
       divElemS.current &&
       divElemM.current &&
-      divPopM.current &&
+      // divPopM.current &&
 
       // 如果   ref中包含了點擊的部分   以外的 （啊就是overlay的部分）
       !divElemS.current.contains(event.target) &&
-      !divElemM.current.contains(event.target) &&
-      !divPopM.current.contains(event.target)
+      !divElemM.current.contains(event.target) 
+      // && !divPopM.current.contains(event.target)
     ) {
       // 關閉AddPopup
       close()
@@ -77,7 +84,7 @@ function AddPop({close}) {
       </div>
       <input type="file" className="d-none" ref={fileInputRef} id="fileInput" onChange={handleFileChange} />
 
-      <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '120px'}}>
+      {/* <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '120px'}}> */}
       {/* <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '220px'}}> */}
         {/* <div className="mx-5 my-3 pt-3">
           <a href="#" className="btn btn-dark md-24 p-3" style={{width: '275px'}}>
@@ -85,15 +92,15 @@ function AddPop({close}) {
             <span className="md-24">&nbsp;&nbsp;衣櫃搭配</span>
           </a>
         </div> */}
-        <div className="mx-5 my-3 text-center">
-          {/* <!-- href needs to be set for redirecting --> */}
+        {/* <div className="mx-5 my-3 text-center">
+          <!-- href needs to be set for redirecting -->
           <a href="/Image" className="btn text-m p-3" style={{width: '275px', backgroundColor: 'var(--color-highlight)'}}>
             <img src="src/assets/img/icon/add_match_pic_white.svg" className="align-text-top" style={{width: '26px'}} />
             <span className="ms-3 text-m text-light">&nbsp;上&nbsp;傳&nbsp;圖&nbsp;片</span>
           </a>
-        </div>
+        </div> */}
+      {/* </div> */}
 
-      </div>
     </>
   )
 }

@@ -25,12 +25,12 @@ function ClosetEditSingle() {
       UID: 1,  // 之後搭配auth驗證後，再看看怎麼調整～
       Title,
       Type,
-      // Color,  // 等db更新之後再加上～color
+      Color,
       Brand,
       Size,
       EditedPhoto: croppedImgURL
     };
-    // console.log(inputObj);
+    console.log(inputObj);
 
     if (Title !== '' && Type !== null) {
       // 使用fetch存入db中
@@ -159,8 +159,9 @@ function ClosetEditSingle() {
             <option >Uniqlo</option>
             <option >Zara</option>
             <option >AirSpace</option>
+            <option >Beams</option>
             <option >Nike</option>
-            <option >Net</option>
+            <option >NET</option>
             <option >H&M</option>
             <option >其他</option>
           </select>
