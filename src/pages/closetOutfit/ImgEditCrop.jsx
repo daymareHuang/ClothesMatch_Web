@@ -44,15 +44,13 @@ function ImgEditCrop() {
     function handleCancel() {
         navigate("/ImgEditList")
     }
-
-
-
+    
     return (<>
         <MyLayoutHeader>
-            {/* 暫時 */}
-            <div className='w-100' style={{ height: "50px" }}></div>
-            <div className="d-flex flex-column align-items-center px-5" style={{ height: '585px' }} >
-                <span className='text-center fontSet-3 my-3'>裁切圖片</span>
+            <div className="d-flex flex-column justify-content-between align-items-center px-5" style={{ height: '585px', marginTop: '50px' }} >
+                <span className='d-flex flex-column w-100'>
+                    <span className='text-center text-s letterSpacing-2' style={{ margin: '30px 0 20px 0' }}>裁切圖片</span>
+                </span>
                 <div style={filterStyle} className="w-100 rounded-5 overflow-hidden mb-3">
                     <img id='photo' className="img-fluid" src={imageSrc} />
                 </div>

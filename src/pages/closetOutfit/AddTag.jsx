@@ -70,49 +70,50 @@ function AddTag() {
 	}
 
 	return (<MyLayout>
-		<div className="d-flex flex-column px-5 position-relative" style={{ height: '543px', marginTop: '50px' }}>
-			<span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭照片</span>
+		<div className="d-flex flex-column justify-content-between px-5 " style={{ height: '543px', marginTop: '50px' }}>
+			<span className='d-flex flex-column'>
 
-			{/* 圖片 */}
-			<div className="w-100 rounded-5 overflow-hidden mb-4" >
-				<div style={{ height: '375px', width: '285px', overflow: 'hidden' }} className="w-100 rounded-4">
+				<span className='text-center text-s letterSpacing-2' style={{ margin: '30px 0 20px 0' }}>穿搭照片</span>
+
+				{/* 圖片 */}
+				<div style={{ height: '380px', aspectRatio: 3 / 4, overflow: 'hidden' }} className="w-100 rounded-4 mb-3">
 					<span style={filterStyle}>
 						<img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
 					</span>
 				</div>
-			</div>
 
-			{/* Tag框 */}
-			<div onClick={handleAddTag} className='position-absolute ' style={{ top: 50, height: '375px', width: '300px' }}>
-				{tagList.map(({ content, id, x, y }, index) => (
-					content &&
-					<Draggable key={id} onStop={handleTagStop} position={{ x, y }} bounds='parent'  >
-						{/* Tag組件 */}
-						<div id={id} className='position-relative rounded-circle' onClick={(event) => event.stopPropagation()} style={{ width: '15px', height: '15px', backgroundColor: 'var(--color-highlight)', border: '1px solid var(--color-white)', color: '#5551ff', cursor: 'move' }} >
-							{/* Tag框 */}
-							<div className='position-absolute rounded-pill' style={{ top: 30, left: -55, backgroundColor: 'var(--color-white)', width: '145px' }}>
-								{/* 刪除按鈕 */}
-								<div className='position-absolute rounded-circle' onClick={handleTagDelete} style={{ left: -12, top: -10, width: '20px', height: '20px', cursor: 'pointer' }} id={id}>
-									<img src="src/assets/img/icon/cross-circle-fill-white.svg" alt="" width='25px' id={id} />
-								</div>
-								{/* 拖曳 */}
-								<div className='text-center text-m' style={{ lineHeight: '30px', width: '130px', height: '30px', color: 'var(--color-black)', cursor: 'move' }} >{tagList[index].content}</div>
-								{/* 編輯 */}
-								<div className='position-absolute' onClick={handleTagEdit} style={{ top: -6, right: 6, width: '30px', height: '30px', transform: 'rotate(180deg)', cursor: 'pointer' }} id={id} >
-									<img src="src/assets/img/icon/angle-left.svg" alt="" width='15px' id={id} />
+				{/* Tag框 */}
+				<div onClick={handleAddTag} className='position-absolute ' style={{ top: 120, height: '380px', width: '300px' }}>
+					{tagList.map(({ content, id, x, y }, index) => (
+						content &&
+						<Draggable key={id} onStop={handleTagStop} position={{ x, y }} bounds='parent'  >
+							{/* Tag組件 */}
+							<div id={id} className='position-relative rounded-circle' onClick={(event) => event.stopPropagation()} style={{ width: '15px', height: '15px', backgroundColor: 'var(--color-highlight)', border: '1px solid var(--color-white)', color: '#5551ff', cursor: 'move' }} >
+								{/* Tag框 */}
+								<div className='position-absolute rounded-pill' style={{ top: 30, left: -55, backgroundColor: 'var(--color-white)', width: '145px' }}>
+									{/* 刪除按鈕 */}
+									<div className='position-absolute rounded-circle' onClick={handleTagDelete} style={{ left: -12, top: -10, width: '20px', height: '20px', cursor: 'pointer' }} id={id}>
+										<img src="src/assets/img/icon/cross-circle-fill-white.svg" alt="" width='25px' id={id} />
+									</div>
+									{/* 拖曳 */}
+									<div className='text-center text-m' style={{ lineHeight: '30px', width: '130px', height: '30px', color: 'var(--color-black)', cursor: 'move' }} >{tagList[index].content}</div>
+									{/* 編輯 */}
+									<div className='position-absolute' onClick={handleTagEdit} style={{ top: -6, right: 6, width: '30px', height: '30px', transform: 'rotate(180deg)', cursor: 'pointer' }} id={id} >
+										<img src="src/assets/img/icon/angle-left.svg" alt="" width='15px' id={id} />
+									</div>
 								</div>
 							</div>
-						</div>
-					</Draggable>
-				))}
-			</div>
+						</Draggable>
+					))}
+				</div>
 
-			{/* 上滑視窗 */}
-			<div >
-				{isSliderVisible &&
-					<AddTagControl setIsSliderVisible={setIsSliderVisible} selectID={selectID} />
-				}
-			</div>
+				{/* 上滑視窗 */}
+				<div >
+					{isSliderVisible &&
+						<AddTagControl setIsSliderVisible={setIsSliderVisible} selectID={selectID} />
+					}
+				</div>
+			</span>
 
 			{/* 上下頁 */}
 			<div className="d-flex justify-content-between  w-100">

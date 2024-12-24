@@ -159,8 +159,9 @@ function ClosetEditSingle() {
             <option >Uniqlo</option>
             <option >Zara</option>
             <option >AirSpace</option>
+            <option >Beams</option>
             <option >Nike</option>
-            <option >Net</option>
+            <option >NET</option>
             <option >H&M</option>
             <option >其他</option>
           </select>

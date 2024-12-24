@@ -85,17 +85,17 @@ function OutfitDescription() {
         } else {
             console.log('失敗');
         }
-        navigate("/OutfitCreated")
+        navigate("/Closet")
     }
 
     return (
         <MyLayout>
-            <div className="d-flex flex-column container " style={{ padding: '0 60px', height: '543px', overflowY: 'scroll' }}>
+            <div className="d-flex flex-column container " style={{ padding: '0 60px', overflowY: 'scroll', marginTop: '50px'}}>
                 <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭照片</span>
 
                 {/* 照片 */}
-                <div className='m-auto mb-4' style={{ ...filterStyle, width: '200px' }}>
-                    <img className='w-100 rounded-5' src={CroppedSrc || imageSrc} />
+                <div className='mb-4 mx-auto' style={{ ...filterStyle, width:'240px',  height: '320px'}}>
+                    <img className='w-100 rounded-5' style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={CroppedSrc || imageSrc} />
                 </div>
 
                 {/* 穿搭名稱 */}

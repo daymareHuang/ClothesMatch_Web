@@ -28,40 +28,43 @@ function ImgEditBrightness() {
         navigate("/ImgEditList")
     }
 
-    const handleTouchStart =()=>{
+    const handleTouchStart = () => {
         document.body.style.overflow = "hidden"; // 禁用滾動
     }
-    const handleTouchEnd =()=>{
+    const handleTouchEnd = () => {
         document.body.style.overflow = ""; // 恢復滾動
     }
 
 
     return (<>
         <MyLayoutHeader>
-            <div className="w-100 d-flex flex-column align-items-center px-5" style={{ height: '585px', marginTop: '50px' }} >
-                <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>調整亮度</span>
+            <div className="d-flex flex-column justify-content-between align-items-center px-5" style={{ height: '585px', marginTop: '50px' }} >
+                <span className='d-flex flex-column w-100'>
+                    <span className='text-center text-s letterSpacing-2' style={{ margin: '30px 0 20px 0' }}>調整亮度</span>
 
-                {/* 照片 */}
-                <div style={{ height: '375px', width: '285px', overflow: 'hidden' }} className="w-100 rounded-4">
-                    <span style={filterStyle}>
-                        <img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </span>
-                </div>
+                    {/* 圖片 */}
+                    <div style={{ height: '380px', aspectRatio: 3 / 4, overflow: 'hidden' }} className="w-100 rounded-4 mb-3">
+                        <span style={filterStyle}>
+                            <img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </span>
+                    </div>
 
-                {/* 拉桿 */}
-                <div className='w-100 px-4 mt-5 mb-2'>
-                    <input onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onChange={handleChange} className='form-range w-100' type="range" min={50} max={150} value={brightness} />
-                </div>
+                    {/* 拉桿 */}
+                    <div className='w-100 px-4 mt-5 mb-2'>
+                        <input onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onChange={handleChange} className='form-range w-100' type="range" min={50} max={150} value={brightness} />
+                    </div>
 
-                {/* save/ cancel */}
-                <div className="w-100 d-flex justify-content-between mt-4 px-3">
-                    <button onClick={handleCancel} className='btn'>
-                        <img src="src/assets/img/icon/cross-circle-fill-black.svg" width={'40px'} />
-                    </button>
-                    <button onClick={handleSave} className='btn'>
-                        <img src="src/assets/img/icon/Ok.svg" width={'40px'} />
-                    </button>
-                </div>
+                    {/* save/ cancel */}
+                    <div className="w-100 d-flex justify-content-between mt-4 px-3">
+                        <button onClick={handleCancel} className='btn'>
+                            <img src="src/assets/img/icon/cross-circle-fill-black.svg" width={'40px'} />
+                        </button>
+                        <button onClick={handleSave} className='btn'>
+                            <img src="src/assets/img/icon/Ok.svg" width={'40px'} />
+                        </button>
+                    </div>
+
+                </span>
             </div>
         </MyLayoutHeader>
     </>)
