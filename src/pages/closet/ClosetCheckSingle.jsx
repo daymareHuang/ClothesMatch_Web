@@ -51,7 +51,7 @@ function ClosetCheckSingle() {
 
     // 將更新後資料依據格式寫入資料庫
     const savedType = editing[2].options[editing[2].selectedIndex].value;
-    // const savedColor = editing[3].options[editing[3].selectedIndex].value == 0 ? null : editing[3].options[editing[3].selectedIndex].text;
+    const savedColor = editing[3].options[editing[3].selectedIndex].value == 0 ? null : editing[3].options[editing[3].selectedIndex].text;
     const savedBrand = editing[4].options[editing[4].selectedIndex].value == 0 ? null : editing[4].options[editing[4].selectedIndex].text;
     const savedSize = editing[5].options[editing[5].selectedIndex].value == 0 ? null : editing[5].options[editing[5].selectedIndex].text;
 
@@ -59,11 +59,11 @@ function ClosetCheckSingle() {
     const updatedObj = {
       Title: editedName,
       Type: savedType,
-      // Color: savedColor,
+      Color: savedColor,
       Brand: savedBrand,
       Size: savedSize
     }
-    // console.log(updatedObj);
+    console.log(updatedObj);
 
     async function updateData() {
       const url = `http://localhost/Dressify/public/api/item/${itemId}`;
@@ -261,11 +261,12 @@ function ClosetCheckSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">色系</label>
-          <input className="form-control text-center edited text-s" type="text" value="白色系" disabled />
+          <input className="form-control text-center edited text-s" type="text" 
+            value={item.Color || '請選擇色系'} disabled />
 
           <select name="" id="" className="form-select text-center d-none editing text-s"
-          // value={item.Color}
-          // onChange={(e) => setItem({ ...item, Color: e.target.value })}
+            value={item.Color || 0}
+            onChange={(e) => setItem({ ...item, Color: e.target.value })}
           >
             <option value="0">請選擇色系</option>
             <option >黑色系</option>

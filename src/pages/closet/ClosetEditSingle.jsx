@@ -25,12 +25,12 @@ function ClosetEditSingle() {
       UID: 1,  // 之後搭配auth驗證後，再看看怎麼調整～
       Title,
       Type,
-      // Color,  // 等db更新之後再加上～color
+      Color,
       Brand,
       Size,
       EditedPhoto: croppedImgURL
     };
-    // console.log(inputObj);
+    console.log(inputObj);
 
     if (Title !== '' && Type !== null) {
       // 使用fetch存入db中
