@@ -141,6 +141,7 @@ function ClosetCheckSingle() {
   const { itemId } = useParams();
   const [item, setItem] = useState({});
   const [outfits, setOutfits] = useState({});
+  const [recomms, setRecomms] = useState({});
 
   useEffect(() => {
     async function getItemData() {
@@ -162,15 +163,29 @@ function ClosetCheckSingle() {
         const jsonObj = await response.json();
         // console.log(jsonObj);
         setOutfits(jsonObj);
-      } catch {
-        console.error("Error fetching data:", error);
+      } catch (error) {
+        console.error("Error fetching outfits data:", error);
+      }
+    }
+
+    async function getRecommData() {
+      const url = `http://localhost/Dressify/public/api/item/${itemId}/recomms`;
+      try {
+        const response = await fetch(url);
+        const jsonObj = await response.json();
+        // console.log(jsonObj);
+        setRecomms(jsonObj);
+      } catch (error) {
+        console.error("Error fetching recomms data:", error);
       }
     }
 
     getItemData();
     getOutfitData();
+    getRecommData();
   }, [])
 
+  const base64 = ''
 
   const navigate = useNavigate();
   function handleLastPage() {
@@ -402,9 +417,19 @@ function ClosetCheckSingle() {
 
       {/* <!-- 推薦穿搭 --> */}
       <div id="sShareArea" className="p-3 d-none edited view" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
-        <Post name="小萱" postpic="" avatar="" />
-        <Post name="小凱" />
-        <Post name="小奕" />
+        {recomms.posts && recomms.posts.length > 0 ? (
+          recomms.posts.map(post => (
+            <Post key={post.PostID}
+              name={post.outfit.member.UserName}
+              postpic={post.outfit.EditedPhoto}
+              usericon={post.outfit.member.Avatar} />
+          ))
+        ) : (
+          <p>No recommendations available</p> // 你可以替換成適合的占位內容
+        )}
+
+        {/* <Post name="小莊" postpic="" usericon="" /> */}
+
       </div>
 
     </ClosetLayoutN>
