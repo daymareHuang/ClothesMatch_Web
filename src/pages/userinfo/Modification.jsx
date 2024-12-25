@@ -100,7 +100,7 @@ function Modification() {
                             {/* <!-- input section --> */}
                             <div className="my-4 text-s">
                                 {/* <!-- Email --> */}
-                                <div className="mt-3">
+                                {/* <!-- <div className="mt-3">
                                     <label htmlFor="email" className="form-label">&nbsp;&nbsp;Email</label>
                                     <input
                                         type="email"
@@ -108,9 +108,9 @@ function Modification() {
                                         id="userEmail"
                                         value={memberData.Email || ''}
                                         readOnly />
-                                </div>
+                                </div> --> */} 
                                 {/* <!-- ID --> */}
-                                <div className="mt-3">
+                                 {/* <!-- <div className="mt-3">
                                     <label htmlFor="userName" className="form-label">&nbsp;&nbsp;使用者名稱</label>
                                     <input
                                         type="text"
@@ -119,8 +119,7 @@ function Modification() {
                                         value={memberData.UserName || ''}
                                         readOnly />
                                 </div>
-                                <label htmlFor="userIdDescription" className="text-xs">&nbsp;&nbsp;包含英文字母（大小寫區分）、數字及特殊符號</label>
-                                {/* <!-- Password --> */}
+                                <label htmlFor="userIdDescription" className="text-xs">&nbsp;&nbsp;包含英文字母（大小寫區分）、數字及特殊符號</label> --> */}
                                 <div className="mt-3">
                                     <label htmlFor="userPwd" className="form-label">&nbsp;&nbsp;密碼</label>
                                     <div className="input-container" style={{ position: 'relative' }}>
