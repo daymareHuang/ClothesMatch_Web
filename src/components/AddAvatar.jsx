@@ -14,9 +14,6 @@ function AddAvatar() {
     const [croppedImage, setCroppedImage] = useState(null); // 儲存已編輯的圖片
     const cropperRef = useRef(null);
 
-    
-
-
 
     // 使用者資料獲取
     useEffect(()=>{
@@ -26,10 +23,7 @@ function AddAvatar() {
                 const response = await axios.post('http://localhost/Dressify/public/api/userself', {
                     UID: 1,
                 });
-                //  console.log(response.data[0].Avatar)
-    
                  setImage(response.data[0].Avatar);
-    
             }
             catch (error) {
                 console.error('ERROR: ', error.message);

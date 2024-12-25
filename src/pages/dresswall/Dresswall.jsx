@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import '../../css/dresswall.css'
@@ -7,9 +7,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tabs, Tab } from 'react-bootstrap';
 import Post from '../../components/Post'
 import MyLayout from '../../layouts/MyLayout';
+import axios from 'axios';
+
 
 function Dresswall() {
-    
+    const [womenPosts, setWomenPosts] = useState([]);
+    const [menPosts, setMenPosts] = useState([]);
+
+// 拿女性的post最新五個
+    useEffect(()=>{
+        const getwomenpost = async () =>{
+            try{
+                const response = await axios.get('http://localhost/Dressify/public/api/getwomenpost');
+                // console.log(response.data);
+                setWomenPosts(response.data);
+            } 
+            catch(error){
+                console.error('ERROR: ', error.message);
+            }
+        };
+        getwomenpost();
+    },[])
+
+    // 拿男性的post最新五個
+    useEffect(()=>{
+        const getmenpost = async ()=>{
+            try{
+                const response = await axios.get('http://localhost/Dressify/public/api/getmenpost')
+                setMenPosts(response.data)
+            }
+            catch(error){
+                console.error('ERROR: ', error.message);
+            }
+        }
+        getmenpost();
+    },[])    
+
     return (
         <MyLayout>
             <div className="container">
@@ -23,17 +56,25 @@ function Dresswall() {
                     <Tabs defaultActiveKey="Men" id="genderTab" className="mb-3 justify-content-center text-m" variant="underline">
                         <Tab eventKey="Men" title="Men" className='text-black'>
                             {/* <!-- post --> */}
-                            <Post name="David" />
+                            {/* <Post name="David" /> */}
 
                             {/* <!-- post --> */}
-                            <Post name="KaiKai" />
+                            {/* <Post name="KaiKai" /> */}
+                            {menPosts.map((post,key) => (
+                                <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key} />
+                            ))}
                         </Tab>
                         <Tab eventKey="Women" title="Women">
                             {/* <!-- post --> */}
-                            <Post name="Xiaosyuan" />
+                            {/* <Post name="Xiaosyuan" /> */}
 
                             {/* <!-- post --> */}
-                            <Post name="Xiaoian" />
+                            {/* <Post name="Xiaoian" /> */}
+                            {
+                                womenPosts.map((post,key)=>(
+                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key}/>
+                                ))
+                            }
                         </Tab>
                         
 

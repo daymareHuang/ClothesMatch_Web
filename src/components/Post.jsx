@@ -30,14 +30,14 @@ function Post(props) {
   return (
     <>
       {/* <!-- post --> */}
-      <div className="card w-100 position-relative mt-3" >
+      <div className="card w-100 position-relative mt-3"  >
         {/* <!-- user's pic --> */}
-        <img src={props.postpic || '../src/assets/img/user_dino.png'} className="card-img-top" alt="user style picture" />
+        <img src={props.postpic || '../src/assets/img/user_dino.png'} className="card-img-top postpic" alt="user style picture" />
         <div className="card-body post">
           <div className="row">
             {/* user less information */}
             <div className="col-6 text-truncate overflow-hidden">
-              <img className="userImgSmall me-2" src={props.usericon||'../src/assets/img/user_dino.png'} alt="user icon" />
+              <img className="userImgSmall me-2" src={props.avatar||'../src/assets/img/user_dino.png'} alt="user icon" />
               {/* <!-- should let it ... --> */}
               <b className="text-black ">{props.name||'usernameusernameusername'}</b>
               {/* <!-- this anchor should be a page or accrodin to have more info of post --> */}
