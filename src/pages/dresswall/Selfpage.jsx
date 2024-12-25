@@ -8,7 +8,6 @@ import AddAvatar from "../../components/AddAvatar";
 import { Tabs, Tab } from 'react-bootstrap';
 import axios from 'axios';
 import { use } from 'react';
-import { post } from 'jquery';
 
 
 

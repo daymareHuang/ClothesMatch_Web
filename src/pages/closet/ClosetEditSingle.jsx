@@ -30,7 +30,7 @@ function ClosetEditSingle() {
       Size,
       EditedPhoto: croppedImgURL
     };
-    console.log(inputObj);
+    // console.log(inputObj);
 
     if (Title !== '' && Type !== null) {
       // 使用fetch存入db中
