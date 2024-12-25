@@ -66,7 +66,7 @@ function ClosetCheckSingle() {
       Brand: savedBrand,
       Size: savedSize
     }
-    console.log(updatedObj);
+    // console.log(updatedObj);
 
     async function updateData() {
       const url = `http://localhost/Dressify/public/api/item/${itemId}`;
@@ -84,7 +84,7 @@ function ClosetCheckSingle() {
           edited.forEach(elem => {
             elem.classList.remove('d-none');
           })
-          
+
           document.querySelectorAll('.view').forEach(elem => {
             elem.classList.add('d-none');
           })
@@ -140,8 +140,10 @@ function ClosetCheckSingle() {
 
   const { itemId } = useParams();
   const [item, setItem] = useState({});
+  const [outfits, setOutfits] = useState({});
+
   useEffect(() => {
-    async function getData() {
+    async function getItemData() {
       const url = `http://localhost/Dressify/public/api/item/${itemId}`;
       try {
         const response = await fetch(url);
@@ -152,8 +154,23 @@ function ClosetCheckSingle() {
         console.error("Error fetching data:", error);
       }
     }
-    getData();
+
+    async function getOutfitData() {
+      const url = `http://localhost/Dressify/public/api/item/${itemId}/outfits`;
+      try {
+        const response = await fetch(url);
+        const jsonObj = await response.json();
+        // console.log(jsonObj);
+        setOutfits(jsonObj);
+      } catch {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    getItemData();
+    getOutfitData();
   }, [])
+
 
   const navigate = useNavigate();
   function handleLastPage() {
@@ -268,7 +285,7 @@ function ClosetCheckSingle() {
 
         <div className="mb-3">
           <label htmlFor="" className="form-label text-s">色系</label>
-          <input className="form-control text-center edited text-s" type="text" 
+          <input className="form-control text-center edited text-s" type="text"
             value={item.Color || '請選擇色系'} disabled />
 
           <select name="" id="" className="form-select text-center d-none editing text-s"
@@ -342,8 +359,26 @@ function ClosetCheckSingle() {
       {/* <!-- 相關穿搭content --> */}
       {/* <!-- 我的穿搭 --> */}
       <div id="sMyArea" className="px-3 edited" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
-        {/* <!-- 穿搭eg1. --> */}
-        <div className="rounded-4 mt-4 px-2 p-2 myO">
+
+        {outfits.length > 0 ? (
+          outfits.map(outfit => (
+            <div key={outfit.OutfitID} className="rounded-4 mt-4 px-2 p-2 myO">
+              <strong className="text-secondary ps-1 text-s">{outfit.OutfitTitle}</strong>
+              <div className="d-flex ps-1" style={{ width: '334px', overflowX: 'auto' }}>
+                {outfit.ItemsInOutfit.map((item, index) => (
+                  <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
+                    <img className={`border rounded my-2 ${index == item.length - 1 ? '' : 'me-3'}`} width="95px" height="95px" src={item.EditedPhoto} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No related outfits!</p>
+        )}
+
+        {/* <!-- 穿搭eg. --> */}
+        {/* <div className="rounded-4 mt-4 px-2 p-2 myO">
           <strong className="text-secondary ps-1 text-s">約會穿搭！</strong>
           <div className="d-flex" style={{ width: '325px', overflowX: 'auto' }}>
             <div>
@@ -362,38 +397,12 @@ function ClosetCheckSingle() {
               <img className="border rounded my-2 me-1" width="95px" src="public/items/item36.svg" />
             </div>
           </div>
-        </div>
-
-        {/* <!-- 穿搭eg2. --> */}
-        <div className="rounded-4 mt-4 px-2 p-2 myO">
-          <strong className="text-secondary ps-1 text-s">小日常（這裡是輸入的穿搭的標題哦！）</strong>
-          <div className="d-flex" style={{ width: '325px', overflowX: 'auto' }}>
-            <div>
-              <img className="border rounded my-2 me-1" width="95px" src="public/items/item8.svg" />
-            </div>
-
-            <div>
-              <img className="border rounded my-2 me-1" width="95px" src="public/items/item20.svg" />
-            </div>
-
-            <div>
-              <img className="border rounded my-2 me-1" width="95px" src="public/items/item24.svg" />
-            </div>
-
-            <div>
-              <img className="border rounded my-2 me-1" width="95px" src="public/items/item29.svg" />
-            </div>
-
-            <div>
-              <img className="border rounded my-2 me-1" width="95px" src="public/items/item34.svg" />
-            </div>
-          </div>
-        </div>
+        </div> */}
       </div>
 
       {/* <!-- 推薦穿搭 --> */}
       <div id="sShareArea" className="p-3 d-none edited view" style={{ height: '275px', overflowY: 'auto', marginBottom: '58px' }}>
-        <Post name="小萱" />
+        <Post name="小萱" postpic="" avatar="" />
         <Post name="小凱" />
         <Post name="小奕" />
       </div>
