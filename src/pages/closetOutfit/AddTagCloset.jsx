@@ -78,6 +78,8 @@ function AddTagCloset({ setIsSliderVisible, selectID }) {
         tagList[selectID].inCloset = 1;
         tagList[selectID].itemID = event.target.getAttribute('dataitemid');
         tagList[selectID].content = event.target.getAttribute('datatitle');
+        console.log(tagList[selectID]);
+        
         setIsSliderVisible(false);
     }
 

@@ -55,24 +55,25 @@ function OutfitDescription() {
         // navigate("/")
         const apiUrl = "http://localhost/Dressify/public/api/OutfitDescription"
 
-        const Title = tittle || null;
+        const Title = tittle || '沒有名稱';
         const Content = comment || null;
         const Season = season || null;
         const EditedPhoto = imageSrc || null;
-
-
 
         const uploadData = {
             Title,
             Content,
             Season,
+            // 目前還沒取得
             UID: 1,
             EditedPhoto,
             Scene: sceneList,
             Tag: [...tagList],
         }
 
-        console.log(uploadData["Tag"]);
+        console.log(sceneList);
+        console.log(uploadData);
+        
 
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -85,7 +86,7 @@ function OutfitDescription() {
         } else {
             console.log('失敗');
         }
-        navigate("/Closet")
+        // navigate("/Closet")
     }
 
     return (
@@ -117,6 +118,7 @@ function OutfitDescription() {
                             <label htmlFor='season' className='text-m col-3 col-form-label'>季節</label>
                             <div className='col-8'>
                                 <select onChange={handleSeasonChange} className='text-m form-select rounded-3' value={season} id='season' >
+                                    <option value={0}>請選擇季節</option>
                                     <option value="spring">春季穿搭</option>
                                     <option value="summer">夏季穿搭</option>
                                     <option value="autumn">秋季穿搭</option>

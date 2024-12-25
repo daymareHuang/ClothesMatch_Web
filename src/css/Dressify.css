@@ -20,10 +20,13 @@ Black_#3b3a38
 
 
 html {
+  width: 375px;
+  height: 667px;
   font-size: 12px;
 }
 
 header {
+  width: 375px;
   height: 50px;
   flex: 0 1 auto;
   /* 固定大小 */
@@ -78,6 +81,7 @@ div.container {
 
 
 footer {
+  width: 375px;
   flex: 0 1 auto;
   /* 固定大小 */
 }
@@ -94,3 +98,6 @@ nav {
   letter-spacing: 10px;
 }
 
+.testBorder{
+  border: 2px solid;
+}

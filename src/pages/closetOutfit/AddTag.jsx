@@ -16,35 +16,37 @@ function AddTag() {
 	let navigate = useNavigate();
 	const { CroppedSrc, imageSrc, setTagList, tagList, filterStyle } = useContext(OutfitContext)
 	const [isSliderVisible, setIsSliderVisible] = useState(false);
-	const [selectID, setSelectID] = useState('');
+	const [selectID, setSelectID] = useState(0);
 	const [idCounter, setIdCounter] = useState(tagList.length); //讓標籤有獨一 ID
 
 	// 新增標籤
-	function handleAddTag() {
+	const handleAddTag = () => {
 		setTagList([...tagList, {
 			id: idCounter,
-			content: '這是什麼服飾',
-			x: 150,
-			y: 100,
-			comment: '輸入註解',
-			type: '',
-			size: '',
-			itemID: '',
 			inCloset: 0,
+			itemID: '',
+			brand: 0,
+			type: 0,
+			size: 0,
+			content: '請選擇單品',
+			comment: null,
+			x: 80,
+			y: 150,
+
 		}]);
 
 		setIdCounter(idCounter + 1);
 		console.log(tagList);
 	}
 	// 編輯標籤
-	function handleTagEdit(event) {
-		setSelectID((event.target.id))
-		// console.log(event.target.id);
+	const handleTagEdit = (event) => {
+		console.log(event.target.id);
 
+		setSelectID((event.target.id))
 		setIsSliderVisible(true)
 	}
 	// 刪除標籤
-	function handleTagDelete(event) {
+	const handleTagDelete = (event) => {
 
 		let selectId = parseInt(event.target.id)
 		console.log(selectId);
@@ -53,8 +55,10 @@ function AddTag() {
 		let newArray = tagList.filter(({ id }) => id !== selectId)
 		setTagList(newArray)
 	}
-	// 更新標籤位置
+	// 移動標籤
 	const handleTagStop = (event, data) => {
+		console.log(data.node);
+
 		event.stopPropagation()
 		let selectId = parseInt(data.node.id) //找到 陣列中的編號
 		let newArray = tagList.map((tag) => tag.id === selectId ? { ...tag, x: data.x, y: data.y } : tag)
@@ -62,15 +66,15 @@ function AddTag() {
 	}
 
 	// 頁面跳轉
-	function handlePrev() {
+	const handlePrev = () => {
 		navigate(-1)
 	}
-	function handleNext() {
+	const handleNext = () => {
 		navigate("/OutfitDescription")
 	}
 
 	return (<MyLayout>
-		<div className="d-flex flex-column justify-content-between px-5 " style={{ height: '543px', marginTop: '50px' }}>
+		<div className="d-flex flex-column justify-content-between position-relative px-5 " style={{ height: '543px', marginTop: '50px' }}>
 			<span className='d-flex flex-column'>
 
 				<span className='text-center text-s letterSpacing-2' style={{ margin: '30px 0 20px 0' }}>穿搭照片</span>
@@ -83,28 +87,29 @@ function AddTag() {
 				</div>
 
 				{/* Tag框 */}
-				<div onClick={handleAddTag} className='position-absolute ' style={{ top: 120, height: '380px', width: '300px' }}>
-					{tagList.map(({ content, id, x, y }, index) => (
-						content &&
-						<Draggable key={id} onStop={handleTagStop} position={{ x, y }} bounds='parent'  >
+				<div onClick={handleAddTag} className=' position-absolute ' style={{ top: 110, height: '340px', width: '300px' }}>
+					{tagList.map(({ content, id, x, y }, index) => <>
+						<Draggable key={id} onStop={handleTagStop} position={{ x, y }} bounds='parent'>
 							{/* Tag組件 */}
-							<div id={id} className='position-relative rounded-circle' onClick={(event) => event.stopPropagation()} style={{ width: '15px', height: '15px', backgroundColor: 'var(--color-highlight)', border: '1px solid var(--color-white)', color: '#5551ff', cursor: 'move' }} >
-								{/* Tag框 */}
-								<div className='position-absolute rounded-pill' style={{ top: 30, left: -55, backgroundColor: 'var(--color-white)', width: '145px' }}>
-									{/* 刪除按鈕 */}
-									<div className='position-absolute rounded-circle' onClick={handleTagDelete} style={{ left: -12, top: -10, width: '20px', height: '20px', cursor: 'pointer' }} id={id}>
-										<img src="src/assets/img/icon/cross-circle-fill-white.svg" alt="" width='25px' id={id} />
-									</div>
-									{/* 拖曳 */}
-									<div className='text-center text-m' style={{ lineHeight: '30px', width: '130px', height: '30px', color: 'var(--color-black)', cursor: 'move' }} >{tagList[index].content}</div>
-									{/* 編輯 */}
-									<div className='position-absolute' onClick={handleTagEdit} style={{ top: -6, right: 6, width: '30px', height: '30px', transform: 'rotate(180deg)', cursor: 'pointer' }} id={id} >
-										<img src="src/assets/img/icon/angle-left.svg" alt="" width='15px' id={id} />
-									</div>
+							<div id={id} className='rounded-pill position-relative' style={{ display: 'inline-block', backgroundColor: 'var(--color-white)', border: '2px solid' }} onClick={(event) => event.stopPropagation()} >
+								{/* 標籤內容 */}
+								<p className='m-0 text-s fs-5' style={{ padding: '0 20px' }}>{tagList[index].content}</p>
+
+								{/* 刪除按鈕 */}
+								<div className='position-absolute' style={{ top: '-10px', left: '-10px', cursor: 'pointer' }}>
+									<img onClick={handleTagDelete} id={id} src="src/assets/img/icon/cross-circle-fill-white.svg" width='20px' />
 								</div>
+
+								{/* 編輯按鈕 */}
+								<div className='position-absolute end-0' style={{ top: '4px', transform: 'rotate(180deg)', cursor: 'pointer' }} >
+									<img onClick={handleTagEdit} id={id} src="src/assets/img/icon/angle-left.svg" width='15px' />
+								</div>
+
+								{/* 圓點 */}
+								<div className='rounded-circle position-absolute start-50 ' style={{ top: '-40px', width: '15px', height: '15px', backgroundColor: 'var(--color-highlight)', border: '1px solid var(--color-white)', color: '#5551ff', cursor: 'move' }} ></div>
 							</div>
 						</Draggable>
-					))}
+					</>)}
 				</div>
 
 				{/* 上滑視窗 */}

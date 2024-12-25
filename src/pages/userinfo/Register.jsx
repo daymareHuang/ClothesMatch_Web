@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import MyLayout from '../../layouts/MyLayout';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/Dressify.css';
-import AvatarUpload from "./AvatarUpload";
+import { React, useState } from "react"
+import MyLayout from '../../layouts/MyLayout'
+import { useNavigate } from 'react-router-dom'
+import axios from '../../api/axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../../css/Dressify.css'
+import AvatarUpload from "./AvatarUpload"
 
-// const apiUrl = 'http://localhost:8000/api';
+// const apiUrl = 'http://localhost/Dressify/public/api/member';
 
 function Register() {
   const navigate = useNavigate(); // 用於導航到其他頁面
@@ -27,7 +27,7 @@ function Register() {
 
   // 性別選擇
   const selectGender = (gender) => {
-    setSelectedGender(gender);
+    setSelectedGender(gender);  // 只更新性別，無需進行驗證
   };
 
   // 表單驗證

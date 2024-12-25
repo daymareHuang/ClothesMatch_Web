@@ -8,7 +8,7 @@ import AddTagCloset from "./AddTagCloset";
 import AddTagComment from "./AddTagComment";
 
 function AddTagControl({ setIsSliderVisible, selectID }) {
-    const [control, setControl] = useState('L')
+    const [control, setControl] = useState('R')
 
     function handleCloset() {
         setControl('L')
@@ -55,7 +55,7 @@ function AddTagControl({ setIsSliderVisible, selectID }) {
                 </button>
                 <button onClick={handleComment}
                     className="text-m rounded-pill btn px-3"
-                    style={styleR}> 新增標註
+                    style={styleR}> 新增註解
 
                 </button>
             </div>
