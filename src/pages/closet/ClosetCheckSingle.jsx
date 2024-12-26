@@ -294,6 +294,7 @@ function ClosetCheckSingle() {
               <option value="35">側背包</option>
               <option value="36">手拿包</option>
             </optgroup>
+            <option value="37">其他</option>
 
           </select>
         </div>

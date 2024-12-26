@@ -78,7 +78,7 @@ function ClosetEditSingle() {
             <optgroup label="外套">
               {/* here也可串接資料庫，但render速度可能就會偏慢？好處是更新資料庫前端就可以跟著改變 */}
               <option value="1">羽絨外套</option>
-              <option value="2">羽絨外套</option>
+              <option value="2">西裝外套</option>
               <option value="3">大衣外套</option>
             </optgroup>
             <optgroup label="襯衫">
@@ -131,6 +131,7 @@ function ClosetEditSingle() {
               <option value="35">側背包</option>
               <option value="36">手拿包</option>
             </optgroup>
+            <option value="37">其他</option>
 
           </select>
 
