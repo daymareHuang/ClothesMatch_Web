@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import MyLayout from '../../layouts/MyLayout'
+import MyLayoutForDashboard from "../../layouts/MyLayoutForDashboard"
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
 import axios from '../../api/axios'
@@ -8,7 +8,7 @@ import '../../css/Dressify.css'
 import ForgetPassword from './ForgetPassword'
 
 
-const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
+// const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
 
 function Login() {
 
@@ -89,7 +89,7 @@ function Login() {
   };
 
   return (
-    <MyLayout>
+    <MyLayoutForDashboard>
       {/* <!-- content --> */}
       <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
         <div className="container-fluid pt-4" style={{ backgroundColor: '#F8F9F3' }}>
@@ -186,11 +186,11 @@ function Login() {
                   登入
                 </button>
               </div>
-              <div className="my-4 align-items-center text-center">
-                <button className="btn btn-lg text-m py-1 w-100" style={{ backgroundColor: '#ebe3e0' }}>
-                  <img src="src/assets/img/icon/google.svg" alt="" width="30px" />&nbsp;Google登入
-                </button>
-              </div>
+                {/* <div className="my-4 align-items-center text-center">
+                  <button className="btn btn-lg text-m py-1 w-100" style={{ backgroundColor: '#ebe3e0' }}>
+                    <img src="src/assets/img/icon/google.svg" alt="" width="30px" />&nbsp;Google登入
+                  </button>
+                </div> */}
             </div>
           </form>
           <hr />
@@ -203,7 +203,7 @@ function Login() {
           </div>
         </div>
       </div>
-    </MyLayout>
+    </MyLayoutForDashboard>
   )
 }
 

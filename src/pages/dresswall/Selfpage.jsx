@@ -17,6 +17,7 @@ function Selfpage() {
     const [userName, setUserName] = useState('');
     const [userImg, setUserImg] = useState('');
     const [postNumber, setPostNumber] = useState(0);
+    // 粉絲追蹤功能??
     const [fanNumber, setFanNumber] = useState(0);
     const [userPosts, setUserPosts] = useState([]);
     const [userCollects, setUserCollects] = useState([]);
