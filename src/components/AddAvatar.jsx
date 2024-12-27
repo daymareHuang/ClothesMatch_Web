@@ -14,7 +14,10 @@ function AddAvatar() {
     const [croppedImage, setCroppedImage] = useState(null); // 儲存已編輯的圖片
     const cropperRef = useRef(null);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 252e968be427db6494f0c4c74bc06a6e79cab518
     // 使用者資料獲取
     useEffect(()=>{
 

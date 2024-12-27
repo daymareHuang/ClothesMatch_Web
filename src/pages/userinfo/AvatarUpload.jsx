@@ -7,7 +7,7 @@ import 'cropperjs/dist/cropper.css'
 
 // cmd npm install react-bootstrap bootstrap react-cropper cropperjs
 
-function AvatarUpload() {
+function AvatarUpload({ onChange }) {
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [image, setImage] = useState(null); // 儲存使用者上傳的照片
@@ -40,7 +40,9 @@ function AvatarUpload() {
     const handleCrop = () => {
         const cropper = cropperRef.current?.cropper;
         if (cropper) {
-            setCroppedImage(cropper.getCroppedCanvas().toDataURL());
+            const croppedBase64 = cropper.getCroppedCanvas().toDataURL();
+            setCroppedImage(croppedBase64);
+            // onChange(croppedBase64); // 将裁剪后的图片传递给父组件
             handleCloseEditModal(); // 編輯後關閉視窗
         }
     };

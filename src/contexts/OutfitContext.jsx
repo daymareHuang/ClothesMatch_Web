@@ -7,9 +7,13 @@ const OutfitContext = React.createContext({
 })
 
 export const OutfitContextProvider = (props) => {
-    const [tittle, setTittle] = useState("過年小狗");
-    const [comment, setComment] = useState("小貓要紅包");
-    const [season, setSeason] = useState("winter");
+    const [tittle, setTittle] = useState("");
+    const [comment, setComment] = useState("");
+    const [season, setSeason] = useState('0');
+    const [sceneList, setSceneList] = useState([]);
+
+    const [imageSrc, setImageSrc] = useState(null)
+    const [CroppedSrc, setCroppedSrc] = useState(null)
 
     // 照片 // 獲取 BLOB Image
     // useEffect(() => {
@@ -28,8 +32,7 @@ export const OutfitContextProvider = (props) => {
     //     }
     //     takePhoto();
     // }, [])
-    const [imageSrc, setImageSrc] = useState(null)
-    const [CroppedSrc, setCroppedSrc] = useState(null)
+
 
     // 濾鏡
     const [brightness, setBrightness] = useState(100)
@@ -47,19 +50,18 @@ export const OutfitContextProvider = (props) => {
     const [tagList, setTagList] = React.useState([
         {
             id: 0,
-            brand:"",
             inCloset: 0,
             itemID: '',
-            content: '這是什麼服飾',
-            comment: '輸入註解',
-            type: '',
-            size: '',
-            x: 150,
-            y: 100,
+            brand: 0,
+            type: 0,
+            size: 0,
+            content: '請選擇單品',
+            comment: null,
+            x: 80,
+            y: 150,
         },
     ]);
-    // 穿搭場合
-    const [sceneList, setSceneList] = useState(["工作", "約會"])
+
 
 
 

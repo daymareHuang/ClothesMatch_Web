@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import MyLayout from '../../layouts/MyLayout';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/Dressify.css';
-import AvatarUpload from "./AvatarUpload";
+import { React, useState } from "react"
+import MyLayout from '../../layouts/MyLayout'
+import { useNavigate } from 'react-router-dom'
+import axios from '../../api/axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../../css/Dressify.css'
+import AvatarUpload from "./AvatarUpload"
 
-// const apiUrl = 'http://localhost:8000/api';
+// const apiUrl = 'http://localhost/Dressify/public/api/member';
 
 function Register() {
   const navigate = useNavigate(); // 用於導航到其他頁面
@@ -27,7 +27,7 @@ function Register() {
 
   // 性別選擇
   const selectGender = (gender) => {
-    setSelectedGender(gender);
+    setSelectedGender(gender);  // 只更新性別，無需進行驗證
   };
 
   // 表單驗證
@@ -35,10 +35,14 @@ function Register() {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return emailPattern.test(email);
   };
-
   const validatePassword = (password) => {
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return passwordPattern.test(password);
+  };
+
+  // 头像更改处理
+  const handleAvatarChange = (base64Image) => {
+    setAvatar(base64Image); // 更新 Avatar 为 BASE64 字符串
   };
 
   // 註冊表單提交處理
@@ -72,8 +76,13 @@ function Register() {
     formData.append('UserName', username);
     formData.append('UserPWD', password);
     formData.append('Gender', selectedGender);
+    console.log(formData.get('Email'));
     if (avatar) {
-      formData.append('Avatar', avatar);  // 若有頭像，將其加入 FormData
+      formData.append('Avatar', avatar);  // 将 BASE64 字符串加入表单数据
+    }
+
+    if (avatar) {
+      formData.append('Avatar', avatar);  // 将 BASE64 字符串加入表单数据
     }
 
     try {
@@ -215,7 +224,7 @@ function Register() {
               {/* 頭像上傳 */}
               <div className="mt-3">
                 <label htmlFor="userAvatar" className="form-label">上傳頭貼</label>
-                <AvatarUpload value={avatar} onChange={(e) => setAvatar(e.target.files[0])} />
+                <AvatarUpload onChange={handleAvatarChange} />
               </div>
 
               {/* 顯示錯誤信息 */}
