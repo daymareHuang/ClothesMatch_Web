@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MyLayout from '../../layouts/MyLayout'
@@ -14,6 +15,29 @@ function Wallsearch() {
   const [brands, setBrands] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // 把東西傳到下一個頁面
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
+  const handleSearch = () => {
+        // 將搜尋條件添加到 URL
+    navigate('/dresswall/result',{state:{data: keyword} });
+  }
+
+  const [formData, setFormData] = useState({clothesType:'default', color:'白', brand:'default', size:'default', season:'default'});
+
+  const handleChange = (event) =>{
+    // 在event.target裡面拿到剛剛有改變的值
+    const{ name, value }= event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
+
+  const handleComplicated = () => {
+    navigate('/dresswall/result',{state:{ formData } });
+  }
 
 
   useEffect(() => {
@@ -50,23 +74,23 @@ function Wallsearch() {
   return (
     <MyLayout>
       <div className="container">
-
+      
 
         {/* <!-- search bar  --> */}
         {/* <!-- should have margin bottom  --> */}
-        <form className="d-flex position-relative mt-3" role="search" action='get'>
-
+        <form className="d-flex position-relative mt-3" role="search" action='/search' method="get">
+        
           {/* <!-- search input  --> */}
-          <input className="form-control rounded-start-pill rounded-end-0 bgc-normal" type="search" placeholder="Search" aria-label="Search" />
+          <input className="form-control rounded-start-pill rounded-end-0 bgc-normal" type="text" placeholder="Search" aria-label="Search" name='keyword' value={keyword} onChange={(e) => setKeyword(e.target.value)} required/>
           {/* <!-- condition button  --> */}
           {/* <!-- more condition to set  --> */}
           <button type="button" className="btn btn-normal  rounded-end-0  rounded-start-0 " onClick={handleShow} >
             <img className="icon" src="../src/assets/img/icon/settings-sliders.svg" alt="" />
           </button>
           {/* <!-- search button  --> */}
-          <a className="btn btn-normal rounded-end-pill rounded-start-0" type="submit" href="../dresswall/result">
+          <button className="btn btn-normal rounded-end-pill rounded-start-0" type='button' onClick={handleSearch} >
             <img className="icon" src="../src/assets/img/icon/search.svg" alt="" />
-          </a>
+          </button>
 
         </form>
 
@@ -112,18 +136,18 @@ function Wallsearch() {
         {/* Search Modal */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header style={{ backgroundColor: "#f9f8f4" }}>
-            <Modal.Title className="text-l fw-bold" >進階篩選</Modal.Title>
+            <Modal.Title className="text-l fw-bold" >進階搜尋</Modal.Title>
             <img className='iconsmall ms-auto' variant="secondary" onClick={handleClose} src="../src/assets/img/icon/cross-circle.svg" alt="" />
           </Modal.Header>
           <Modal.Body style={{ backgroundColor: "#f9f8f4" }}>
 
             {/* <!-- type of the clothes  --> */}
-            <form action="" className='position-relative'>
+            <form action="/complicatedsearch" method="get" className='position-relative'>
 
               <div className="row">
                 <div className="col-2 text-s text-black">類型:</div>
                 <div className="col-10 text-s">
-                  <select className="w-100 rounded-pill" name="clothesType" id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
+                  <select className="w-100 rounded-pill" name="clothesType" id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }} value={formData.clothesType} onChange={handleChange}>
                     <option value="default" disabled >請選擇一個類型</option>
                     <optgroup label="外套">
                       <option value="1">羽絨外套</option>
@@ -176,18 +200,17 @@ function Wallsearch() {
               <div className="row ">
                 <div className="col-2 text-s">顏色:</div>
                 <div className="col-10 text-s">
-                  <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
-                    <option value="default" disabled >請選擇一個顏色</option>
-                    <option value="white">白色</option>
-                    <option value="gray">灰色</option>
-                    <option value="black">黑色</option>
-                    <option value="red">紅色</option>
-                    <option value="orange">橙色</option>
-                    <option value="yellow">黃色</option>
-                    <option value="green">綠色</option>
-                    <option value="blue">藍色</option>
-                    <option value="indigo">靛色</option>
-                    <option value="purple">紫色</option>
+                  <select className="w-100 rounded-pill" name="color" value={formData.color} onChange={handleChange} id="" defaultValue="白" style={{ backgroundColor: "#ebe3e0" }}>
+                    <option value="白">白色</option>
+                    <option value="灰">灰色</option>
+                    <option value="黑">黑色</option>
+                    <option value="紅">紅色</option>
+                    <option value="橘">橘色</option>
+                    <option value="黃">黃色</option>
+                    <option value="綠">綠色</option>
+                    <option value="藍">藍色</option>
+                    <option value="靛">靛色</option>
+                    <option value="紫">紫色</option>
                   </select>
                 </div>
               </div>
@@ -197,7 +220,7 @@ function Wallsearch() {
               <div className="row">
                 <div className="col-2 text-s">品牌:</div>
                 <div className="col-10 text-s">
-                  <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
+                  <select className="w-100 rounded-pill" name="brand" value={formData.brand} onChange={handleChange}id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
                     <option value="default" disabled >請選擇一個品牌</option>
                     <option value="Uniqlo">Uniqlo</option>
                     <option value="Zara">Zara</option>
@@ -215,7 +238,7 @@ function Wallsearch() {
               <div className="row">
                 <div className="col-2 text-s">尺吋:</div>
                 <div className="col-10 text-s">
-                  <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
+                  <select className="w-100 rounded-pill" name="size"value={formData.size} onChange={handleChange} id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
                     <option value="default" disabled >請選擇一個尺寸</option>
                     <option value="XS">XS</option>
                     <option value="S">S</option>
@@ -229,10 +252,11 @@ function Wallsearch() {
               </div>
               <br />
 
+              {/* 季節 */}
               <div className="row">
                 <div className="col-2 text-s">季節:</div>
                 <div className="col-10 text-s">
-                  <select className="w-100 rounded-pill" name="" id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
+                  <select className="w-100 rounded-pill" name="season" value={formData.season} onChange={handleChange}id="" defaultValue="default" style={{ backgroundColor: "#ebe3e0" }}>
                     <option value="default" disabled >請選擇一個季節</option>
                     <option value="Spring">春</option>
                     <option value="Summer">夏</option>
@@ -245,7 +269,7 @@ function Wallsearch() {
 
               
 
-                <a className='btn btn-normal rounded-pill w-100 d-flex justify-content-center ' href="../dresswall/result" variant="secondary" type='submit' style={{height:"30px"}}>
+                <a className='btn btn-normal rounded-pill w-100 d-flex justify-content-center '  variant="secondary" type='submit' style={{height:"30px"}} onClick={handleComplicated}>
                   <img className="icon " src="../src/assets/img/icon/search.svg" alt="搜尋" />
                 </a>
               

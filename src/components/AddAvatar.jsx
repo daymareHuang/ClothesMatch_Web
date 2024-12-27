@@ -85,7 +85,7 @@ function AddAvatar() {
             {/* Avatar Image */}
             <div className="avatar-container" onClick={handleAvatarClick}>
                 <img
-                    src={croppedImage || image || "../src/assets/img/user_img.png"}
+                    src={croppedImage || image || "../src/assets/img/icon/avatar.svg"}
                     alt="Avatar"
                     className="rounded-circle userImgBig"
                 />
