@@ -7,11 +7,7 @@ import MyLayout from '../../layouts/MyLayout'
 import AddAvatar from "../../components/AddAvatar";
 import { Tabs, Tab } from 'react-bootstrap';
 import axios from 'axios';
-<<<<<<< HEAD
-
-=======
 import { use } from 'react';
->>>>>>> 252e968be427db6494f0c4c74bc06a6e79cab518
 
 
 
