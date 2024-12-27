@@ -10,7 +10,8 @@ const weatherIcons = {
     '多雲': './src/assets/img/weatherIcon/cloudy.png',
     '雷陣雨': './src/assets/img/weatherIcon/storm.png',
     '大雨': './src/assets/img/weatherIcon/rainy.png',
-    // '陰天': './src/assets/img/weatherIcon/cloudy.png',
+    '陰短暫雨': './src/assets/img/weatherIcon/cloudy-rainy.png',
+    '多雲短暫雨': './src/assets/img/weatherIcon/cloudy-rainy.png',
 };
 
 function CurrentWeather() {
@@ -71,13 +72,13 @@ function CurrentWeather() {
                     <div>
                         <span className="ms-4 text-center" id="maxTemp" style={{ fontSize: "25px" }}><b>{weatherData.maxTemp}℃</b></span>
                     </div>
-                    <div><span>最低温：</span><span id="minTemp">{weatherData.minTemp}℃</span></div>
+                    <div><span>最低溫：</span><span id="minTemp">{weatherData.minTemp}℃</span></div>
                     {/* 降雨機率 & 濕度 */}
                     <div>
-                        <span>降雨机率：</span><span id="precipitation">{weatherData.precipitation}%</span>
+                        <span>降雨機率：</span><span id="precipitation">{weatherData.precipitation}%</span>
                     </div>
                     <div>
-                        <span>体感：</span><span id="currentDescription">{weatherData.currentDescription}</span>
+                        <span>體感：</span><span id="currentDescription">{weatherData.currentDescription}</span>
                     </div>
                 </div>
             </div>
