@@ -3,9 +3,8 @@ import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Dressify.css';
 import Cropper from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
 import axios from 'axios';
-
+import 'cropperjs/dist/cropper.css';
 
 function AddAvatar() {
     const [showUploadModal, setShowUploadModal] = useState(false);
@@ -14,6 +13,7 @@ function AddAvatar() {
     const [croppedImage, setCroppedImage] = useState(null); // 儲存已編輯的圖片
     const cropperRef = useRef(null);
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 
 =======
@@ -35,6 +35,8 @@ function AddAvatar() {
         userinfo();
     },[])
 
+=======
+>>>>>>> Stashed changes
     // Toggle upload modal visibility
     const handleShowUploadModal = () => setShowUploadModal(true);
     const handleCloseUploadModal = () => setShowUploadModal(false);
@@ -68,7 +70,7 @@ function AddAvatar() {
 
     // Handle avatar click (show upload or edit modal based on image existence)
     const handleAvatarClick = () => {
-        if (image) {
+        if (image || croppedImage) {
             handleShowEditModal(); // If image exists, show edit modal
         } else {
             handleShowUploadModal(); // If no image, show upload modal
@@ -83,12 +85,37 @@ function AddAvatar() {
         handleShowUploadModal(); // Open upload modal again
     };
 
+    const [userData, setUserData] = useState({
+        avatar: '',
+        username: ''
+    });
+
+    // 使用 useEffect 获取数据
+    useEffect(() => {
+        // 使用 axios 从后端获取用户信息
+        axios.get('http://localhost:8000/api/user-info')
+            .then(response => {
+                // 如果请求成功，更新状态
+                setUserData({
+                    avatar: response.data.Avatar,  // 确保字段名称与返回的数据一致
+                    username: response.data.UserName // 同上
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
+
     return (
         <div>
             {/* Avatar Image */}
             <div className="avatar-container" onClick={handleAvatarClick}>
                 <img
+<<<<<<< Updated upstream
                     src={croppedImage || image || "../src/assets/img/icon/avatar.svg"}
+=======
+                    src={croppedImage || image || userData.avatar}
+>>>>>>> Stashed changes
                     alt="Avatar"
                     className="rounded-circle userImgBig"
                 />
