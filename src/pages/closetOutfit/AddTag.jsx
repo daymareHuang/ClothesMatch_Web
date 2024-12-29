@@ -57,7 +57,9 @@ function AddTag() {
 	}
 	// 移動標籤
 	const handleTagStop = (event, data) => {
-		console.log(data.node);
+		console.log(tagList[0]);
+		console.log(data);
+		
 
 		event.stopPropagation()
 		let selectId = parseInt(data.node.id) //找到 陣列中的編號
@@ -76,18 +78,17 @@ function AddTag() {
 	return (<MyLayout>
 		<div className="d-flex flex-column justify-content-between position-relative px-5 " style={{ height: '543px', marginTop: '50px' }}>
 			<span className='d-flex flex-column'>
-
-				<span className='text-center text-s letterSpacing-2' style={{ margin: '30px 0 20px 0' }}>穿搭照片</span>
+				<span className='text-center text-s letterSpacing-2' style={{ margin: '30px 0 20px 0' }}>新增標籤</span>
 
 				{/* 圖片 */}
-				<div style={{ height: '380px', aspectRatio: 3 / 4, overflow: 'hidden' }} className="w-100 rounded-4 mb-3">
+				<div style={{ height: '380px', width:'300px',overflow: 'hidden' }} className="rounded-4 mb-3">
 					<span style={filterStyle}>
 						<img className="" src={CroppedSrc || imageSrc} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
 					</span>
 				</div>
 
 				{/* Tag框 */}
-				<div onClick={handleAddTag} className=' position-absolute ' style={{ top: 110, height: '340px', width: '300px' }}>
+				<div onClick={handleAddTag} className='position-absolute ' style={{ top: 110, height: '340px', width: '300px' }}>
 					{tagList.map(({ content, id, x, y }, index) => <>
 						<Draggable key={id} onStop={handleTagStop} position={{ x, y }} bounds='parent'>
 							{/* Tag組件 */}

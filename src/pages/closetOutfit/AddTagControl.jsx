@@ -8,7 +8,7 @@ import AddTagCloset from "./AddTagCloset";
 import AddTagComment from "./AddTagComment";
 
 function AddTagControl({ setIsSliderVisible, selectID }) {
-    const [control, setControl] = useState('R')
+    const [control, setControl] = useState('L')
 
     function handleCloset() {
         setControl('L')

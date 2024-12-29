@@ -7,13 +7,16 @@ import OutfitContext from "../../contexts/OutfitContext";
 import MyLayout from '../../layouts/MyLayout';
 
 function OutfitCreated() {
+    let navigate = useNavigate();
     const { imageSrc, CroppedSrc, filterStyle } = useContext(OutfitContext)
 
     const handleAdd = () => { 
         navigate("/")
     }
     const handleCloset = () => {
-        navigate("/Closet")
+        console.log(111);
+        
+        navigate("/ClosetMatch")
      }
     const handlePost = () => {
         

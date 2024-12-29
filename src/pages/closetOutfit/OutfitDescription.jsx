@@ -71,9 +71,9 @@ function OutfitDescription() {
             Tag: [...tagList],
         }
 
-        console.log(sceneList);
-        console.log(uploadData);
-        
+        // console.log(sceneList);
+        console.log('data',uploadData);
+
 
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -86,16 +86,16 @@ function OutfitDescription() {
         } else {
             console.log('失敗');
         }
-        // navigate("/Closet")
+        // navigate("/OutfitCreated")
     }
 
     return (
         <MyLayout>
-            <div className="d-flex flex-column container " style={{ padding: '0 60px', overflowY: 'scroll', marginTop: '50px'}}>
-                <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭照片</span>
+            <div className="d-flex flex-column container " style={{ padding: '0 60px', overflowY: 'scroll', marginTop: '50px' }}>
+                <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭資訊</span>
 
                 {/* 照片 */}
-                <div className='mb-4 mx-auto' style={{ ...filterStyle, width:'240px',  height: '320px'}}>
+                <div className='mb-4 mx-auto' style={{ ...filterStyle, width: '240px', height: '320px' }}>
                     <img className='w-100 rounded-5' style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={CroppedSrc || imageSrc} />
                 </div>
 
@@ -159,7 +159,7 @@ function OutfitDescription() {
                 {/* 頁面切換 */}
                 <div className="d-flex justify-content-between w-100 mt-2 mb-4">
                     <button className="text-m btn rounded-pill px-3" style={{ backgroundColor: 'var(--color-black)', color: 'var(--color-white)' }} onClick={handlePrev}>上一步</button>
-                    <button className="text-m btn rounded-pill px-3" style={{ backgroundColor: 'var(--color-black)', color: 'var(--color-white)' }} onClick={handleNext}>下一步</button>
+                    <button className="text-m btn rounded-pill px-3" style={{ backgroundColor: 'var(--color-black)', color: 'var(--color-white)' }} onClick={handleNext}>儲存</button>
                 </div>
             </div>
         </MyLayout>

@@ -30,6 +30,8 @@ import ImgEditSaturate from "./pages/closetOutfit/ImgEditSaturate.jsx";
 import AddTag from "./pages/closetOutfit/AddTag.jsx";
 import OutfitDescription from "./pages/closetOutfit/OutfitDescription.jsx";
 import OutfitCreated from "./pages/closetOutfit/OutfitCreated.jsx";
+import ClosetCheckOutfit from "./pages/closetOutfit/ClosetCheckOutfit.jsx";
+import ClosetEditOutfit from "./pages/closetOutfit/ClosetEditOutfit.jsx";
 
 // closet
 import Closet from './pages/closet/Closet.jsx';
@@ -117,6 +119,14 @@ const router = createBrowserRouter([
     element: <ClosetMatch/>,
   },
   {
+    path: "/ClosetMatch/:outfitID",
+    element: <ClosetCheckOutfit/>,
+  },
+  {
+    path: "/ClosetEditOutfit/:outfitID",
+    element: <ClosetEditOutfit/>,
+  },
+  {
     path: "/ClosetPart/:part",
     element: <ClosetPart/>,
   },
@@ -135,7 +145,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  // </StrictMode>,
 )
