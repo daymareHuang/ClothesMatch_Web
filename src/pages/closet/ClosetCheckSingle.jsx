@@ -444,7 +444,8 @@ function ClosetCheckSingle() {
             <Post key={post.PostID}
               name={post.outfit.member.UserName}
               postpic={post.outfit.EditedPhoto}
-              usericon={post.outfit.member.Avatar} />
+              usericon={post.outfit.member.Avatar} 
+            />
           ))
         ) : (
           <p>No recommendations available</p> // 你可以替換成適合的占位內容
