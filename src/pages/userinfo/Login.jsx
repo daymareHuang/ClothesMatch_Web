@@ -59,7 +59,7 @@ function Login() {
     }
 
     try {
-      // API須改為 'http://localhost/Dressify/public/api/login';
+      // API須改為 'http://localhost/Dressify_backend/public/api/login';
       const response = await axios.post('http://localhost:8000/api/login', {
         Email: userId,    // 使用 `Email` 字段
         UserPWD: userPwd  // 使用 `UserPWD` 字段
