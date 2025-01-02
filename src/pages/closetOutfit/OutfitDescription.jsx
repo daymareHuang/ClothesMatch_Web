@@ -86,12 +86,14 @@ function OutfitDescription() {
         } else {
             console.log('失敗');
         }
-        // navigate("/OutfitCreated")
+        navigate("/OutfitCreated")
     }
+
+
 
     return (
         <MyLayout>
-            <div className="d-flex flex-column container " style={{ padding: '0 60px', overflowY: 'scroll', marginTop: '50px' }}>
+            <div  className="d-flex flex-column container " style={{ padding: '0 60px', overflowY: 'scroll', marginTop: '50px' }}>
                 <span className='text-center text-s letterSpacing-2 mt-4 mb-3'>穿搭資訊</span>
 
                 {/* 照片 */}

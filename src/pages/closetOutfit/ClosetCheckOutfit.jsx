@@ -35,7 +35,7 @@ function ClosetCheckOutfit() {
     useEffect(() => {
         async function callAPI() {
             // let url = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`
-            let url = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`
+            let url = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`
             let response = await fetch(url);
             let json = await response.json();
             console.log(json);
@@ -102,7 +102,8 @@ function ClosetCheckOutfit() {
     }
 
     const handleDel = async () => {
-        const apiURL = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`;
+        // const apiURL = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`;
+        const apiURL = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`;
         try {
             const response = await fetch(apiURL, {
                 method: 'DELETE'
@@ -143,15 +144,24 @@ function ClosetCheckOutfit() {
 
                     {/* 單品標籤 */}
                     {isShowTag &&
-                        <div className='position-absolute ' style={{ top: 40, height: '340px', width: '300px', pointerEvents: 'none' }}>
-                            <div className='position-relative ' style={{ height: '100%', width: '100%' }} >
+                        <div className='position-absolute'
+                            style={{ top: '40px', height: '340px', width: '300px' }}>
+                            <div className='position-relative w-100 h-100'>
                                 {itemList.map(({ ItemID, itemName, X, Y }) => (
-                                    <div className='position-absolute' style={{ top: `${Y}px`, left: `${X}px` }} key={ItemID}>
-                                        <div className='rounded-pill position-relative' style={{ display: 'inline-block', backgroundColor: 'var(--color-white)', border: '2px solid' }} >
-                                            <p className='m-0 text-s fs-5' style={{ padding: '0 20px' }}>{itemName}</p>
+                                    <Draggable key={ItemID} handle='.handle' position={{ x: X, y: Y }} bounds='parent'>
+                                        <div className='rounded-pill position-absolute'
+                                            style={{
+                                                display: 'inline-block',
+                                                backgroundColor: 'var(--color-white)',
+                                                border: '2px solid'
+                                            }} onClick={(event) => event.stopPropagation()} >
+                                            {/* 標籤內容 */}
+                                            <p className='handle m-0 text-s fs-5' style={{ padding: '0 20px' }}>{itemName}</p>
+
+                                            {/* 圓點 */}
                                             <div className='rounded-circle position-absolute start-50 ' style={{ top: '-40px', width: '15px', height: '15px', backgroundColor: 'var(--color-highlight)', border: '1px solid var(--color-white)', color: '#5551ff', cursor: 'move' }} ></div>
                                         </div>
-                                    </div>
+                                    </Draggable>
                                 ))}
                             </div>
                         </div>

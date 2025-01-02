@@ -31,7 +31,8 @@ function AddTagCloset({ setIsSliderVisible, selectID }) {
         let allData = ''
         async function callAPI() {
             // let response = await fetch("../../public/clothes.json");
-            let response = await fetch("http://localhost/Dressify/public/api/closet");
+            // let response = await fetch("http://localhost/Dressify/public/api/closet");
+            let response = await fetch("http://127.0.0.1:8000/api/closet");
             let json = await response.json();
             jsonData.current = json
 
@@ -75,6 +76,8 @@ function AddTagCloset({ setIsSliderVisible, selectID }) {
 
     // 選擇單品
     function handleSelect(event) {
+        console.log(tagList);
+        
         tagList[selectID].inCloset = 1;
         tagList[selectID].itemID = event.target.getAttribute('dataitemid');
         tagList[selectID].content = event.target.getAttribute('datatitle');
