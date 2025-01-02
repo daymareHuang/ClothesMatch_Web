@@ -70,7 +70,7 @@ function ClosetCheckSingle() {
     // console.log(updatedObj);
 
     async function updateData() {
-      const url = `http://localhost/Dressify/public/api/item/${itemId}`;
+      const url = `http://127.0.0.1:8000/api/item/${itemId}`;
       try {
         const response = await fetch(url, {
           method: 'put',
@@ -120,7 +120,7 @@ function ClosetCheckSingle() {
   async function handleDelete() {
     if (confirm('確定要刪除單品嗎？')) {
       // 刪除api
-      const url = `http://localhost/Dressify/public/api/item/${itemId}`;
+      const url = `http://127.0.0.1:8000/api/item/${itemId}`;
       const response = await fetch(url, {
         method: 'delete'
       })
@@ -163,7 +163,7 @@ function ClosetCheckSingle() {
 
   useEffect(() => {
     async function getItemData() {
-      const url = `http://localhost/Dressify/public/api/item/${itemId}`;
+      const url = `http://127.0.0.1:8000/api/item/${itemId}`;
       try {
         const response = await fetch(url);
         const jsonObj = await response.json();
@@ -175,7 +175,7 @@ function ClosetCheckSingle() {
     }
 
     async function getOutfitData() {
-      const url = `http://localhost/Dressify/public/api/item/${itemId}/outfits`;
+      const url = `http://127.0.0.1:8000/api/item/${itemId}/outfits`;
       try {
         const response = await fetch(url);
         const jsonObj = await response.json();
@@ -187,7 +187,7 @@ function ClosetCheckSingle() {
     }
 
     async function getRecommData() {
-      const url = `http://localhost/Dressify/public/api/item/${itemId}/recomms`;
+      const url = `http://127.0.0.1:8000/api/item/${itemId}/recomms`;
       try {
         const response = await fetch(url);
         const jsonObj = await response.json();

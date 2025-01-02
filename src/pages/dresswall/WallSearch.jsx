@@ -43,7 +43,7 @@ function Wallsearch() {
   useEffect(() => {
     const topbrands = async () => {
       try {
-        const response = await axios.get('http://localhost/Dressify/public/api/brand')
+        const response = await axios.get('http://127.0.0.1:8000/api/brand')
         // console.log(response.data)
         setBrands(response.data)
       }
@@ -58,7 +58,7 @@ function Wallsearch() {
   useEffect(() => {
     const topclothes = async () => {
       try {
-        const response = await axios.get('http://localhost/Dressify/public/api/clothestype')
+        const response = await axios.get('http://127.0.0.1:8000/api/clothestype')
         // console.log(response.data)
         setClothes(response.data)
       }

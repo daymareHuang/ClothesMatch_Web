@@ -5,7 +5,7 @@ function Closet() {
   const [items, setItems] = useState([]);
   useEffect(() => {
     async function getData() {
-      const url = 'http://localhost/Dressify/public/api/items';
+      const url = 'http://127.0.0.1:8000/api/items';
       try {
         const response = await fetch(url);
         const jsonObj = await response.json();
