@@ -4,12 +4,7 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import AvatarUpload from "./AvatarUpload"
-<<<<<<< HEAD
-
-// const apiUrl = 'http://127.0.0.1:8000/api/member';
-=======
 import MyLayoutBlank from "../../layouts/MyLayoutBlank"
->>>>>>> f7cc54dd3f6114f7acd79987b864a7790d3a6946
 
 function Register() {
   const navigate = useNavigate(); // 用於導航到其他頁面
