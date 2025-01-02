@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import MyLayoutForDashboard from "../../layouts/MyLayoutForDashboard"
+import MyLayoutBlank from "../../layouts/MyLayoutBlank"
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
-import axios from '../../api/axios'
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import ForgetPassword from './ForgetPassword'
@@ -59,12 +59,13 @@ function Login() {
     }
 
     try {
+      // API須改為 'http://localhost/Dressify/public/api/login';
       const response = await axios.post('http://localhost:8000/api/login', {
         Email: userId,    // 使用 `Email` 字段
         UserPWD: userPwd  // 使用 `UserPWD` 字段
       });
 
-      if (response.data.success) {
+      if (response.data.message === 'Login successful') {
         // 登入成功，儲存 token 和使用者資料
         const { user } = response.data;
 
@@ -81,7 +82,13 @@ function Login() {
         // 跳轉到 Dashboard 頁面
         navigate('/Dashboard');
       } else {
-        setError('登入失敗，請檢查帳號或密碼');
+        if (response.data.message === 'Email not found') {
+          setError('此郵件尚未註冊，請檢查郵件地址');
+        } else if (response.data.message === 'Incorrect password') {
+          setError('密碼錯誤，請重新輸入');
+        } else {
+          setError('登入失敗，請檢查帳號或密碼');
+        }
       }
     } catch (err) {
       setError('登入時發生錯誤，請稍後再試');
@@ -89,7 +96,7 @@ function Login() {
   };
 
   return (
-    <MyLayoutForDashboard>
+    <MyLayoutBlank>
       {/* <!-- content --> */}
       <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
         <div className="container-fluid pt-4" style={{ backgroundColor: '#F8F9F3' }}>
@@ -186,7 +193,7 @@ function Login() {
                   登入
                 </button>
               </div>
-                {/* <div className="my-4 align-items-center text-center">
+              {/* <div className="my-4 align-items-center text-center">
                   <button className="btn btn-lg text-m py-1 w-100" style={{ backgroundColor: '#ebe3e0' }}>
                     <img src="src/assets/img/icon/google.svg" alt="" width="30px" />&nbsp;Google登入
                   </button>
@@ -203,7 +210,7 @@ function Login() {
           </div>
         </div>
       </div>
-    </MyLayoutForDashboard>
+    </MyLayoutBlank>
   )
 }
 

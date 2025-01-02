@@ -55,7 +55,7 @@ function CurrentWeather() {
     }, []);
 
     if (loading) {
-        return <div>载入中...</div>;
+        return <div>Loading...</div>;
     }
 
     return (
