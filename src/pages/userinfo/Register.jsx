@@ -1,12 +1,15 @@
 import { React, useState } from "react"
-import MyLayout from '../../layouts/MyLayout'
 import { useNavigate } from 'react-router-dom'
-import axios from '../../api/axios'
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import AvatarUpload from "./AvatarUpload"
+<<<<<<< HEAD
 
 // const apiUrl = 'http://127.0.0.1:8000/api/member';
+=======
+import MyLayoutBlank from "../../layouts/MyLayoutBlank"
+>>>>>>> f7cc54dd3f6114f7acd79987b864a7790d3a6946
 
 function Register() {
   const navigate = useNavigate(); // 用於導航到其他頁面
@@ -27,7 +30,11 @@ function Register() {
 
   // 性別選擇
   const selectGender = (gender) => {
-    setSelectedGender(gender);  // 只更新性別，無需進行驗證
+    if (selectedGender === gender) {
+      setSelectedGender(null);  // 如果點擊的是已選擇的性別，則取消選擇
+    } else {
+      setSelectedGender(gender);  // 否則選擇該性別
+    }
   };
 
   // 表單驗證
@@ -40,7 +47,7 @@ function Register() {
     return passwordPattern.test(password);
   };
 
-  // 头像更改处理
+  // 上傳頭像
   const handleAvatarChange = (base64Image) => {
     setAvatar(base64Image); // 更新 Avatar 为 BASE64 字符串
   };
@@ -70,21 +77,24 @@ function Register() {
       return;
     }
 
+    // 將性別轉換為數字
+    const gender = selectedGender === 'male' ? 1 : selectedGender === 'female' ? 0 : null;
+
     // 使用者送出的資料
     const formData = new FormData();
     formData.append('Email', email);
     formData.append('UserName', username);
     formData.append('UserPWD', password);
-    formData.append('Gender', selectedGender);
+    formData.append('Gender', gender);
     console.log(formData.get('Email'));
+    console.log('FormData Avatar:', avatar);
     if (avatar) {
-      formData.append('Avatar', avatar);  // 将 BASE64 字符串加入表单数据
+      formData.append('Avatar', avatar);  // 将 Base64 字符串加入表单数据
+    } else {
+      formData.append('Avatar', '');  // 空字符串
     }
 
-    if (avatar) {
-      formData.append('Avatar', avatar);  // 将 BASE64 字符串加入表单数据
-    }
-
+    // API須改為 'http://localhost/Dressify/public/api/register';
     try {
       const response = await axios.post('http://localhost:8000/api/register', formData, {
         headers: {
@@ -102,11 +112,12 @@ function Register() {
         setErrorMessage('註冊失敗，請再試一次。');
       }
       console.error('Error registering:', error);
+      console.error('Error response:', error.response);
     }
   };
 
   return (
-    <MyLayout>
+    <MyLayoutBlank>
       <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
         <div className="container-fluid py-3 my-4" style={{ backgroundColor: '#F8F9F3' }}>
           <div className="container-fluid text-center">
@@ -125,7 +136,7 @@ function Register() {
                   type="email"
                   className="form-control"
                   id="userEmail"
-                  placeholder="請輸入郵件，完成註冊後不可修改"
+                  placeholder="請輸入郵件，完成註冊後不可更改"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required />
@@ -138,7 +149,7 @@ function Register() {
                   type="text"
                   className="form-control"
                   id="userName"
-                  placeholder="請輸入使用者名稱，完成註冊後不可修改"
+                  placeholder="請輸入使用者名稱，完成註冊後不可更改"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required />
@@ -152,7 +163,7 @@ function Register() {
                   <input
                     type={isPasswordVisible ? 'text' : 'password'}
                     className="form-control"
-                    id="userPwd"
+                    id="UserPWD"
                     placeholder="請輸入密碼"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -204,6 +215,7 @@ function Register() {
                       border: '1px solid #3b3a38'
                     }}
                     type="button"
+                    id="male"
                     onClick={() => selectGender('male')}>
                     男性
                   </button>
@@ -215,6 +227,7 @@ function Register() {
                       border: '1px solid #3b3a38'
                     }}
                     type="button"
+                    id="female"
                     onClick={() => selectGender('female')}>
                     女性
                   </button>
@@ -246,7 +259,7 @@ function Register() {
           </div>
         </div>
       </div >
-    </MyLayout >
+    </MyLayoutBlank >
   );
 }
 

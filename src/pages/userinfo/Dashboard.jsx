@@ -4,59 +4,83 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Dressify.css';
 import '../../css/dresswall.css';
-import MyLayoutForDashboard from '../../layouts/MyLayoutForDashboard';
 import TodaySuggestion from "./TodaySuggestion";
 import MoreSuggestion from "./MoreSuggestion";
 import CurrentWeather from "./CurrentWeather";
 import AddAvatar from "../../components/AddAvatar";
+import MyLayoutHeader from "../../layouts/MyLayoutHeader";
 
 function Dashboard() {
-    // 定义状态来保存用户名和头像
+    // 儲存用戶資料的 state
     const [userData, setUserData] = useState({
         avatar: '',
-        username: ''
+        username: '',
     });
+    // 顯示載入狀態
+    const [loading, setLoading] = useState(true);
 
-    // 使用 useEffect 获取数据
+    // 使用 useEffect 取得資料
     useEffect(() => {
-        // 使用 axios 从后端获取用户信息
-        axios.get('http://localhost:8000/api/user-info')
-            .then(response => {
-                // 如果请求成功，更新状态
-                setUserData({
-                    avatar: response.data.Avatar,  // 确保字段名称与返回的数据一致
-                    username: response.data.UserName // 同上
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
+        // 從 localStorage 取得儲存的用戶資料
+        const storedData = localStorage.getItem('user');
+
+        if (storedData) {
+            // 解析 JSON 字串為物件
+            const userObj = JSON.parse(storedData);
+
+            // 提取 UID
+            const UID = userObj.UID;
+            // 如果 UID 存在，發送請求到後端 API 獲取 UserName 和 Avatar
+            if (UID) {
+                // API須改為 'http://localhost/Dressify/public/api/user-info/${UID}';
+                axios.get(`http://localhost:8000/api/user-info/${UID}`)
+                    .then(response => {
+                        // 請求成功後，更新 userData 狀態
+                        const { UserName, Avatar } = response.data;
+                        setUserData({
+                            avatar: Avatar,
+                            username: UserName
+                        });
+                        setLoading(false);  // 更新完資料後，結束載入狀態
+                    })
+                    .catch(error => {
+                        console.error('取得用戶資料時發生錯誤:', error);
+                        setLoading(false);  // 請求失敗時也結束載入狀態
+                    });
+            } else {
+                console.error('從儲存的資料中找不到 UID.');
+                setLoading(false);  // 如果 UID 不存在，結束載入狀態
+            }
+        } else {
+            console.error('在 localStorage 中找不到用戶資料.');
+            setLoading(false);  // 沒有資料的情況下結束載入狀態
+        }
     }, []);
 
     return (
-        <MyLayoutForDashboard>
+        <MyLayoutHeader>
             <div className="container-fluid" style={{ marginTop: '65px' }}>
                 <div>
                     <CurrentWeather />
                 </div>
                 <div className="container-fluid my-2 py-3 align-items-center" style={{ backgroundColor: '#F8F9F3' }}>
-                    {/* 个人穿搭墙信息 part 1 */}
-                    <div className="d-flex flex-nowrap align-items-center justify-content-evenly py-2">
-                        <div>
-                            <div className="image-container ms-5" style={{ position: 'relative', display: 'inline-block' }}>
+                    {/* 個人穿搭牆訊息 part 1 */}
+                    <div className="container-fluid d-flex flex-nowrap align-items-center py-2">
+                        <div className="justify-content-center px-5">
+                            <div className="image-container" style={{ position: 'relative', display: 'inline-block' }}>
                                 {/* 使用 AddAvatar 组件 */}
                                 <AddAvatar avatar={userData.avatar} />
                             </div>
                             <div>
-                                <p className="ms-5 mt-3 ps-3">@{userData.username}</p>
+                                <p className="flex-nowrap mt-3 text-center">@{userData.username}</p>
                             </div>
                         </div>
-                        <div className="container-fluid d-flex text-center justify-content-center text-m">
-                            <div className="d-flex flex-column mx-4">
+                        <div className="container-fluid d-flex text-center justify-content-evenly text-m">
+                            <div className="d-flex flex-column mx-3">
                                 <span>xxxx</span>
                                 <span>貼文</span>
                             </div>
-                            <div className="d-flex flex-column mx-4">
+                            <div className="d-flex flex-column mx-3">
                                 <span>xxxx</span>
                                 <span>粉絲</span>
                             </div>
@@ -77,7 +101,7 @@ function Dashboard() {
                         </Link>
                         <Link to="/dresswall/yourself" style={{ textDecoration: 'none', color: '#3b3a38' }} className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
                             <img
-                                src={userData.avatar}
+                                src={userData.avatar || './default-avatar.png'} // 預設值處理
                                 alt="User Avatar"
                                 className="img rounded-circle"
                                 width="30px"
@@ -104,7 +128,7 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-        </MyLayoutForDashboard>
+        </MyLayoutHeader>
     );
 }
 
