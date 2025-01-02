@@ -25,7 +25,7 @@ function ClosetSearch({ close }) {
     const keyword = keywordRef.current.value;
 
     // 送出fetch拿回相符合的items
-    const url = `http://localhost/Dressify/public/api/items/search?keyword=${keyword}`;
+    const url = `http://127.0.0.1:8000/api/items/search?keyword=${keyword}`;
 
     const response = await fetch(url);
     const jsonObj = await response.json();

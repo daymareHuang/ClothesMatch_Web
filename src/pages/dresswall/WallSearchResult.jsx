@@ -27,7 +27,7 @@ function Wallsearchresult() {
     useEffect(() => {
       const getresult = async () => {
         try {
-          const response = await axios.post('http://localhost/Dressify/public/api/search', {
+          const response = await axios.post('http://127.0.0.1:8000/api/search', {
             keyword: data,
           })
           // console.log(response.data)
@@ -45,7 +45,7 @@ function Wallsearchresult() {
     useEffect(() => {
       const getcomplicated = async () => {
         try {
-          const response = await axios.post('http://localhost/Dressify/public/api/complicatedsearch', {
+          const response = await axios.post('http://127.0.0.1:8000/api/complicatedsearch', {
             clothesType: formData.clothesType,
             color: formData.color,
             brand: formData.brand,

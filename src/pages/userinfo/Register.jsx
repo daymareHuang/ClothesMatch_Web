@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
 import AvatarUpload from "./AvatarUpload"
 
-// const apiUrl = 'http://localhost/Dressify/public/api/member';
+// const apiUrl = 'http://127.0.0.1:8000/api/member';
 
 function Register() {
   const navigate = useNavigate(); // 用於導航到其他頁面

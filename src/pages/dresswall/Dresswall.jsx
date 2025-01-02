@@ -18,7 +18,7 @@ function Dresswall() {
     useEffect(()=>{
         const getwomenpost = async () =>{
             try{
-                const response = await axios.get('http://localhost/Dressify/public/api/getwomenpost');
+                const response = await axios.get('http://127.0.0.1:8000/api/getwomenpost');
                 // console.log(response.data);
                 setWomenPosts(response.data);
             } 
@@ -33,7 +33,7 @@ function Dresswall() {
     useEffect(()=>{
         const getmenpost = async ()=>{
             try{
-                const response = await axios.get('http://localhost/Dressify/public/api/getmenpost')
+                const response = await axios.get('http://127.0.0.1:8000/api/getmenpost')
                 setMenPosts(response.data)
             }
             catch(error){

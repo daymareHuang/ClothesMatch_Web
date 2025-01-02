@@ -19,7 +19,7 @@ function AddAvatar() {
 
         const userinfo = async () => {
             try {
-                const response = await axios.post('http://localhost/Dressify/public/api/userself', {
+                const response = await axios.post('http://127.0.0.1:8000/api/userself', {
                     UID: 1,
                 });
                  setImage(response.data[0].Avatar);
