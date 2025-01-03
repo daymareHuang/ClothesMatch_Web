@@ -14,9 +14,8 @@ function AddAvatar() {
     const cropperRef = useRef(null);
 
 
-    // 使用者資料獲取
+    // 拿使用者的頭貼
     useEffect(()=>{
-
         const userinfo = async () => {
             try {
                 const response = await axios.post('http://127.0.0.1:8000/api/userself', {
