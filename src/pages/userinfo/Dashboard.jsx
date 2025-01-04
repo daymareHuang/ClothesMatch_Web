@@ -16,8 +16,11 @@ function Dashboard() {
         avatar: '',
         username: '',
     });
+    
     // 顯示載入狀態
     const [loading, setLoading] = useState(true);
+    const [postNumber, setPostNumber] = useState(0);
+
 
     // 使用 useEffect 取得資料
     useEffect(() => {
@@ -32,8 +35,7 @@ function Dashboard() {
             const UID = userObj.UID;
             // 如果 UID 存在，發送請求到後端 API 獲取 UserName 和 Avatar
             if (UID) {
-                // API須改為 'http://localhost/Dressify/public/api/user-info/${UID}';
-                axios.get(`http://localhost:8000/api/user-info/${UID}`)
+                axios.get(`http://127.0.0.1:8000/api/user-info/${UID}`)
                     .then(response => {
                         // 請求成功後，更新 userData 狀態
                         const { UserName, Avatar } = response.data;
@@ -57,6 +59,22 @@ function Dashboard() {
         }
     }, []);
 
+    useEffect(() => {
+        const getpostNum = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/getpostnum', {
+                    UID: 1,
+                })
+                // console.log(response.data);
+                setPostNumber(response.data[0].postNum);
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        }
+        getpostNum();
+
+    }, [])
+
     return (
         <MyLayoutHeader>
             <div className="container-fluid" style={{ marginTop: '65px' }}>
@@ -77,7 +95,7 @@ function Dashboard() {
                         </div>
                         <div className="container-fluid d-flex text-center justify-content-evenly text-m">
                             <div className="d-flex flex-column mx-3">
-                                <span>xxxx</span>
+                                <span>{postNumber}</span>
                                 <span>貼文</span>
                             </div>
                             <div className="d-flex flex-column mx-3">
@@ -104,9 +122,11 @@ function Dashboard() {
                                 src={userData.avatar || './default-avatar.png'} // 預設值處理
                                 alt="User Avatar"
                                 className="img rounded-circle"
+                                style={{ objectFit: "cover" }}
                                 width="30px"
                                 height="30px"
-                                loading="lazy" />
+                                loading="lazy"
+                            />
                             <span>個人首頁</span>
                         </Link>
                     </div>
