@@ -25,7 +25,7 @@ function ClosetHeader({ isActive }) {
   }
   return (
     <>
-      <div className="container-fluid fixed-top bg-light my-5" style={{ top: '14px' }}>
+      <div className="fixed-top bg-light my-5" style={{ top: '14px', width: '370px', left: '5px' }}>
         <div className="row align-items-center">
           <a href="/Closet" className="text-xs col-2 ms-2 my-2 btn rounded-pill ssbtn"
             style={{ backgroundColor: activeBtn === '單品' ? 'var(--color-highlight)' : 'var(--color-base)', color: activeBtn === '單品' ? 'var(--color-white)' : 'var(--color-black)' }}

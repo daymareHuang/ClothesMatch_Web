@@ -34,7 +34,11 @@ function ClosetCheckOutfit() {
     // 接API
     useEffect(() => {
         async function callAPI() {
+<<<<<<< HEAD
             // let url = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`
+=======
+            // let url = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`
+>>>>>>> f30737b8903eb23923b0f54fa78974b9aa026d50
             let url = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`
             let response = await fetch(url);
             let json = await response.json();
@@ -102,7 +106,10 @@ function ClosetCheckOutfit() {
     }
 
     const handleDel = async () => {
+<<<<<<< HEAD
         // const apiURL = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`;
+=======
+>>>>>>> f30737b8903eb23923b0f54fa78974b9aa026d50
         const apiURL = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`;
         try {
             const response = await fetch(apiURL, {

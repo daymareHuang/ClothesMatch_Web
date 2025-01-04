@@ -41,7 +41,12 @@ import Crop from './pages/closet/Crop.jsx';
 import ClosetEditSingle from './pages/closet/ClosetEditSingle.jsx';
 import ClosetCheckSingle from './pages/closet/ClosetCheckSingle.jsx';
 
+// 先把dashboard設成連進去就會到的地方 想要改了話請自行修改
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Dashboard />
+  },
   {
     path: "/Image",
     element: <OutfitContextProvider><Image /></OutfitContextProvider>

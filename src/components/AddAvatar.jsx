@@ -12,24 +12,60 @@ function AddAvatar() {
     const [image, setImage] = useState(null); // 儲存使用者上傳的照片
     const [croppedImage, setCroppedImage] = useState(null); // 儲存已編輯的圖片
     const cropperRef = useRef(null);
+    const [loading, setLoading] = useState(true);
 
+    // 拿使用者的頭貼
+    // useEffect(()=>{
+    //     const userinfo = async () => {
+    //         try {
+    //             const response = await axios.post('http://127.0.0.1:8000/api/userself', {
+    //                 UID: 1,
+    //             });
+    //              setImage(response.data[0].Avatar);
+    //         }
+    //         catch (error) {
+    //             console.error('ERROR: ', error.message);
+    //         }
+    //     }
+    //     userinfo();
+    // },[])
 
-    // 使用者資料獲取
-    useEffect(()=>{
+    useEffect(() => {
+        // 從 localStorage 取得儲存的用戶資料
+        const storedData = localStorage.getItem('user');
 
-        const userinfo = async () => {
-            try {
-                const response = await axios.post('http://localhost/Dressify/public/api/userself', {
-                    UID: 1,
-                });
-                 setImage(response.data[0].Avatar);
+        if (storedData) {
+            // 解析 JSON 字串為物件
+            const userObj = JSON.parse(storedData);
+
+            // 提取 UID
+            const UID = userObj.UID;
+            // 如果 UID 存在，發送請求到後端 API 獲取 UserName 和 Avatar
+            if (UID) {
+                // API須改為 'http://localhost/Dressify/public/api/user-info/${UID}';
+                axios.get(`http://127.0.0.1:8000/api/user-info/${UID}`)
+                    .then(response => {
+                        // 請求成功後，更新 userData 狀態
+                        const { UserName, Avatar } = response.data;
+                        setUserData({
+                            avatar: Avatar,
+                            username: UserName
+                        });
+                        setLoading(false);  // 更新完資料後，結束載入狀態
+                    })
+                    .catch(error => {
+                        console.error('取得用戶資料時發生錯誤:', error);
+                        setLoading(false);  // 請求失敗時也結束載入狀態
+                    });
+            } else {
+                console.error('從儲存的資料中找不到 UID.');
+                setLoading(false);  // 如果 UID 不存在，結束載入狀態
             }
-            catch (error) {
-                console.error('ERROR: ', error.message);
-            }
+        } else {
+            console.error('在 localStorage 中找不到用戶資料.');
+            setLoading(false);  // 沒有資料的情況下結束載入狀態
         }
-        userinfo();
-    },[])
+    }, []);
 
 
     // Toggle upload modal visibility
@@ -84,23 +120,7 @@ function AddAvatar() {
         avatar: '',
         username: ''
     });
-
-    // 使用 useEffect 获取数据
-    useEffect(() => {
-        // 使用 axios 从后端获取用户信息
-        axios.get('http://localhost:8000/api/user-info')
-            .then(response => {
-                // 如果请求成功，更新状态
-                setUserData({
-                    avatar: response.data.Avatar,  // 确保字段名称与返回的数据一致
-                    username: response.data.UserName // 同上
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-    }, []);
-
+    
     return (
         <div>
             {/* Avatar Image */}

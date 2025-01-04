@@ -53,7 +53,7 @@ function OutfitDescription() {
     }
     async function handleNext() {
         // navigate("/")
-        const apiUrl = "http://localhost/Dressify/public/api/OutfitDescription"
+        const apiUrl = "http://127.0.0.1:8000/api/OutfitDescription"
 
         const Title = tittle || '沒有名稱';
         const Content = comment || null;

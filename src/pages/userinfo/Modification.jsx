@@ -8,245 +8,262 @@ import AvatarUpload from "./AvatarUpload";
 
 function Modification() {
 
-    const [memberData, setMemberData] = useState({});
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const navigate = useNavigate(); // 用於導航到其他頁面
+
+    const [userData, setUserData] = useState({
+        avatar: ''
+    });
+    const [password, setPassword] = useState('');
     const [selectedGender, setSelectedGender] = useState(null);
-    const navigate = useNavigate();
+    const [avatar, setAvatar] = useState(null);
+    const [isLoading, setIsLoading] = useState(false); // 用來顯示加載狀態
+    const [errorMessage, setErrorMessage] = useState(''); // 用來顯示錯誤信息
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    // 假設從 localStorage 或其他方式取得 userId
-    const userId = 1; // 您應該根據具體情況動態設置
-
-    // 取得用戶資料
-    useEffect(() => {
-        const fetchMemberData = async () => {
-            try {
-                const response = await axios.get(`/api/member/${userId}`);
-                setMemberData(response.data);
-                setSelectedGender(response.data.Gender);
-            } catch (error) {
-                console.error('Error fetching member data:', error);
-            }
-        };
-
-        fetchMemberData();
-    }, [userId]);
-
-    // 切換密碼顯示
+    // 密碼顯示/隱藏切換
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(prevState => !prevState);
     };
 
-    // 選擇性別
-    const selectButton = (gender) => {
-        setSelectedGender(prevGender => prevGender === gender ? null : gender);
-    };
-
-    // 提交更新
-    const handleProfileUpdate = async () => {
-        const updatedProfile = {
-            UserPWD: document.getElementById('userPwd').value,
-            Gender: selectedGender,
-            Avatar: memberData.Avatar,
-        };
-
-        try {
-            const response = await axios.put(`/api/member/${userId}`, updatedProfile);
-            console.log('Profile updated:', response.data);
-        } catch (error) {
-            console.error('Error updating profile:', error.response.data);
+    // 性別選擇
+    const selectGender = (gender) => {
+        if (selectedGender === gender) {
+            setSelectedGender(null);  // 如果點擊的是已選擇的性別，則取消選擇
+        } else {
+            setSelectedGender(gender);  // 否則選擇該性別
         }
     };
 
-    // 登出功能
-    const handleLogout = async () => {
-        try {
-            await axios.post('/api/logout');
-            // 清除認證資料（例如：token）並重定向到登錄頁面
-            localStorage.removeItem('authToken'); // 假設您將 token 存儲在 localStorage
-            navigate('/login'); // 重定向到登錄頁面
-        } catch (error) {
-            console.error('Logout failed:', error.response.data);
+    const handleAvatarChange = (base64Image) => {
+        setAvatar(base64Image); // 更新 Avatar 为 BASE64 字符串
+    };
+
+    // 取得當前登入的會員資料
+    useEffect(() => {
+        const storedData = localStorage.getItem('user');
+
+        if (storedData) {
+            const userObj = JSON.parse(storedData);
+            const UID = userObj.UID;
+
+            if (UID) {
+                axios.get(`http://localhost:8000/api/user-info/${UID}`)
+                    .then(response => {
+                        const Avatar = response.data;
+                        setUserData({
+                            avatar: Avatar
+                        });
+                        setEmail(userObj.Email);  // 假設 localStorage 中有 Email 資料
+                        setIsLoading(false);
+                    })
+                    .catch(error => {
+                        console.error('取得用戶資料時發生錯誤:', error);
+                        setIsLoading(false);
+                    });
+            } else {
+                console.error('從儲存的資料中找不到 UID.');
+                setIsLoading(false);
+            }
+        } else {
+            console.error('在 localStorage 中找不到用戶資料.');
+            setIsLoading(false);
         }
+    }, []);
+
+    // 表單提交處理
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrorMessage('');
+        setIsLoading(true);
+
+        // 檢查密碼是否合法
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordPattern.test(password)) {
+            setErrorMessage('密碼至少8個字符，包含字母和數字');
+            setIsLoading(false);
+            return;
+        }
+
+        // 性別轉換為數字
+        const gender = selectedGender === 'male' ? 1 : selectedGender === 'female' ? 0 : null;
+
+        const formData = new FormData();
+        formData.append('UserPWD', password);
+        formData.append('Gender', gender);
+        formData.append('Email', email); // 保持 email 更新
+        formData.append('UserName', userData.username); // 更新使用者名稱
+        formData.append('Avatar', userData.avatar); // 更新頭像
+
+        try {
+            const response = await axios.put('http://localhost:8000/api/update-profile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            setIsLoading(false);
+            alert('資料修改成功！');
+            navigate('/dashboard');  // 更新後導航回到 dashboard
+        } catch (error) {
+            setIsLoading(false);
+            if (error.response && error.response.data) {
+                setErrorMessage(error.response.data.message || '資料修改失敗，請再試一次。');
+            }
+        }
+    };
+
+    // 登出
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/login');  // 登出後導航到登入頁
     };
 
     // 刪除帳號
     const handleDeleteAccount = async () => {
-        const confirmDelete = window.confirm('您確定要刪除帳號嗎？此操作無法恢復');
+        const confirmDelete = window.confirm('確定要刪除帳號嗎？');
         if (confirmDelete) {
             try {
-                await axios.delete(`/api/member/${userId}`);
+                const response = await axios.delete('http://localhost:8000/api/delete-account', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                    }
+                });
                 alert('帳號已刪除');
-                // 登出並重定向
-                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
                 navigate('/login');
             } catch (error) {
-                console.error('Error deleting account:', error.response.data);
+                console.error('刪除帳號時發生錯誤:', error);
             }
         }
     };
 
     return (
-        <>
-            <MyLayout>
-                {/* <!-- content --> */}
-                <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
-                    <div className="container-fluid py-3 my-4" style={{ backgroundColor: '#F8F9F3' }}>
-                        <div>
-                            {/* <!-- banner --> */}
-                            <div className="container-fluid text-center">
-                                <p className="text-xl"><b>修改會員資料</b></p>
-                                <p className="text-xs mt-0">若您需要修改會員資料，請在以下頁面修改</p>
-                            </div>
-                            {/* <!-- input section --> */}
-                            <div className="my-4 text-s">
-                                {/* <!-- Email --> */}
-                                {/* <!-- <div className="mt-3">
-                                    <label htmlFor="email" className="form-label">&nbsp;&nbsp;Email</label>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        id="userEmail"
-                                        value={memberData.Email || ''}
-                                        readOnly />
-                                </div> --> */} 
-                                {/* <!-- ID --> */}
-                                 {/* <!-- <div className="mt-3">
-                                    <label htmlFor="userName" className="form-label">&nbsp;&nbsp;使用者名稱</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="userId"
-                                        value={memberData.UserName || ''}
-                                        readOnly />
-                                </div>
-                                <label htmlFor="userIdDescription" className="text-xs">&nbsp;&nbsp;包含英文字母（大小寫區分）、數字及特殊符號</label> --> */}
-                                <div className="mt-3">
-                                    <label htmlFor="userPwd" className="form-label">&nbsp;&nbsp;密碼</label>
-                                    <div className="input-container" style={{ position: 'relative' }}>
-                                        <input
-                                            type={isPasswordVisible ? 'text' : 'password'}
-                                            className="form-control"
-                                            id="userPwd"
-                                            placeholder="請輸入密碼" />
-                                        <img
-                                            src="src/assets/img/icon/eye_lash.svg"
-                                            alt="Closed Eye Icon"
-                                            width="20px"
-                                            id="checkEye"
-                                            className="checkEye"
-                                            style={{
-                                                cursor: 'pointer',
-                                                position: 'absolute',
-                                                right: '10px',
-                                                bottom: '-20%',
-                                                transform: 'translateY(-50%)',
-                                                display: isPasswordVisible ? 'none' : 'block',
-                                            }}
-                                            onClick={togglePasswordVisibility} />
-
-                                        <img
-                                            src="src/assets/img/icon/eye.svg"
-                                            alt="Open Eye Icon"
-                                            width="20px"
-                                            id="openEye"
-                                            className="openEye"
-                                            style={{
-                                                cursor: 'pointer',
-                                                position: 'absolute',
-                                                right: '10px',
-                                                bottom: '-20%',
-                                                transform: 'translateY(-50%)',
-                                                display: isPasswordVisible ? 'block' : 'none',
-                                            }}
-                                            onClick={togglePasswordVisibility} />
-                                    </div>
-                                    <label htmlFor="userPwdDescription" className="text-xs">&nbsp;&nbsp;至少8個字元，包含英文字母（大小寫區分）及數字</label>
-                                </div>
-                                {/* <!-- Birthday --> */}
-                                {/* <div className="mt-3">
-                                    <label htmlFor="userBirth" className="form-label">&nbsp;&nbsp;生日</label>
-                                    <input type="date" className="form-control w-50" id="userBirth" />
-                                </div> */}
-                                {/* <!-- Gender --> */}
-                                <div className="mt-3">
-                                    <label htmlFor="userGender" className="form-label">&nbsp;&nbsp;性別</label>
-                                    <div className="text-m">
-                                        <button className={`badge rounded-pill mx-1 ${selectedGender === 'male' ? 'selected' : ''}`}
-                                            style={{
-                                                backgroundColor: selectedGender === 'male' ? '#3b3a38' : '#E9E3DF',
-                                                color: selectedGender === 'male' ? '#E9E3DF' : '#3b3a38',
-                                                border: '1px solid #3b3a38'
-                                            }}
-                                            onClick={() => selectButton('male')}>男性
-                                        </button>
-                                        <button className={`badge rounded-pill mx-1 ${selectedGender === 'female' ? 'selected' : ''}`}
-                                            style={{
-                                                backgroundColor: selectedGender === 'female' ? '#3b3a38' : '#E9E3DF',
-                                                color: selectedGender === 'female' ? '#E9E3DF' : '#3b3a38',
-                                                border: '1px solid #3b3a38'
-                                            }}
-                                            onClick={() => selectButton('female')}>女性
-                                        </button>
-                                        {/* <button className={`badge rounded-pill mx-1 ${selectedGender === 'secret' ? 'selected' : ''}`}
-                                            style={{
-                                                backgroundColor: selectedGender === 'secret' ? '#3b3a38' : '#E9E3DF',
-                                                color: selectedGender === 'secret' ? '#E9E3DF' : '#3b3a38',
-                                                border: '1px solid #3b3a38'
-                                            }}
-                                            onClick={() => selectButton('secret')}>保密
-                                        </button> */}
-                                    </div>
-                                </div>
-                                {/* <!-- Height --> */}
-                                {/* <div className="mt-3">
-                                    <label htmlFor="userHeight" className="form-label">&nbsp;&nbsp;身高（cm）</label>
-                                    <input type="number" className="form-control w-25" id="userHeight" />
-                                </div> */}
-                                {/* <!-- Weight --> */}
-                                {/* <div className="mt-3">
-                                    <label htmlFor="userWeight" className="form-label">&nbsp;&nbsp;體重（kg）</label>
-                                    <input type="number" className="form-control w-25" id="userWeight" />
-                                </div> */}
-                                {/* <!-- Style preference --> */}
-                                {/* <div className="mt-3">
-                                    <label htmlFor="stylePreference" className="form-label">&nbsp;&nbsp;穿搭風格偏好<span
-                                        style={{ color: '#FF0000' }}>*</span></label>
-                                    <div className="text-m">
-                                        <StylePreferenceInput />
-                                    </div>
-                                </div> */}
-                                {/* <!-- Avatar --> */}
-                                <div className="mt-3">
-                                    <label htmlFor="userAvatar" className="form-label">&nbsp;&nbsp;上傳頭貼</label>
-                                    <AvatarUpload setAvatar={setMemberData} />
-                                </div>
-                                {/* <!-- button --> */}
-                                <div>
-                                    <button
-                                        className="btn btn-lg rounded-3 w-100 py-2 mt-3"
-                                        style={{ backgroundColor: '#ebe3e0' }}
-                                        onClick={handleProfileUpdate}>
-                                        確認修改
-                                    </button>
-                                    <button
-                                        className="btn btn-lg rounded-3 w-100 py-2 mt-3"
-                                        style={{ backgroundColor: '#ebe3e0' }}
-                                        onClick={handleLogout}>
-                                        登出
-                                    </button>
-                                    <button
-                                        className="button button-dark rounded-3 w-100 py-2 mt-3"
-                                        style={{ backgroundColor: '#FF0000', color: '#FFFFFF' }}
-                                        onClick={handleDeleteAccount}>
-                                        刪除帳號
-                                    </button>
-                                </div>
-                            </div>
+        <MyLayout>
+            {/* <!-- content --> */}
+            <div className="container-fluid" style={{ marginTop: '65px', marginBottom: '55px' }}>
+                <div className="container-fluid py-3 my-4" style={{ backgroundColor: '#F8F9F3' }}>
+                    <div>
+                        {/* <!-- banner --> */}
+                        <div className="container-fluid text-center">
+                            <p className="text-xl"><b>修改會員資料</b></p>
+                            <p className="text-xs mt-0">若您需要修改會員資料，請在以下頁面修改</p>
                         </div>
+                        <form onSubmit={handleSubmit}>
+                            {/* 密碼 */}
+                            <div className="mt-3">
+                                <label htmlFor="userPwd" className="form-label">密碼<span style={{ color: '#FF0000' }}>*</span></label>
+                                <div className="input-container" style={{ position: 'relative' }}>
+                                    <input
+                                        type={isPasswordVisible ? 'text' : 'password'}
+                                        className="form-control"
+                                        id="UserPWD"
+                                        placeholder="請輸入密碼"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required />
+                                    <img
+                                        src="src/assets/img/icon/eye_lash.svg"
+                                        alt="Closed Eye Icon"
+                                        width="20px"
+                                        id="checkEye"
+                                        className="checkEye"
+                                        style={{
+                                            cursor: 'pointer',
+                                            position: 'absolute',
+                                            right: '10px',
+                                            bottom: '-20%',
+                                            transform: 'translateY(-50%)',
+                                            display: isPasswordVisible ? 'none' : 'block',
+                                        }}
+                                        onClick={togglePasswordVisibility} />
+
+                                    <img
+                                        src="src/assets/img/icon/eye.svg"
+                                        alt="Open Eye Icon"
+                                        width="20px"
+                                        id="openEye"
+                                        className="openEye"
+                                        style={{
+                                            cursor: 'pointer',
+                                            position: 'absolute',
+                                            right: '10px',
+                                            bottom: '-20%',
+                                            transform: 'translateY(-50%)',
+                                            display: isPasswordVisible ? 'block' : 'none',
+                                        }}
+                                        onClick={togglePasswordVisibility} />
+                                </div>
+                                <label htmlFor="userPwdDescription" className="text-xs">至少8個字元，包含英文字母（大小寫區分）及數字</label>
+                            </div>
+
+                            {/* 性別選擇 */}
+                            <div className="mt-3">
+                                <label htmlFor="userGender" className="form-label">性別</label>
+                                <div className="text-m">
+                                    <button
+                                        className={`badge rounded-pill mx-1 ${selectedGender === 'male' ? 'selected' : ''}`}
+                                        style={{
+                                            backgroundColor: selectedGender === 'male' ? '#3b3a38' : '#E9E3DF',
+                                            color: selectedGender === 'male' ? '#E9E3DF' : '#3b3a38',
+                                            border: '1px solid #3b3a38'
+                                        }}
+                                        type="button"
+                                        id="male"
+                                        onClick={() => selectGender('male')}>
+                                        男性
+                                    </button>
+                                    <button
+                                        className={`badge rounded-pill mx-1 ${selectedGender === 'female' ? 'selected' : ''}`}
+                                        style={{
+                                            backgroundColor: selectedGender === 'female' ? '#3b3a38' : '#E9E3DF',
+                                            color: selectedGender === 'female' ? '#E9E3DF' : '#3b3a38',
+                                            border: '1px solid #3b3a38'
+                                        }}
+                                        type="button"
+                                        id="female"
+                                        onClick={() => selectGender('female')}>
+                                        女性
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* 頭像上傳 */}
+                            <div className="mt-3">
+                                <label htmlFor="userAvatar" className="form-label">上傳頭貼</label>
+                                <AvatarUpload onChange={handleAvatarChange} />
+                            </div>
+
+                            {/* 顯示錯誤信息 */}
+                            {errorMessage && (
+                                <div className="alert alert-danger mt-2" role="alert">
+                                    {errorMessage}
+                                </div>
+                            )}
+                            {/* <!-- button --> */}
+                            <div>
+                                <button
+                                    className="btn btn-lg rounded-3 w-100 py-2 mt-3"
+                                    style={{ backgroundColor: '#ebe3e0' }}
+                                    onClick={handleProfileUpdate}>
+                                    確認修改
+                                </button>
+                                <button
+                                    className="btn btn-lg rounded-3 w-100 py-2 mt-3"
+                                    style={{ backgroundColor: '#ebe3e0' }}
+                                    onClick={handleLogout}>
+                                    登出
+                                </button>
+                                <button
+                                    className="button button-dark rounded-3 w-100 py-2 mt-3"
+                                    style={{ backgroundColor: '#FF0000', color: '#FFFFFF' }}
+                                    onClick={handleDeleteAccount}>
+                                    刪除帳號
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </MyLayout >
-        </>
+            </div>
+        </MyLayout >
     )
 }
 

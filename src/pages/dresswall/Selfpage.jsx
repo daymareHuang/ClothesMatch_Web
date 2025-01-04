@@ -31,7 +31,7 @@ function Selfpage() {
     useEffect(() => {
         const userinfo = async () => {
             try {
-                const response = await axios.post('http://localhost/Dressify/public/api/userself', {
+                const response = await axios.post('http://127.0.0.1:8000/api/userself', {
                     UID: 1,
                 });
                 // console.log('Response', response.data[0].UID);
@@ -53,7 +53,7 @@ function Selfpage() {
     useEffect(() => {
         const getpostNum = async () => {
             try {
-                const response = await axios.post('http://localhost/Dressify/public/api/getpostnum', {
+                const response = await axios.post('http://127.0.0.1:8000/api/getpostnum', {
                     UID: 1,
                 })
                 // console.log(response.data);
@@ -71,7 +71,7 @@ function Selfpage() {
     useEffect(() => {
         const getuserpost = async () => {
             try {
-                const response = await axios.post('http://localhost/Dressify/public/api/getuserpost', {
+                const response = await axios.post('http://127.0.0.1:8000/api/getuserpost', {
                     UID: 1,
                 })
                 //  console.log(response.data)
@@ -89,7 +89,7 @@ function Selfpage() {
     useEffect(() => {
         const getusercollect = async () => {
             try {
-                const response = await axios.post('http://localhost/Dressify/public/api/getusercollect', {
+                const response = await axios.post('http://127.0.0.1:8000/api/getusercollect', {
                     UID: 1,
                 })
                 //  console.log(response.data)
