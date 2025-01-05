@@ -28,27 +28,19 @@ function ClosetCheckOutfit() {
         "紫色系": 'rgb(123, 0, 255)',
     }
 
-    // 整理出一個陣列，比較不會亂掉
-    // 
-
     // 接API
     useEffect(() => {
         async function callAPI() {
-<<<<<<< HEAD
-            // let url = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`
-=======
             // let url = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`
->>>>>>> f30737b8903eb23923b0f54fa78974b9aa026d50
             let url = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`
             let response = await fetch(url);
             let json = await response.json();
             console.log(json);
 
-
             setOutfit(json)
             setItems(json.items)
 
-            // 把季節放到array
+            // 接收 Season 資料
             if (json.Season) {
                 switch (json.Season) {
                     case 'autumn':
@@ -68,31 +60,58 @@ function ClosetCheckOutfit() {
                 }
             }
 
-            // 把場合放到array
+            // 接收 Scene 資料
             if (json.scene) {
-                json.scene.forEach(({ Scene }) => {
-                    tagList.push(Scene)
+                json.scene.forEach(({ SceneName }) => {
+                    tagList.push(SceneName)
                 });
             }
 
+            // 接收 Tag（Item） 資料
             if (json.tag_info) {
                 json.tag_info.forEach((value, index) => {
 
                     // 把標籤資訊，放到新的陣列裡面
-                    itemList.push(value);
+                    // itemList.push(value);
 
-                    // 每一個單品名稱
-                    let itemName = json.items[index].Title
+                    // 標籤名稱 依據單品名稱命名
+                    // let itemName = json.items[index].Title
 
                     // 把單品名稱，放到對應的陣列資料中
-                    itemList[index].itemName = itemName;
-                    // console.log(itemList);
+                    // itemList[index].itemName = itemName;
+
+
+                    // 每一筆 TagItem
+                    let newTag = value;
+
+                    // 依據 ItemName 作為顯示的內容
+                    newTag.itemName = json.items[index].Title;
+
+                    // 把 編輯後的TagItem 放到陣列中
+                    itemList.push(newTag);
+
+                    // console.log('要渲染的陣列', itemList);
+                })
+            }
+
+            // 接收 Tag（Comment） 資料
+            if (json.tag_comment) {
+                json.tag_comment.forEach((value) => {
+
+                    // 每一筆 TagComment
+                    let newTag = value;
+
+                    // 依據 CommentTitle 作為顯示的內容
+                    newTag.itemName = newTag.Title;
+
+                    // 把 編輯後的TagComment 放到陣列中
+                    itemList.push(newTag);
+
+                    // console.log('要渲染的陣列', itemList);
                 })
             }
         }
         callAPI()
-
-
     }, [])
 
     const handleTurnToCloset = () => {
@@ -106,10 +125,11 @@ function ClosetCheckOutfit() {
     }
 
     const handleDel = async () => {
-<<<<<<< HEAD
-        // const apiURL = `http://localhost/Dressify/public/api/ClosetMatch/${outfitID}`;
-=======
->>>>>>> f30737b8903eb23923b0f54fa78974b9aa026d50
+        const userConfirmed = window.confirm('確定要刪除這筆穿搭嗎？')
+        if (!userConfirmed) {
+            return
+        }
+
         const apiURL = `http://127.0.0.1:8000/api/ClosetMatch/${outfitID}`;
         try {
             const response = await fetch(apiURL, {
@@ -136,7 +156,8 @@ function ClosetCheckOutfit() {
                 {/* 穿搭圖片 */}
                 <div className='position-relative testBorder d-flex justify-content-center align-item-center'>
                     {/* 相片 */}
-                    <div className='m-0 row' style={{ height: '380px', width: '300px', overflow: 'hidden', backgroundColor: 'gray' }}>
+                    {/* <div className='m-0 row' style={{ height: '380px', width: '300px', overflow: 'hidden', backgroundColor: 'gray' }}> */}
+                    <div className='m-0 row' style={{ filter: outfit.FilterStyle, height: '380px', width: '300px', overflow: 'hidden', backgroundColor: 'gray' }}>
                         <img className='p-0' src={outfit.EditedPhoto} style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
                     </div>
 
@@ -146,7 +167,7 @@ function ClosetCheckOutfit() {
                     </a>
                     {/* 標籤開關 */}
                     <a onClick={handleShowTag} className='position-absolute bottom-0 end-0 me-4 mb-4 rounded-circle' style={{ cursor: 'pointer', padding: '7px 7px', width: '35px', height: '35px', backgroundColor: 'var(--color-white)' }}>
-                        <img src="/src/assets/img/icon/tags.svg" width='20px' style={{}} />
+                        <img src="/src/assets/img/icon/tags.svg" width='20px' />
                     </a>
 
                     {/* 單品標籤 */}

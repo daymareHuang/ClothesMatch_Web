@@ -17,7 +17,7 @@ function AddTag() {
 	const { CroppedSrc, imageSrc, setTagList, tagList, filterStyle } = useContext(OutfitContext)
 	const [isSliderVisible, setIsSliderVisible] = useState(false);
 	const [selectID, setSelectID] = useState(0);
-	const [idCounter, setIdCounter] = useState(0); //讓標籤有獨一 ID
+	const [idCounter, setIdCounter] = useState(1); //讓標籤有獨一 ID
 
 	// 新增標籤
 	const handleAddTag = () => {
@@ -37,11 +37,10 @@ function AddTag() {
 				x: randomX,
 				y: randomY,
 			}]);
-			console.log(tagList)
+			// console.log(tagList)
 		} else {
 			alert('請先輸入標籤內容')
 		}
-		
 
 		setIdCounter(idCounter + 1);
 	}
