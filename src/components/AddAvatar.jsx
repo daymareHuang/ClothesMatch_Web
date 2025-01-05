@@ -42,7 +42,6 @@ function AddAvatar() {
             const UID = userObj.UID;
             // 如果 UID 存在，發送請求到後端 API 獲取 UserName 和 Avatar
             if (UID) {
-                // API須改為 'http://localhost/Dressify/public/api/user-info/${UID}';
                 axios.get(`http://127.0.0.1:8000/api/user-info/${UID}`)
                     .then(response => {
                         // 請求成功後，更新 userData 狀態
