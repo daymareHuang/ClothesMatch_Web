@@ -4,7 +4,7 @@ import '../../css/Dressify.css'
 import '../../css/dresswall.css'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Spinner, Tabs, Tab } from 'react-bootstrap';
 import Post from '../../components/Post'
 import MyLayout from '../../layouts/MyLayout';
 import axios from 'axios';
@@ -13,35 +13,46 @@ import axios from 'axios';
 function Dresswall() {
     const [womenPosts, setWomenPosts] = useState([]);
     const [menPosts, setMenPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-// 拿女性的post最新五個
-    useEffect(()=>{
-        const getwomenpost = async () =>{
-            try{
+
+    // 拿女性的post最新五個
+    useEffect(() => {
+        setLoading(true)
+        const getwomenpost = async () => {
+            try {
                 const response = await axios.get('http://127.0.0.1:8000/api/getwomenpost');
                 // console.log(response.data);
                 setWomenPosts(response.data);
-            } 
-            catch(error){
+                setLoading(false)
+
+            }
+            catch (error) {
                 console.error('ERROR: ', error.message);
+                setLoading(false)
+
             }
         };
         getwomenpost();
-    },[])
+    }, [])
 
     // 拿男性的post最新五個
-    useEffect(()=>{
-        const getmenpost = async ()=>{
-            try{
+    useEffect(() => {
+        setLoading(true)
+        const getmenpost = async () => {
+            try {
                 const response = await axios.get('http://127.0.0.1:8000/api/getmenpost')
                 setMenPosts(response.data)
+                setLoading(false)
             }
-            catch(error){
+            catch (error) {
                 console.error('ERROR: ', error.message);
+                setLoading(false)
+
             }
         }
         getmenpost();
-    },[])    
+    }, [])
 
     return (
         <MyLayout>
@@ -60,9 +71,11 @@ function Dresswall() {
 
                             {/* <!-- post --> */}
                             {/* <Post name="KaiKai" /> */}
-                            {menPosts.map((post,key) => (
-                                <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key} />
-                            ))}
+                            {loading ? (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>) : (
+                                menPosts.map((post, key) => (
+                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key} />
+                                )))
+                            }
                         </Tab>
                         <Tab eventKey="Women" title="Women">
                             {/* <!-- post --> */}
@@ -70,13 +83,13 @@ function Dresswall() {
 
                             {/* <!-- post --> */}
                             {/* <Post name="Xiaoian" /> */}
-                            {
-                                womenPosts.map((post,key)=>(
-                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key}/>
-                                ))
+                            {loading ? (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>) : (
+                                womenPosts.map((post, key) => (
+                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key} />
+                                )))
                             }
                         </Tab>
-                        
+
 
                     </Tabs>
 
