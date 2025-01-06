@@ -31,10 +31,6 @@ function AddTagCloset({ setIsSliderVisible, selectID }) {
         let allData = ''
         async function callAPI() {
             // let response = await fetch("../../public/clothes.json");
-<<<<<<< HEAD
-            // let response = await fetch("http://localhost/Dressify/public/api/closet");
-=======
->>>>>>> f30737b8903eb23923b0f54fa78974b9aa026d50
             let response = await fetch("http://127.0.0.1:8000/api/closet");
             let json = await response.json();
             jsonData.current = json
