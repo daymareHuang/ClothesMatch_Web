@@ -80,7 +80,7 @@ function Register() {
     formData.append('Email', email);
     formData.append('UserName', username);
     formData.append('UserPWD', password);
-    formData.append('Gender', gender);
+    // formData.append('Gender', gender);
     console.log(formData.get('Email'));
     console.log('FormData Avatar:', avatar);
     if (avatar) {
@@ -89,9 +89,8 @@ function Register() {
       formData.append('Avatar', '');  // 空字符串
     }
 
-    // API須改為 'http://localhost/Dressify/public/api/register';
     try {
-      const response = await axios.post('http://localhost:8000/api/register', formData, {
+      const response = await axios.post('http://127.0.0.1:8000/api/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'  // 設置為 multipart/form-data
         }

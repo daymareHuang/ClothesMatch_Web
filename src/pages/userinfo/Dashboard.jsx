@@ -106,11 +106,11 @@ function Dashboard() {
                     </div>
                 </div>
 
-                {/* 网站功能导航 */}
+                {/* 網站功能導覽 */}
                 <div style={{ backgroundColor: '#F8F9F3' }} className="container-fluid my-1">
                     <div className="d-flex flex-nowrap align-items-center justify-content-evenly">
                         <Link to="/Closet" style={{ textDecoration: 'none', color: '#3b3a38' }} className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
-                            <img src="./src/assets/img/icon/closet.svg" alt="" className="img" width="26px" height="30px" />
+                            <img src="./src/assets/img/icon/closet.svg" alt="" className="img" width="27px" height="28px" />
                             <span>我的衣櫃</span>
                         </Link>
                         <Link to="/dresswall" style={{ textDecoration: 'none', color: '#3b3a38' }} className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
@@ -132,7 +132,7 @@ function Dashboard() {
                     </div>
                 </div>
 
-                {/* 今日推荐 */}
+                {/* 今日推薦 */}
                 <div className="container-fluid align-items-center my-2 py-2" style={{ backgroundColor: '#F8F9F3' }}>
                     <div className="align-items-center py-2">
                         <span className="text-l"><b>今日推薦</b></span>

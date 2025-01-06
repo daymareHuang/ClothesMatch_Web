@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../css/Dressify.css'
-import AvatarUpload from "./AvatarUpload";
+import AddAvatar from "../../components/AddAvatar";
 
 function Modification() {
 
     const navigate = useNavigate(); // 用於導航到其他頁面
-
     const [userData, setUserData] = useState({
         avatar: ''
     });
@@ -34,10 +33,6 @@ function Modification() {
         }
     };
 
-    const handleAvatarChange = (base64Image) => {
-        setAvatar(base64Image); // 更新 Avatar 为 BASE64 字符串
-    };
-
     // 取得當前登入的會員資料
     useEffect(() => {
         const storedData = localStorage.getItem('user');
@@ -53,7 +48,6 @@ function Modification() {
                         setUserData({
                             avatar: Avatar
                         });
-                        setEmail(userObj.Email);  // 假設 localStorage 中有 Email 資料
                         setIsLoading(false);
                     })
                     .catch(error => {
@@ -70,69 +64,91 @@ function Modification() {
         }
     }, []);
 
-    // 表單提交處理
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrorMessage('');
-        setIsLoading(true);
-
-        // 檢查密碼是否合法
+    // 表單驗證
+    const validatePassword = (password) => {
         const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        if (!passwordPattern.test(password)) {
+        return passwordPattern.test(password);
+    };
+
+    // 上傳頭像
+    const handleAvatarChange = (base64Image) => {
+        setAvatar(base64Image); // 更新 Avatar 为 BASE64 字符串
+    };
+
+    // 註冊表單提交處理
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // 阻止表單的默認行為
+        setErrorMessage(''); // 重設錯誤訊息
+        setIsLoading(true);  // 開啟載入狀態
+
+        // 表單驗證
+        if (!validatePassword(password)) {
             setErrorMessage('密碼至少8個字符，包含字母和數字');
-            setIsLoading(false);
+            setIsLoading(false);  // 關閉載入狀態
             return;
         }
 
-        // 性別轉換為數字
+        if (!selectedGender) {
+            setErrorMessage('請選擇性別');
+            setIsLoading(false);  // 關閉載入狀態
+            return;
+        }
+
+        // 將性別轉換為數字
         const gender = selectedGender === 'male' ? 1 : selectedGender === 'female' ? 0 : null;
 
+        // 使用者送出的資料
         const formData = new FormData();
         formData.append('UserPWD', password);
-        formData.append('Gender', gender);
-        formData.append('Email', email); // 保持 email 更新
-        formData.append('UserName', userData.username); // 更新使用者名稱
-        formData.append('Avatar', userData.avatar); // 更新頭像
+        console.log('FormData Avatar:', avatar);
+        if (avatar) {
+            formData.append('Avatar', avatar);
+        } else {
+            formData.append('Avatar', '');  // 空字符串
+        }
 
         try {
-            const response = await axios.put('http://localhost:8000/api/update-profile', formData, {
+            const response = await axios.put('http://127.0.0.1:8000/api/update-profile', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'  // 設置為 multipart/form-data
                 }
             });
-            setIsLoading(false);
-            alert('資料修改成功！');
-            navigate('/dashboard');  // 更新後導航回到 dashboard
+            setIsLoading(false);  // 關閉載入狀態
+            alert('更新成功！');
+            navigate('/dashboard'); // 註冊成功後導航到登入頁
         } catch (error) {
-            setIsLoading(false);
+            setIsLoading(false);  // 關閉載入狀態
             if (error.response && error.response.data) {
-                setErrorMessage(error.response.data.message || '資料修改失敗，請再試一次。');
+                setErrorMessage(error.response.data.message || '更新失敗，請再試一次。');
+            } else {
+                setErrorMessage('資料更新失敗，請再試一次。');
             }
+            console.error('Error registering:', error);
+            console.error('Error response:', error.response);
         }
     };
 
     // 登出
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        navigate('/login');  // 登出後導航到登入頁
+        localStorage.removeItem('user'); // 清除本地儲存的用戶資料
+        navigate('/login'); // 導向登入頁
     };
 
     // 刪除帳號
     const handleDeleteAccount = async () => {
-        const confirmDelete = window.confirm('確定要刪除帳號嗎？');
-        if (confirmDelete) {
-            try {
-                const response = await axios.delete('http://localhost:8000/api/delete-account', {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-                    }
-                });
-                alert('帳號已刪除');
-                localStorage.removeItem('user');
-                navigate('/login');
-            } catch (error) {
-                console.error('刪除帳號時發生錯誤:', error);
-            }
+        const storedData = localStorage.getItem('user');
+        if (!storedData) return;
+        const userObj = JSON.parse(storedData);
+        const UID = userObj.UID;
+
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8000/api/delete-account/${UID}`);
+            alert('帳號已成功刪除');
+            localStorage.removeItem('user');
+            navigate('/'); // 刪除後導向首頁
+        } catch (error) {
+            console.error('刪除帳號時發生錯誤:', error);
+            setErrorMessage('帳號刪除失敗，請再試一次。');
         }
     };
 
@@ -229,21 +245,25 @@ function Modification() {
                             {/* 頭像上傳 */}
                             <div className="mt-3">
                                 <label htmlFor="userAvatar" className="form-label">上傳頭貼</label>
-                                <AvatarUpload onChange={handleAvatarChange} />
+                                <br />
+                                <div className="image-container" style={{ position: 'relative', display: 'inline-block' }}>
+                                    {/* 使用 AddAvatar 组件 */}
+                                    <AddAvatar avatar={userData.avatar} />
+                                </div>
                             </div>
-
+                            <br />
                             {/* 顯示錯誤信息 */}
                             {errorMessage && (
                                 <div className="alert alert-danger mt-2" role="alert">
                                     {errorMessage}
                                 </div>
                             )}
-                            {/* <!-- button --> */}
+                            {/* <!-- 按鈕 --> */}
                             <div>
                                 <button
                                     className="btn btn-lg rounded-3 w-100 py-2 mt-3"
                                     style={{ backgroundColor: '#ebe3e0' }}
-                                    onClick={handleProfileUpdate}>
+                                    type="submit">
                                     確認修改
                                 </button>
                                 <button

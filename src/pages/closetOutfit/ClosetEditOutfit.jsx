@@ -28,15 +28,14 @@ function ClosetEditOutfit() {
 
             if (json) {
                 setOutfit(json);
-                console.log(json);
+                // console.log(json);
             }
 
             if (json.scene) {
-                json.scene.forEach(({ Scene }) => {
-                    sceneList.push(Scene)
+                json.scene.forEach(({ SceneName }) => {
+                    sceneList.push(SceneName)
                 })
             }
-
         };
 
         callAPI()
@@ -90,7 +89,7 @@ function ClosetEditOutfit() {
             updateData.Season = seasonAfter;
         }
 
-        // console.log(updateData);
+        console.log(updateData);
 
         try {
             const response = await fetch(url, {
