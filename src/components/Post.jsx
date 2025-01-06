@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function Post(props) {
   const [like, setLikes] = useState(false)
   const [keep, setKeep] = useState(false)
+  
 
   const handleClickLike = ()=>{
     // console.log(like)
