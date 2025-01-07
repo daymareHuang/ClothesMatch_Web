@@ -73,7 +73,7 @@ function Dresswall() {
                             {/* <Post name="KaiKai" /> */}
                             {loading ? (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>) : (
                                 menPosts.map((post, key) => (
-                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key} />
+                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} key={key} />
                                 )))
                             }
                         </Tab>
@@ -85,7 +85,7 @@ function Dresswall() {
                             {/* <Post name="Xiaoian" /> */}
                             {loading ? (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>) : (
                                 womenPosts.map((post, key) => (
-                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} key={key} />
+                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} key={key} />
                                 )))
                             }
                         </Tab>

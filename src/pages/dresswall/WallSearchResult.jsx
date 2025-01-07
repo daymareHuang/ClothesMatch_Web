@@ -87,7 +87,6 @@ function Wallsearchresult() {
             size: formData.size,
             season: formData.season
           })
-          console.log(response.data)
           setResultPost(response.data)
           //讀取結束 顯示畫面
           setLoading(false)
@@ -128,7 +127,7 @@ function Wallsearchresult() {
 
         <p className='text-center text-xl fw-bold'>搜尋結果</p>
         {
-          loading ? (<div className='d-flex justify-content-center'><Spinner animation="border" role="status" className="mt-3 " /></div>) : (
+          loading ? (<div className='d-flex justify-content-center'><Spinner animation="border" role="status" className="mt-3 " variant="secondary" /></div>) : (
             resultPost.map((post, key) => (
               <Post postpic={post.EditedPhoto} avatar={post.Avatar} name={post.UserName} key={key} />
             )))

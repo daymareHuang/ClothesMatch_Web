@@ -32,7 +32,7 @@ function PopularButton(props) {
   }
 
   const handleClick = ()=>{
-   console.log(typeID)
+  //  console.log(typeID)
 
    if(props.kind == "brand"){
 
@@ -46,7 +46,7 @@ function PopularButton(props) {
       ...formData,
       [props.kind]: typeID
     }
-    console.log(buttonFormData);
+    // console.log(buttonFormData);
     navigate('/dresswall/result',{state:{ buttonFormData } });
 
    }
