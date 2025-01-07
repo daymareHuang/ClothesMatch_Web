@@ -31,26 +31,26 @@ function Selfpage() {
 
     //利用useEffect 讓api僅需要抓一次的api 渲染一次
     // 使用者資料獲取
-    useEffect(() => {
-        const userinfo = async () => {
-            try {
-                const response = await axios.post('http://127.0.0.1:8000/api/userself', {
-                    UID: data.UID,
-                });
-                // console.log('Response', response.data[0].UID);
-                setUID(response.data[0].UID);
-                setUserName(response.data[0].UserName);
-                // setUserImg(response.data[0].Avatar);
+    // useEffect(() => {
+    //     const userinfo = async () => {
+    //         try {
+    //             const response = await axios.post('http://127.0.0.1:8000/api/userself', {
+    //                 UID: data.UID,
+    //             });
+    //             // console.log('Response', response.data[0].UID);
+    //             setUID(response.data[0].UID);
+    //             setUserName(response.data[0].UserName);
+    //             // setUserImg(response.data[0].Avatar);
 
-            }
-            catch (error) {
-                console.error('ERROR: ', error.message);
-            }
-        }
+    //         }
+    //         catch (error) {
+    //             console.error('ERROR: ', error.message);
+    //         }
+    //     }
 
-        userinfo();
+    //     userinfo();
 
-    }, [])
+    // }, [])
 
     // 獲取貼文數
     useEffect(() => {

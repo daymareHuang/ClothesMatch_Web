@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function Post(props) {
   const [like, setLikes] = useState(props.userlike)
-  const [keep, setKeep] = useState(false)
+  const [keep, setKeep] = useState(props.userkeep)
   const data = JSON.parse(localStorage.getItem('user'))
   const [loading, setLoading] = useState(false);
 
@@ -65,9 +65,27 @@ function Post(props) {
     // console.log(keep)
     if (keep) {
       setKeep(false)
+      try { 
+        const response =  axios.post( 'http://127.0.0.1:8000/api/uncollect',
+          {
+            UID: data.UID,
+            PostID: props.postID,
+          });
+      } catch (error) { 
+        console.error('ERROR: ', error.message);
+      }
     }
     else {
       setKeep(true)
+      try { 
+        const response =  axios.post( 'http://127.0.0.1:8000/api/collect',
+          {
+            UID: data.UID,
+            PostID: props.postID,
+          });
+      } catch (error) { 
+        console.error('ERROR: ', error.message);
+      }
     }
   }
 

@@ -77,10 +77,18 @@ function Dresswall() {
                                 (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>)
                                 :
                                 (menPosts.map((post, key) => (
-                                    post.UID ?
-                                        (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} key={key} />)
+                                    post.UserLike ?
+                                        ( post.UserKeep? 
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
+                                            :
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
+                                        )
                                         :
-                                        (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} key={key} />)
+                                        (post.UserKeep? 
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
+                                            :
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
+                                        )
                                 )))
                             }
                         </Tab>
@@ -89,13 +97,20 @@ function Dresswall() {
                             {loading ?
                                 (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>)
                                 :
-                                (
-                                    womenPosts.map((post, key) => (
-                                        post.UID ?
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} key={key} />)
+                                (womenPosts.map((post, key) => (
+                                    post.UserLike ?
+                                        ( post.UserKeep? 
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
                                             :
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} key={key} />)
-                                    )))
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
+                                        )
+                                        :
+                                        (post.UserKeep? 
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
+                                            :
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
+                                        )
+                                )))
                             }
                         </Tab>
 
