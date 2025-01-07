@@ -66,22 +66,30 @@ function OutfitDescription() {
             EditedPhoto = imageSrc || null;
         }
 
-        // console.log(filterStyle.filter);
-
-
+        // 要上傳的穿搭資訊
         const uploadData = {
             Title,
             Content,
             Season,
             // 目前還沒取得
-            UID: 1,
+            UID:'',
             EditedPhoto,
             Scene: sceneList,
             Tag: [...tagList],
             filter: filterStyle.filter
         }
 
+        // 提取 localStorage 資料
+        const storedData = localStorage.getItem('user');
+        if (storedData) {
+            let userData = JSON.parse(storedData);
+            uploadData.UID =userData.UID
+        }
+
+
+
         console.log('data', uploadData);
+        // console.log('data', storedData);
 
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -94,7 +102,7 @@ function OutfitDescription() {
         } else {
             console.log('失敗');
         }
-        // navigate("/OutfitCreated")
+        navigate("/OutfitCreated")
     }
 
 
