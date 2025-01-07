@@ -71,7 +71,7 @@ function ClosetEditSingle() {
   }
   return (
     <ClosetLayoutO>
-      <div className="fixed-top bg-light d-flex justify-content-center" style={{ top: '50px' }}>
+      <div className="fixed-top bg-light d-flex justify-content-center" style={{ top: '50px', width: '375px' }}>
         {croppedImgURL ? (
           <img src={croppedImgURL} alt="pic" height="200px" />
         ) : (
@@ -201,7 +201,7 @@ function ClosetEditSingle() {
 
       </div>
 
-      <div id="progress" className="fixed-bottom border-top d-flex justify-content-between" style={{ height: '55px' }}>
+      <div id="progress" className="fixed-bottom border-top d-flex justify-content-between" style={{ height: '55px', width: '375px' }}>
         <a href="./Crop" className="btn text-xs m-3 px-3 rounded-pill text-light" style={{ backgroundColor: 'var(--color-highlight)' }}>上一步</a>
         {/* 若使用者在此點擊「上一步」=> 會沒有將資料一同傳過去 */}
 
