@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
+// import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios';
 
 
 function Post(props) {
-  const [like, setLikes] = useState(false)
+  const [like, setLikes] = useState(props.userlike)
   const [keep, setKeep] = useState(false)
   const data = JSON.parse(localStorage.getItem('user'))
+  const [loading, setLoading] = useState(false);
+
   // console.log(props)
 
   // 這裡再讓使用者按讚跟收回讚
@@ -14,34 +17,47 @@ function Post(props) {
     // console.log(like)
     if (like) {
       setLikes(false)
-    }
-    else {
-      setLikes(true)
-    }
-  }
-
-  // 怎麼讓葉面重心載入的時候 可以讓已經按讚的部分保持案讚
-  useEffect(() => {
-    // console.log(data.UID)
-    // console.log(props.postID)
-    // 使用者喜歡這個貼文 或是收回這個喜歡
-    const likePost = async () => {
-      try {
-        const response = await axios.post(like? 'http://127.0.0.1:8000/api/like': 'http://127.0.0.1:8000/api/unlike',
+      try { 
+        const response =  axios.post( 'http://127.0.0.1:8000/api/unlike',
           {
             UID: data.UID,
             PostID: props.postID,
           });
-      } catch (error) {
+      } catch (error) { 
         console.error('ERROR: ', error.message);
       }
     }
+    else {
+      setLikes(true)
+      try { 
+        const response =  axios.post('http://127.0.0.1:8000/api/like',
+          {
+            UID: data.UID,
+            PostID: props.postID,
+          });
+      } catch (error) { 
+        console.error('ERROR: ', error.message);
+      }
+    }
+  }
 
-
-    // 如果like true 執行 likePost 否則 unlikePost
-      likePost();
-    // 每次like 變換之後用一次
-  }, [like])
+  // 使用者喜歡這個貼文 或是收回這個喜歡
+  // useEffect(() => {
+  //   const likePost = async () => {
+  //     try {
+  //       const response = await axios.post(like ? 'http://127.0.0.1:8000/api/like' : 'http://127.0.0.1:8000/api/unlike',
+  //         {
+  //           UID: data.UID,
+  //           PostID: props.postID,
+  //         });
+  //     } catch (error) {
+  //       console.error('ERROR: ', error.message);
+  //     }
+  //   }
+  //   // 如果like true 執行 likePost 否則 unlikePost
+  //   likePost();
+  //   // 每次like 變換之後用一次
+  // }, [like])
 
 
   // 這裡再讓使用者保存或是解除保存
@@ -76,9 +92,9 @@ function Post(props) {
               <a className="m-auto text-black text-decoration-none" href="">...更多</a>
             </div> */}
             <div className="col-6 d-flex justify-content-evenly">
-              {/* <!-- to the right end --> */}
+
               {/* <!-- heart icon  --> */}
-              {/* <!-- it should be solid red when pressed --> */}
+
               <img className="icon" src={like ? "../src/assets/img/icon/solidheart.svg" : "../src/assets/img/icon/heart.svg"} alt="like" onClick={handleClickLike} />
               {/* <!-- star icon --> */}
               {/* <!-- it should be solid yellow when pressed --> */}
@@ -88,8 +104,6 @@ function Post(props) {
               {/* <img className="icon" src="../src/assets/img/icon/share.svg" alt="share" /> */}
             </div>
           </div>
-
-
           {/* <!-- <h5 className="card-title">postTitle</h5> --> */}
           {/* <!-- <p className="card-text">postContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContentpostContent</p> --> */}
 

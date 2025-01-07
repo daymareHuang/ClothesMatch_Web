@@ -15,14 +15,17 @@ function Dresswall() {
     const [menPosts, setMenPosts] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    // 拿取localstorage登入的是誰
+    const data = JSON.parse(localStorage.getItem('user'))
 
     // 拿女性的post最新五個
     useEffect(() => {
         setLoading(true)
         const getwomenpost = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/getwomenpost');
-                // console.log(response.data);
+                const response = await axios.post('http://127.0.0.1:8000/api/getwomenpost', {
+                    UID: data.UID
+                });
                 setWomenPosts(response.data);
                 setLoading(false)
 
@@ -41,7 +44,10 @@ function Dresswall() {
         setLoading(true)
         const getmenpost = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/getmenpost')
+                const response = await axios.post('http://127.0.0.1:8000/api/getmenpost', {
+                    UID: data.UID
+                })
+                // console.log(response.data)
                 setMenPosts(response.data)
                 setLoading(false)
             }
@@ -65,28 +71,31 @@ function Dresswall() {
                     {/* <!-- GenderTab --> */}
                     {/* 要能夠越滑出現越多 */}
                     <Tabs defaultActiveKey="Men" id="genderTab" className="mb-3 justify-content-center text-m" variant="underline">
+                        {/* Men tab content */}
                         <Tab eventKey="Men" title="Men" className='text-black'>
-                            {/* <!-- post --> */}
-                            {/* <Post name="David" /> */}
-
-                            {/* <!-- post --> */}
-                            {/* <Post name="KaiKai" /> */}
-                            {loading ? (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>) : (
-                                menPosts.map((post, key) => (
-                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} key={key} />
+                            {loading ?
+                                (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>)
+                                :
+                                (menPosts.map((post, key) => (
+                                    post.UID ?
+                                        (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} key={key} />)
+                                        :
+                                        (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} key={key} />)
                                 )))
                             }
                         </Tab>
+                        {/* Women Tab content */}
                         <Tab eventKey="Women" title="Women">
-                            {/* <!-- post --> */}
-                            {/* <Post name="Xiaosyuan" /> */}
-
-                            {/* <!-- post --> */}
-                            {/* <Post name="Xiaoian" /> */}
-                            {loading ? (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>) : (
-                                womenPosts.map((post, key) => (
-                                    <Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} key={key} />
-                                )))
+                            {loading ?
+                                (<div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>)
+                                :
+                                (
+                                    womenPosts.map((post, key) => (
+                                        post.UID ?
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} key={key} />)
+                                            :
+                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} key={key} />)
+                                    )))
                             }
                         </Tab>
 
