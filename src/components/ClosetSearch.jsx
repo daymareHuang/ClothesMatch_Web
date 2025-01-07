@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // 要考慮不要以component的方式嗎？這樣才有自己的搜尋頁面～
 function ClosetSearch({ close }) {
@@ -19,13 +19,29 @@ function ClosetSearch({ close }) {
   }
 
   const [result, setResult] = useState('');
+  const [UID, setUID] = useState('');
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('user');
+    if (storedData) {
+      const userObj = JSON.parse(storedData);
+
+      // 提取 UID
+      const UID = userObj.UID;
+      // console.log(UID);
+      setUID(UID);
+    } else {
+      alert('請先登入！');
+      navigate('/Login')
+    }
+  }, [])
 
   async function handleSearch() {
     // 取得使用者輸入的input
     const keyword = keywordRef.current.value;
 
     // 送出fetch拿回相符合的items
-    const url = `http://127.0.0.1:8000/api/items/search?keyword=${keyword}`;
+    const url = `http://127.0.0.1:8000/api/items/${UID}/search?keyword=${keyword}`;
 
     const response = await fetch(url);
     const jsonObj = await response.json();

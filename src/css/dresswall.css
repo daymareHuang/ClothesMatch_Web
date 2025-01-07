@@ -83,6 +83,12 @@ Black_#3b3a38
     color: var(--color-black)
 }
 
+.btn-normal:hover{
+    background-color: var(--color-highlight);
+    border: 1px solid var(--color-black);
+    color: var(--color-black)
+}
+
 /* background color setting */
 /* background color 黃底 */
 .bgc-normal {

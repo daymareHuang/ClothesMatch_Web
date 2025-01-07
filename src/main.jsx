@@ -45,7 +45,7 @@ import ClosetCheckSingle from './pages/closet/ClosetCheckSingle.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />
+    element: <Login />
   },
   {
     path: "/Image",
