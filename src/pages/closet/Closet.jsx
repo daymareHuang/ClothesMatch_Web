@@ -38,7 +38,7 @@ function Closet() {
 
   return (
     <ClosetLayout isActive="單品">
-      <div style={{ paddingTop: '92px' }}></div>
+      <div style={{ paddingTop: '94px' }}></div>
 
       <div className="pb-3 mb-3" style={{ height: '540px', overflowY: 'auto' }}>
         {/* <!-- 部位 --> */}
