@@ -28,10 +28,11 @@ Black_#3b3a38
 
 /* user 大頭照大的版本 */
 .userImgBig {
+    aspect-ratio: 1 / 1; /* 固定為正方形比例 */
+    border-radius: 50%;
     height: 60px;
     width: 60px;
     object-fit: cover;
-    border-radius: 50%;
 }
 
 /* user 大頭照小的版本 */

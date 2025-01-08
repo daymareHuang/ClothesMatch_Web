@@ -148,7 +148,7 @@ function Selfpage() {
                     <div className="col-9 m-auto text-truncate overflow-hidden">
                         {/* <!--user's Name --> */}
                         {/* <!--should let it ... more than a number and limit of character--> */}
-                        <h5 className="userName text-xl text-black ">{data.UserName}</h5>
+                        <h5 className="userName text-xl text-black fw-bold">{data.UserName}</h5>
                         {/* <!--user's userName --> */}
                         {/* <!--should let it have 25 limit of character --> */}
                         {/* <span className="name text-s text-black">ID: {UID}</span> */}
@@ -158,11 +158,15 @@ function Selfpage() {
                 {/* <!--user's introduction --> */}
                 <div className=" m-auto mt-3">
                     {/* <!--userIntroduction --> */}
-                    <p className="userIntro mx-3 text-black text-xs ">
-                        {data.UserIntro}
-                        <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
-                    </p>
-
+                    {data.UserIntro ?
+                        (<p className="userIntro mx-3 text-black text-xs ">{data.UserIntro}
+                            <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
+                        </p>)
+                        :
+                        (<p className="userIntro mx-3 text-secondary text-xs text-center">尚無介紹
+                            <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
+                        </p>)
+                    }
                 </div>
 
                 {/* <!--user's number of post and fan --> */}
@@ -212,8 +216,8 @@ function Selfpage() {
                     </Tab>
                     <Tab id="collectTab" eventKey="Collect" title="Collect" className='text-black row bgc-normal p-3 rounded'>
                         {
-                            userCollects.map((collect, key)=>(
-                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key}/>
+                            userCollects.map((collect, key) => (
+                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key} />
                             ))
                         }
                     </Tab>

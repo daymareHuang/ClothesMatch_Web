@@ -12,6 +12,7 @@ import Dresswall from "./pages/dresswall/Dresswall.jsx"
 import Selfpage from "./pages/dresswall/Selfpage.jsx"
 import WallSearch from "./pages/dresswall/WallSearch.jsx"
 import Wallsearchresult from "./pages/dresswall/WallSearchResult.jsx"
+import Otherpage from './pages/dresswall/Otherpage.jsx';
 
 // 會員頁面&導覽頁
 import Dashboard from './pages/userinfo/Dashboard.jsx';
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
   {
     path: "/dresswall/Result",
     element: <Wallsearchresult />
+  },
+  {
+    path: "/dresswall/OtherPpl",
+    element: <Otherpage />
   },
   {
     path: "/dashboard",
