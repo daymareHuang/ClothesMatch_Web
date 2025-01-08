@@ -31,10 +31,9 @@ function OutfitCreated() {
                     </span>
                 </div>
 
-                <div className='row mt-3'>
-                    <button onClick={handleAdd} className='col btn rounded-pill text-s' style={{ backgroundColor: "var(--color-black)", color: "var(--color-white)" }}>繼續新增</button>
-                    <button onClick={handleCloset} className='col btn rounded-pill text-s' style={{ backgroundColor: "var(--color-black)", color: "var(--color-white)" }}>衣櫃首頁</button>
-                    <button onClick={handlePost} className='col btn rounded-pill text-s' style={{ backgroundColor: "var(--color-black)", color: "var(--color-white)" }}>發佈到穿搭牆</button>
+                <div className='d-flex justify-content-between row mt-3'>
+                    <button onClick={handleCloset} className='col-4 btn rounded-pill text-s' style={{ backgroundColor: "var(--color-black)", color: "var(--color-white)" }}>衣櫃首頁</button>
+                    <button onClick={handlePost} className='col-4 btn rounded-pill text-s' style={{ backgroundColor: "var(--color-black)", color: "var(--color-white)" }}>發佈到穿搭牆</button>
                 </div>
 
             </div>
