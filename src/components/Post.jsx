@@ -19,25 +19,27 @@ function Post(props) {
   const handleClickLike = () => {
     // console.log(like)
     if (like) {
-      setLikes(false)
+      
       try {
         const response = axios.post('http://127.0.0.1:8000/api/unlike',
           {
             UID: data.UID,
             PostID: props.postID,
           });
+          setLikes(false)
       } catch (error) {
         console.error('ERROR: ', error.message);
       }
     }
     else {
-      setLikes(true)
+      
       try {
         const response = axios.post('http://127.0.0.1:8000/api/like',
           {
             UID: data.UID,
             PostID: props.postID,
           });
+          setLikes(true)
       } catch (error) {
         console.error('ERROR: ', error.message);
       }
@@ -67,25 +69,27 @@ function Post(props) {
   const handleClickKeep = () => {
     // console.log(keep)
     if (keep) {
-      setKeep(false)
+      
       try {
         const response = axios.post('http://127.0.0.1:8000/api/uncollect',
           {
             UID: data.UID,
             PostID: props.postID,
           });
+          setKeep(false)
       } catch (error) {
         console.error('ERROR: ', error.message);
       }
     }
     else {
-      setKeep(true)
+      
       try {
         const response = axios.post('http://127.0.0.1:8000/api/collect',
           {
             UID: data.UID,
             PostID: props.postID,
           });
+          setKeep(true)
       } catch (error) {
         console.error('ERROR: ', error.message);
       }

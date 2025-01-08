@@ -68,8 +68,8 @@ function TodaySuggestion() {
   return (
     <div>
       <div className="d-flex flex-nowrap justify-content-around align-items-center">
-        {photos.map((photo) => (
-          <div key={photo.outfitID}>
+        {photos.map((photo,key) => (
+          <div key={key}>
             {photo.EditedPhoto ? (
               <img
                 src={photo.EditedPhoto}

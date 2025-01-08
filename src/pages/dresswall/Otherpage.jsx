@@ -20,9 +20,7 @@ function Otherpage() {
     const [fanNumber, setFanNumber] = useState(0);
     const [userPosts, setUserPosts] = useState([]);
     const [userCollects, setUserCollects] = useState([]);
-
-
-
+    const [follow, setFollow] = useState(false)
 
     // 拿到別人的資料名字 intro 大頭貼
     useEffect(() => {
@@ -42,6 +40,28 @@ function Otherpage() {
         getUserInfo();
     }, [])
 
+    // 確認當前使用者有沒有follow
+    useEffect(() => {
+        const checkFollow = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/checkfollow', {
+                    authorID: authorID,
+                    UID: data.UID,
+                })
+                if (response.data[0].FollowCheck) {
+                    setFollow(true)
+                }
+                else {
+                    setFollow(false)
+                }
+
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        }
+        checkFollow();
+    }, [])
+
     // 拿到別人的貼文數
     useEffect(() => {
         const getpostNum = async () => {
@@ -58,6 +78,25 @@ function Otherpage() {
         getpostNum();
 
     }, [])
+
+    // 拿別人的fan數量
+    useEffect(() => {
+        const getFanNum = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/getfannum', {
+                    UID: authorID,
+                })
+                //  console.log(response.data[0].FanNumber)
+                    setFanNumber(response.data[0].FanNumber)
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+
+            }
+        }
+        getFanNum();
+    },[])
+
+
     // 拿到別人的post
     useEffect(() => {
         const getuserpost = async () => {
@@ -89,6 +128,31 @@ function Otherpage() {
     }, [])
 
 
+    const handleClickFollow = () => {
+        if (follow) {
+            try {
+                const response = axios.post('http://127.0.0.1:8000/api/unfollow', {
+                    authorID: authorID,
+                    UID: data.UID
+                })
+                setFollow(false)
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        } else {
+            try {
+                const response = axios.post('http://127.0.0.1:8000/api/follow', {
+                    authorID: authorID,
+                    UID: data.UID
+                })
+                setFollow(true)
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        }
+    }
+
+
     return (
         <MyLayout>
             <div className="container">
@@ -101,10 +165,21 @@ function Otherpage() {
                     </div>
 
                     {/* <!--userName and Name --> */}
-                    <div className="col-9 m-auto text-truncate overflow-hidden">
+                    <div className="col-9 row m-auto text-truncate overflow-hidden">
                         {/* <!--user's Name --> */}
                         {/* <!--should let it ... more than a number and limit of character--> */}
-                        <h5 className="userName text-xl text-black ">{userinfo.UserName}</h5>
+
+                        <h5 className="userName text-xl text-black fw-bold col-12">{userinfo.UserName}</h5>
+                        {
+                            follow ?
+                                (
+                                    <button className='btn btn-sm text-m rounded-pill btn-highlight col-12' onClick={handleClickFollow} >追蹤中 <img src="../src/assets/img/icon/followed.svg" alt="" style={{ width: "15px", height: "15px" }} /></button>
+                                )
+                                :
+                                (
+                                    <button className='btn-normal btn btn-sm text-m rounded-pill col-12' onClick={handleClickFollow}>追蹤 <img src="../src/assets/img/icon/following.svg" alt="" style={{ width: "15px", height: "15px" }} /></button>
+                                )
+                        }
                     </div>
                     {/* follow */}
                 </div>
@@ -126,7 +201,7 @@ function Otherpage() {
                     {/* <!--postNumber --> */}
                     <p className="text-m my-auto ms-3">{postNumber} 篇文章</p>
                     {/* <!--fanNumber should be right end of this div --> */}
-                    <p className="text-m my-auto me-3">fanNumber位粉絲</p>
+                    <p className="text-m my-auto me-3">{fanNumber} 位粉絲</p>
                 </div>
 
                 <Tabs defaultActiveKey="Post" id="genderTab" className="mb-3 justify-content-center text-m " variant="underline">

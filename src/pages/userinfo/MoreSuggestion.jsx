@@ -82,8 +82,8 @@ function MoreSuggestion() {
         {loading ? (
           <Spinner animation="border" variant="primary" />
         ) : (
-          photos.map((photo) => (
-            <div key={photo.outfitID}>
+          photos.map((photo,key) => (
+            <div key={key}>
               {photo.EditedPhoto ? (
                 <img
                   src={photo.EditedPhoto}
