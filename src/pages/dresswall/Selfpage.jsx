@@ -59,7 +59,7 @@ function Selfpage() {
                 const response = await axios.post('http://127.0.0.1:8000/api/getpostnum', {
                     UID: data.UID,
                 })
-                // console.log(response.data);
+                //  console.log(response.data);
                 setPostNumber(response.data[0].postNum);
             } catch (error) {
                 console.error('ERROR: ', error.message)
@@ -68,6 +68,28 @@ function Selfpage() {
         getpostNum();
 
     }, [])
+
+    // 拿fan數
+     useEffect(() => {
+        const getFanNum = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/getfannum', {
+                    UID: data.UID,
+                })
+                 console.log(response.data[0])
+                 if(response.data[0].FanNumber){
+                     setFanNumber(response.data[0].FanNumber)
+                 }
+                 else{
+                    setFanNumber(0)
+                 }
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+
+            }
+        }
+        getFanNum();
+    },[])
 
 
     // 得到user的post
@@ -148,7 +170,7 @@ function Selfpage() {
                     <div className="col-9 m-auto text-truncate overflow-hidden">
                         {/* <!--user's Name --> */}
                         {/* <!--should let it ... more than a number and limit of character--> */}
-                        <h5 className="userName text-xl text-black ">{data.UserName}</h5>
+                        <h5 className="userName text-xl text-black fw-bold">{data.UserName}</h5>
                         {/* <!--user's userName --> */}
                         {/* <!--should let it have 25 limit of character --> */}
                         {/* <span className="name text-s text-black">ID: {UID}</span> */}
@@ -158,11 +180,15 @@ function Selfpage() {
                 {/* <!--user's introduction --> */}
                 <div className=" m-auto mt-3">
                     {/* <!--userIntroduction --> */}
-                    <p className="userIntro mx-3 text-black text-xs ">
-                        {data.UserIntro}
-                        <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
-                    </p>
-
+                    {data.UserIntro ?
+                        (<p className="userIntro mx-3 text-black text-xs ">{data.UserIntro}
+                            <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
+                        </p>)
+                        :
+                        (<p className="userIntro mx-3 text-secondary text-xs text-center">尚無介紹
+                            <img className="icon" src="../src/assets/img/icon/pencil.svg" alt="edit profile" onClick={handleShow} style={{ width: "18px", marginLeft: "5px" }} />
+                        </p>)
+                    }
                 </div>
 
                 {/* <!--user's number of post and fan --> */}
@@ -171,7 +197,7 @@ function Selfpage() {
                     {/* <!--postNumber --> */}
                     <p className="text-m my-auto ms-3">{postNumber} 篇文章</p>
                     {/* <!--fanNumber should be right end of this div --> */}
-                    <p className="text-m my-auto me-3">fanNumber位粉絲</p>
+                    <p className="text-m my-auto me-3">{fanNumber} 位粉絲</p>
                 </div>
 
                 {/* <!--user post and bookmark --> */}
@@ -212,8 +238,8 @@ function Selfpage() {
                     </Tab>
                     <Tab id="collectTab" eventKey="Collect" title="Collect" className='text-black row bgc-normal p-3 rounded'>
                         {
-                            userCollects.map((collect, key)=>(
-                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key}/>
+                            userCollects.map((collect, key) => (
+                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key} />
                             ))
                         }
                     </Tab>

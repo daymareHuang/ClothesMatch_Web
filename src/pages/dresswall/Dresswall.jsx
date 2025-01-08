@@ -28,12 +28,10 @@ function Dresswall() {
                 });
                 setWomenPosts(response.data);
                 setLoading(false)
-
             }
             catch (error) {
                 console.error('ERROR: ', error.message);
                 setLoading(false)
-
             }
         };
         getwomenpost();
@@ -54,7 +52,6 @@ function Dresswall() {
             catch (error) {
                 console.error('ERROR: ', error.message);
                 setLoading(false)
-
             }
         }
         getmenpost();
@@ -79,15 +76,15 @@ function Dresswall() {
                                 (menPosts.map((post, key) => (
                                     post.UserLike ?
                                         ( post.UserKeep? 
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
                                             :
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
                                         )
                                         :
                                         (post.UserKeep? 
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
                                             :
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
                                         )
                                 )))
                             }
@@ -100,15 +97,15 @@ function Dresswall() {
                                 (womenPosts.map((post, key) => (
                                     post.UserLike ?
                                         ( post.UserKeep? 
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
                                             :
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
                                         )
                                         :
                                         (post.UserKeep? 
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
                                             :
-                                            (<Post name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
+                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
                                         )
                                 )))
                             }
