@@ -1,26 +1,61 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Dressify.css'
 
 import OutfitContext from "../../contexts/OutfitContext";
 import MyLayout from '../../layouts/MyLayout';
+import axios from 'axios';
+
 
 function OutfitCreated() {
     let navigate = useNavigate();
-    const { imageSrc, CroppedSrc, filterStyle } = useContext(OutfitContext)
+    const data = JSON.parse(localStorage.getItem('user'))
+    const location = useLocation();
+    const [outFitID, setOutFitID] = useState(0); 
+    const postTitle = location.state?.postTitle || 'No data';
+    const { imageSrc, CroppedSrc, filterStyle } = useContext(OutfitContext);
+    // console.log(title)
 
-    const handleAdd = () => { 
-        navigate("/")
-    }
+
     const handleCloset = () => {
         console.log(111);
-        
         navigate("/ClosetMatch")
-     }
+    }
+
+    //找到ouftitID
+    useEffect(() => {
+        const findOutfitID = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/findOutfit',{
+                    title: postTitle,
+                    UID: data.UID,
+                })
+                setOutFitID(response.data[0].OutFitID)
+                // console.log(outFitID)
+            } catch (error) {
+                console.error('ERROR: ', error.message);
+            }
+        }
+        findOutfitID();
+    },[])
+
+    
+
+    // 發佈貼文
     const handlePost = () => {
-        
-     }
+        try {
+            const response = axios.post('http://127.0.0.1:8000/api/PostPost',{
+                OutfitID: outFitID,
+            });
+            
+        } catch (error) {
+            console.error('ERROR: ', error.message);
+        }
+        navigate('/dresswall')
+    }
+
+
     return (
         <MyLayout>
             <div className="d-flex flex-column px-5 container " style={{ height: '543px', marginTop: '50px' }}>
@@ -37,7 +72,6 @@ function OutfitCreated() {
                 </div>
 
             </div>
-
 
         </MyLayout>
     )

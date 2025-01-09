@@ -51,6 +51,7 @@ function OutfitDescription() {
     function handlePrev() {
         navigate(-1)
     }
+
     async function handleNext() {
         // navigate("/")
         const apiUrl = "http://127.0.0.1:8000/api/OutfitDescription"
@@ -86,8 +87,6 @@ function OutfitDescription() {
             uploadData.UID =userData.UID
         }
 
-
-
         console.log('data', uploadData);
         // console.log('data', storedData);
 
@@ -97,12 +96,14 @@ function OutfitDescription() {
             body: JSON.stringify(uploadData)
         });
 
+
+        console.log(response)
         if (response.ok) {
             console.log('上傳成功');
         } else {
             console.log('失敗');
         }
-        navigate("/OutfitCreated")
+        navigate("/OutfitCreated",{state: {postTitle: uploadData.Title}})
     }
 
 
