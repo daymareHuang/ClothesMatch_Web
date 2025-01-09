@@ -95,7 +95,8 @@ function OutfitDescription() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(uploadData)
         });
-
+        const outfitID = await response.json()
+        // console.log(outfitID)
 
         console.log(response)
         if (response.ok) {
@@ -103,7 +104,7 @@ function OutfitDescription() {
         } else {
             console.log('失敗');
         }
-        navigate("/OutfitCreated",{state: {postTitle: uploadData.Title}})
+        navigate("/OutfitCreated",{state: {OutFitID: outfitID}})
     }
 
 

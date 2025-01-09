@@ -12,10 +12,10 @@ function OutfitCreated() {
     let navigate = useNavigate();
     const data = JSON.parse(localStorage.getItem('user'))
     const location = useLocation();
-    const [outFitID, setOutFitID] = useState(0); 
-    const postTitle = location.state?.postTitle || 'No data';
+
+    const outFitID = location.state?.OutFitID || 0;
     const { imageSrc, CroppedSrc, filterStyle } = useContext(OutfitContext);
-    // console.log(title)
+    console.log(outFitID)
 
 
     const handleCloset = () => {
@@ -23,32 +23,14 @@ function OutfitCreated() {
         navigate("/ClosetMatch")
     }
 
-    //找到ouftitID
-    useEffect(() => {
-        const findOutfitID = async () => {
-            try {
-                const response = await axios.post('http://127.0.0.1:8000/api/findOutfit',{
-                    title: postTitle,
-                    UID: data.UID,
-                })
-                setOutFitID(response.data[0].OutFitID)
-                // console.log(outFitID)
-            } catch (error) {
-                console.error('ERROR: ', error.message);
-            }
-        }
-        findOutfitID();
-    },[])
-
-    
 
     // 發佈貼文
     const handlePost = () => {
         try {
-            const response = axios.post('http://127.0.0.1:8000/api/PostPost',{
+            const response = axios.post('http://127.0.0.1:8000/api/PostPost', {
                 OutfitID: outFitID,
             });
-            
+
         } catch (error) {
             console.error('ERROR: ', error.message);
         }
