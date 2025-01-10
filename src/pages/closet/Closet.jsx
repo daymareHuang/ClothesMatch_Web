@@ -53,8 +53,8 @@ function Closet() {
                 <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
                   <img
                     className="border rounded my-2 me-4"
-                    width="125px"
-                    height="125px"
+                    width="120px"
+                    height="120px"
                     src={item.EditedPhoto || `/items/item${item.Type}.svg`} // 動態圖片
                   />
                 </a>
@@ -77,8 +77,8 @@ function Closet() {
                 <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
                   <img
                     className="border rounded my-2 me-4"
-                    width="125px"
-                    height="125px"
+                    width="120px"
+                    height="120px"
                     src={item.EditedPhoto || `/items/item${item.Type}.svg`}
                   />
                 </a>
@@ -101,8 +101,8 @@ function Closet() {
                 <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
                   <img
                     className="border rounded my-2 me-4"
-                    width="125px"
-                    height="125px"
+                    width="120px"
+                    height="120px"
                     src={item.EditedPhoto || `/items/item${item.Type}.svg`}
                   />
                 </a>
@@ -125,8 +125,8 @@ function Closet() {
                 <a key={item.ItemID} href={`/ClosetCheckSingle/${item.ItemID}`} className="text-light">
                   <img
                     className="border rounded my-2 me-4"
-                    width="125px"
-                    height="125px"
+                    width="120px"
+                    height="120px"
                     src={item.EditedPhoto || `/items/item${item.Type}.svg`}
                   />
                 </a>
