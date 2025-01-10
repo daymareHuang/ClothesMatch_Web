@@ -231,7 +231,7 @@ function Selfpage() {
                          */}
                         {
                             userPosts.map((post, key) => (
-                                <img className="stylePic col-6 mt-3" src={post.EditedPhoto} key={key} />
+                                <img className="stylePic col-6 mt-3" style={{filter: (post.FilterStyle || '')}} src={post.EditedPhoto} key={key} />
                             ))
                         }
 
@@ -239,7 +239,7 @@ function Selfpage() {
                     <Tab id="collectTab" eventKey="Collect" title="Collect" className='text-black row bgc-normal p-3 rounded'>
                         {
                             userCollects.map((collect, key) => (
-                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key} />
+                                <img className="stylePic col-6 mt-3" style={{filter: (collect.FilterStyle || '')}} src={collect.EditedPhoto} key={key} />
                             ))
                         }
                     </Tab>

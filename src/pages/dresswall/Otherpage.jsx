@@ -22,6 +22,7 @@ function Otherpage() {
     const [userCollects, setUserCollects] = useState([]);
     const [follow, setFollow] = useState(false)
 
+
     // 拿到別人的資料名字 intro 大頭貼
     useEffect(() => {
         const getUserInfo = async () => {
@@ -136,6 +137,7 @@ function Otherpage() {
                     UID: data.UID
                 })
                 setFollow(false)
+                setFanNumber(fanNumber-1)
             } catch (error) {
                 console.error('ERROR: ', error.message)
             }
@@ -146,6 +148,7 @@ function Otherpage() {
                     UID: data.UID
                 })
                 setFollow(true)
+                setFanNumber(fanNumber+1)
             } catch (error) {
                 console.error('ERROR: ', error.message)
             }
@@ -208,7 +211,7 @@ function Otherpage() {
                     <Tab id="postTab" eventKey="Post" title="Post" className='text-black row bgc-normal p-3 rounded'>
                         {
                             userPosts.map((post, key) => (
-                                <img className="stylePic col-6 mt-3" src={post.EditedPhoto} key={key} />
+                                <img className="stylePic col-6 mt-3" style={{filter: (post.FilterStyle || '')}} src={post.EditedPhoto} key={key} />
                             ))
                         }
 
@@ -216,7 +219,7 @@ function Otherpage() {
                     <Tab id="collectTab" eventKey="Collect" title="Collect" className='text-black row bgc-normal p-3 rounded'>
                         {
                             userCollects.map((collect, key) => (
-                                <img className="stylePic col-6 mt-3" src={collect.EditedPhoto} key={key} />
+                                <img className="stylePic col-6 mt-3" style={{filter: (collect.FilterStyle || '')}} src={collect.EditedPhoto} key={key} />
                             ))
                         }
                     </Tab>

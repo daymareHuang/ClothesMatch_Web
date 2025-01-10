@@ -26,6 +26,7 @@ function Dresswall() {
                 const response = await axios.post('http://127.0.0.1:8000/api/getwomenpost', {
                     UID: data.UID
                 });
+                // console.log(response.data)
                 setWomenPosts(response.data);
                 setLoading(false)
             }
@@ -76,15 +77,15 @@ function Dresswall() {
                                 (menPosts.map((post, key) => (
                                     post.UserLike ?
                                         ( post.UserKeep? 
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle} authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
                                             :
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle}  authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
                                         )
                                         :
                                         (post.UserKeep? 
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle}  authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
                                             :
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle}  authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
                                         )
                                 )))
                             }
@@ -97,15 +98,15 @@ function Dresswall() {
                                 (womenPosts.map((post, key) => (
                                     post.UserLike ?
                                         ( post.UserKeep? 
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle} authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={true} key={key} />)
                                             :
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle} authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={true} userkeep={false} key={key} />)
                                         )
                                         :
                                         (post.UserKeep? 
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle} authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={true} key={key} />)
                                             :
-                                            (<Post authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
+                                            (<Post stylefilter={post.FilterStyle} authorID={post.AuthorID} name={post.UserName} avatar={post.Avatar} postpic={post.EditedPhoto} postID={post.PostID} userlike={false} userkeep={false} key={key} />)
                                         )
                                 )))
                             }

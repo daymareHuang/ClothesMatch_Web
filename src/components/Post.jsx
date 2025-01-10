@@ -11,6 +11,7 @@ function Post(props) {
   const data = JSON.parse(localStorage.getItem('user'))
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  // console.log(props)
 
 
 
@@ -100,12 +101,13 @@ function Post(props) {
     navigate('/dresswall/OtherPpl', { state: { id: props.authorID} })
   }
 
+  // console.log(props.FilterStyle)
   return (
     <>
       {/* <!-- post --> */}
       <div className="card w-100 position-relative mt-3"  >
         {/* <!-- user's pic --> */}
-        <img src={props.postpic || '../src/assets/img/user_dino.png'} className="card-img-top postpic" alt="user style picture" />
+        <img style={{filter: (props.stylefilter || '')}} src={props.postpic || '../src/assets/img/user_dino.png'} className="card-img-top postpic" alt="user style picture" />
         <div className="card-body post">
           <div className="row">
             {/* user less information */}

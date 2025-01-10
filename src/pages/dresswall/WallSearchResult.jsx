@@ -130,7 +130,7 @@ function Wallsearchresult() {
         {
           loading ? (<div className='d-flex justify-content-center'><Spinner animation="border" role="status" className="mt-3 " variant="secondary" /></div>) : (
             resultPost.map((post, key) => (
-              <Post postpic={post.EditedPhoto} avatar={post.Avatar} name={post.UserName} key={key} />
+              <Post stylefilter={post.FilterStyle} postpic={post.EditedPhoto} avatar={post.Avatar} name={post.UserName} key={key} />
             )))
         }
 
