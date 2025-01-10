@@ -16,23 +16,22 @@ function Dashboard() {
         avatar: '',
         username: '',
     });
-    
+
     // 顯示載入狀態
     const [loading, setLoading] = useState(true);
     const [postNumber, setPostNumber] = useState(0);
-
+    const [fanNumber, setFanNumber] = useState(0);
 
     // 使用 useEffect 取得資料
     useEffect(() => {
         // 從 localStorage 取得儲存的用戶資料
         const storedData = localStorage.getItem('user');
+        // 解析 JSON 字串為物件
+        const userObj = JSON.parse(storedData);
+        // 提取 UID
+        const UID = userObj.UID;
 
         if (storedData) {
-            // 解析 JSON 字串為物件
-            const userObj = JSON.parse(storedData);
-
-            // 提取 UID
-            const UID = userObj.UID;
             // 如果 UID 存在，發送請求到後端 API 獲取 UserName 和 Avatar
             if (UID) {
                 axios.get(`http://127.0.0.1:8000/api/user-info/${UID}`)
@@ -57,13 +56,12 @@ function Dashboard() {
             console.error('在 localStorage 中找不到用戶資料.');
             setLoading(false);  // 沒有資料的情況下結束載入狀態
         }
-    }, []);
 
-    useEffect(() => {
+        // 取得文章數
         const getpostNum = async () => {
             try {
                 const response = await axios.post('http://127.0.0.1:8000/api/getpostnum', {
-                    UID: 1,
+                    UID: UID,
                 })
                 // console.log(response.data);
                 setPostNumber(response.data[0].postNum);
@@ -73,6 +71,24 @@ function Dashboard() {
         }
         getpostNum();
 
+        // 取得粉絲數
+        const getFanNum = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/getfannum', {
+                    UID: UID,
+                })
+                console.log(response.data[0])
+                if (response.data[0].FanNumber) {
+                    setFanNumber(response.data[0].FanNumber)
+                }
+                else {
+                    setFanNumber(0)
+                }
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+            }
+        }
+        getFanNum();
     }, [])
 
     return (
@@ -99,7 +115,7 @@ function Dashboard() {
                                 <span>貼文</span>
                             </div>
                             <div className="d-flex flex-column mx-3">
-                                <span>xxxx</span>
+                                <span>{fanNumber}</span>
                                 <span>粉絲</span>
                             </div>
                         </div>
@@ -119,7 +135,7 @@ function Dashboard() {
                         </Link>
                         <Link to="/dresswall/yourself" style={{ textDecoration: 'none', color: '#3b3a38' }} className="d-flex flex-column my-3 align-items-center justify-content-center text-m">
                             <img
-                                src={userData.avatar || './default-avatar.png'} // 預設值處理
+                                src={userData.avatar || "../src/assets/img/icon/avatar.svg"} // 預設值處理
                                 alt="User Avatar"
                                 className="img rounded-circle"
                                 style={{ objectFit: "cover" }}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Dressify.css';
 import axios from "axios";
@@ -68,7 +68,9 @@ function TodaySuggestion() {
   return (
     <div>
       <div className="d-flex flex-nowrap justify-content-around align-items-center">
-        {photos.map((photo,key) => (
+        {loading ? (
+          <div className="d-flex justify-content-center" > <Spinner animation="border" role="status" variant="secondary" /></div>
+        ) : (photos.map((photo,key) => (
           <div key={key}>
             {photo.EditedPhoto ? (
               <img
@@ -84,7 +86,8 @@ function TodaySuggestion() {
               <div>No Image Available</div>
             )}
           </div>
-        ))}
+        ))
+        )}
       </div>
 
       {/* 彈出視窗 */}
@@ -109,7 +112,7 @@ function TodaySuggestion() {
           />
         </Modal.Body>
       </Modal>
-    </div>
+    </div >
   );
 }
 

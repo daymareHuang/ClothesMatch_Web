@@ -80,7 +80,7 @@ function MoreSuggestion() {
     <div>
       <div className="d-flex flex-nowrap justify-content-around align-items-center">
         {loading ? (
-          <Spinner animation="border" variant="primary" />
+          <div className="d-flex justify-content-center"><Spinner animation="border" role="status" variant="secondary" /></div>
         ) : (
           photos.map((photo,key) => (
             <div key={key}>
