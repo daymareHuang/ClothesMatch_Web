@@ -59,7 +59,7 @@ function Selfpage() {
                 const response = await axios.post('http://127.0.0.1:8000/api/getpostnum', {
                     UID: data.UID,
                 })
-                // console.log(response.data);
+                //  console.log(response.data);
                 setPostNumber(response.data[0].postNum);
             } catch (error) {
                 console.error('ERROR: ', error.message)
@@ -68,6 +68,28 @@ function Selfpage() {
         getpostNum();
 
     }, [])
+
+    // 拿fan數
+     useEffect(() => {
+        const getFanNum = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/getfannum', {
+                    UID: data.UID,
+                })
+                 console.log(response.data[0])
+                 if(response.data[0].FanNumber){
+                     setFanNumber(response.data[0].FanNumber)
+                 }
+                 else{
+                    setFanNumber(0)
+                 }
+            } catch (error) {
+                console.error('ERROR: ', error.message)
+
+            }
+        }
+        getFanNum();
+    },[])
 
 
     // 得到user的post
@@ -175,7 +197,7 @@ function Selfpage() {
                     {/* <!--postNumber --> */}
                     <p className="text-m my-auto ms-3">{postNumber} 篇文章</p>
                     {/* <!--fanNumber should be right end of this div --> */}
-                    <p className="text-m my-auto me-3">fanNumber位粉絲</p>
+                    <p className="text-m my-auto me-3">{fanNumber} 位粉絲</p>
                 </div>
 
                 {/* <!--user post and bookmark --> */}

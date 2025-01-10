@@ -42,7 +42,7 @@ function AddTagControl({ setIsSliderVisible, selectID }) {
             style={{
                 backgroundColor: 'var(--color-base)',
                 boxShadow: '2px -10px 20px hsl(19, 0%, 50%)',
-                height: '450px', overflowY: 'auto',
+                height: '500px', overflowY: 'auto',
                 bottom:'-100px'
             }}
             onClick={handleTest}>
