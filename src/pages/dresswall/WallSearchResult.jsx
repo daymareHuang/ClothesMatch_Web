@@ -16,7 +16,7 @@ function Wallsearchresult() {
 
   // 取得從上一頁傳遞過來的複雜資料
   const formData = location.state?.formData || 'No data';
-
+  console.log(formData)
   // 取得從上一頁傳遞按鈕的資料
   const buttonFormData = location.state?.buttonFormData || 'No data';
 
