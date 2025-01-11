@@ -31,7 +31,7 @@ function Dresswall() {
                 setLoading(false)
             }
             catch (error) {
-                console.error('ERROR: ', error.message);
+                console.error('ERROR: ', error.response.data);
                 setLoading(false)
             }
         };
